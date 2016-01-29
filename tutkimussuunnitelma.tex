@@ -31,53 +31,41 @@
 
 % Otsikkotiedot: muokkaa tähän omat tietosi
 
-\title{TIK.kand tutkimussuunnitelma:\\[5mm]
-<Oma aiheeni>}
+\title{TIK.kand tutkimussuunnitelma:\\[5mm] Laiska evaluointi funktionaalisessa ohjelmoinnissa}
 
-\author{Teemu Teekkari\\
+\author{Atte Keinänen\\
 Aalto-yliopisto\\
-\url{teemu.teekkari@aalto.fi}}
+\url{atte-keinanen@aalto.fi}}
 
 \date{\today}
 
 \maketitle
 
-% ---------------------------------------------------------------------
-
-% POISTA TÄMÄ:
-Tämä pohja on lukuisia kandidaatintöitä ohjanneen Vesa Hirvisalon
-käyttämä sabluuna tutkimussuunnitelmaksi.  Annettua otsikointia ja
-järjestystä voi käyttää apuna oman suunnitelman laatimisessa.
-Tärkeintä on tuottaa työkalu sinun ja ohjaajan väliseen
-kommunikointiin aiheen selventämisessä. Lisäksi aikatauluksen
-miettiminen heti alussa on tarpeellista.
-
-Tämän lähdetiedoston nimi on \verb!tutkimussuunnitelma.tex! ja tästä
-saa PDF-tiedoston joko \verb!make tutkimussuunnitelma.pdf! tai
-\verb!pdflatex tutkimussuunnitelma.tex! (ja jos lähteitä, niin lisäksi
-\verb!bibtex tutkimussuunnitelma!).  
-
-\vspace{10mm}
-
 % MUOKKAA TÄHÄN. Jos tarvitset tähän viitteitä, käytä
 % tässä dokumentissa numeroviitejärjestelmää komennolla \cite{kahva}.
 %
-% Paljon kandidaatintöitä ohjanneen Vesa Hirvisalon tarjoama 
+% Paljon kandidaatintöitä ohjanneen Vesa Hirvisalon tarjoama
 % sabluuna. Kursivoidut osat \emph{...} ovat kurssin henkilökunnan
-% lisäämiä. 
+% lisäämiä.
 
-\textbf{Kandidaatintyön nimi:} Oma aiheeni
+\textbf{Kandidaatintyön nimi:} Laiska evaluointi funktionaalisessa ohjelmoinnissa
 
-\textbf{Työn tekijä:} Teemu Teekkari
+\textbf{Työn tekijä:} Atte Keinänen, Informaatioverkostot
 
-\textbf{Ohjaaja:} Olli Ohjaaja
+\textbf{Ohjaaja:} Juha Sorva, Tietotekniikan laitos
 
 
 \section{Tiivistelmä tutkimuksesta}
 
-Tutkimusaiheen lyhyt kuvaus. Esittele aiheesi tiivistetysti.
+Ohjelmointikielissä on vaihtelevia evaluointistrategioita, eli käytäntöjä sille, milloin ja miten lausekkeen arvo evaluoidaan. Valtavirtaa ohjelmoinnissa on ahne evaluointi, eli lauseke evaluoidaan välittömästi, kun lauseke sijoitetaan muuttujaan.
+
+Kuitenkin suosioon on noussut Haskellin, OCamlin ja Scalan kaltaisia ohjelmointikieliä, jotka tukevat myös laiskaa evaluointia. Tällä tarkoitetaan sitä, että lausekkeen arvo evaluoidaan vasta, kun sen arvoa tarvitaan. Laiskalla evaluoinnilla pystytään välttämään tarpeettomia lausekkeiden evaluointeja, ja toisaalta se mahdollista päättymättömän listan kaltaisia tietorakenteita. Toisaalta laiskaa evaluointia kritisoidaan siitä, että sitä käyttävien ohjelmien muistinkulutusta ja koodin suoritusjärjestystä on hankalaa ennakoida.
+
+Kandityössä tarkastellaan laiskan evaluoinnin historiaa ja vaikutuksia tietojenkäsittelytieteen sekä ohjelmointikielten kehitykseen. Työssä tarkastellaan myös sitä, miten laiska evaluointi on moderneissa ohjelmointikielissä toteutettu, ja mihin sitä tänä päivänä käytetään niin akateemisessa tutkimuksessa kuin yritysmaailmassa.
 
 \section{Tavoitteet ja näkökulmat}
+
+Juuh jotain tänne
 
 Mitä haluat saada selville? Mitkä ovat keskeisiä kysymyksiä? Mistä
 näkökulmasta asiaa tarkastellaan?
@@ -157,7 +145,7 @@ alaluvut. Yleensä perusrunko on
 (3) Sisäluvut,
 (4) Yhteenveto.
 %
-Sinun täytyy suunnitella oma raportointisi tähän sopivaksi. 
+Sinun täytyy suunnitella oma raportointisi tähän sopivaksi.
 
 \emph{Rakenne tarkentuu työn edetessä. Tutkimussuunnitelmaan ei välttämättä tarvita lähdeluetteloa, mutta halutessasi voit sisällyttää tärkeimmät lähteet.}
 
@@ -165,7 +153,7 @@ Sinun täytyy suunnitella oma raportointisi tähän sopivaksi.
 %
 % ÄLÄ MUUTA MITÄÄN TÄÄLTÄ LOPUSTA
 
-% Tässä on käytetty siis numeroviittausjärjestelmää. 
+% Tässä on käytetty siis numeroviittausjärjestelmää.
 % Toinen hyvin yleinen malli on nimi-vuosi-viittaus.
 
 % \bibliographystyle{plainnat}
