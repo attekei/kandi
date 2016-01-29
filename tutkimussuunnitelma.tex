@@ -65,69 +65,71 @@ Kandityössä tarkastellaan laiskan evaluoinnin historiaa ja vaikutuksia tietoje
 
 \section{Tavoitteet ja näkökulmat}
 
-Juuh jotain tänne
+Halusin valita itse kandiaiheeni, koska puhdas funktionaalinen ja erityisesti Haskell kiinnostivat minua. En ollut ennestään käyttänyt puhtaasti funktionaalisia ohjelmointikieliä, ja olin työpaikkani kautta kuullut, että Haskelliin tutustuminen olisi hyvä tapa oppia ymmärtämään funktionaalista ohjelmointia ja sen kehitystä syvemmin. Ennen aiheen valintaa luin kirjan Learn You a Haskell for Great Good \cite{lipovaca2011learn} ja Haskellin tyyppijärjestelmää käsittelevän Typeclassopedian \cite{yorgey2009typeclassopedia}. Nämä auttoivat löytämään kiinnostavia aihepiirejä Haskellin liittyen.
 
-Mitä haluat saada selville? Mitkä ovat keskeisiä kysymyksiä? Mistä
-näkökulmasta asiaa tarkastellaan?
+Päädyin rajaamaan aiheen laiskaan evaluointiin. Laiska evaluointi on monille puhtaasti funktionaalisille ohjelmointikielille yhteistä.
 
-Tutkimuskysymystä kannattaa siis rajata ja tarkentaa sekä huomioida
-näkökulman merkitys. Ts. jänikset eläintieteen kannalta ovat eri aihe
-kuin jänikset metsästyksen näkökulmasta.
+\emph{Onkohän tämä luku tähänastisen tekstin osalta miltei turhankin taustoittava? Katsotaan joka tapauksessa tähän aiheen tarkempi rajaus ja työn tavoitteet torstaina.}
 
 \section{Tutkimusmateriaali}
 
-Millaisen aineiston varaan perustat tutkimuksesi? Arvioi materiaalin
-riittävyyttä asetettuihin tavoitteisiin nähden.
+\begin{sloppypar}
+Laiskasta evaluoinnista on runsaasti akateemisia artikkeleita. Esimerkiksi Haskell -ohjelmointikielen kehityksen taustalla oli useita jo klassikonomaiseen asemaan nousseita artikkeleita, joissa perusteltiin laiskan evaluoinnin hyötyjä \cite{hudak2007history}. Samoin erilaisista spesifeistä ongelmista esimerkiksi tekoälytutkimuksen saralta, joiden käytössä laiska evaluointi on osoittautunut hyödylliseksi, on paljon saatavilla.
+\end{sloppypar}
 
-Pitää olla siis hieman kuvaa siitä, minkälaisen materiaalin kanssa
-ollaan tekemisissä ja mitä sellaisen käsittelyyn tarvitaan (etenkin
-siis tarvittavan ajan puolesta; ts. kuinka monta tuntia/minuuttia per
-lähde?).
+Akateemisten artikkeleiden lisäksi luontevaa on seurata funktionaalisen ohjelmoinnin piirissä arvostettujen ihmisten blogeja ja kirjoituksia. Näiden avulla saadaan vastattua pelkkiä akateemisia tutkimuksia kattavammin siihen, mikä on käsitys laiskan evaluoinnin suosiosta ja käyttökohteista tällä hetkellä.
+
+Aikaa yksittäisen artikkelin menee luultavasti noin 30 minuuttia per artikkeli. Koska kyseessä on melko tyylipuhdas kirjallisuustutkimus, artikkeleita tarvitsee kerätä arviolta 20-30. Lukemisen lisäksi aikaa menee kerätyn tiedon järjestämiseen, mistä lisää seuraavassa luvussa.
 
 \section{Tutkimusmenetelmät}
 
-Miten sen keräät materiaalisi tai saat sen käsiisi? Kuinka käsittelet
-sen? Kuinka siitä tulee raportti?
+Kerätyt artikkelit kootaan Trello-järjestelmään aihepiireittäin siten, että kullekin artikkelille luodaan oma Trello-korttinsa, josta on linkki alkuperäiseen artikkeliin. Yksittäinen artikkeli voi kuulua useampaan aihepiiriin. Aihepiirijako on alkuvaiheessa seuraavanlainen, ja sitä muutetaan ja kasvatetaan lähdemateriaalin määrän kasvaessa:
 
-Tavallaisesti kirjallisuustutkimuksen yhteydessä tämä on:
+\begin{itemize}
+  \item Varhaishistoria
+  \item Vaikutukset tietojenkäsittelytieteeseen
+  \item Toteutus nykyaikaisissa ohjelmointikielissä
+  \item Akateeminen käyttö tänä päivänä
+  \item Yrityskäyttö tänä päivänä
+\end{itemize}
+
+Kustakin artikkelista eritellään Trellossa kommenttitoiminnon avulla poimintoja ja muistiinpanoja aihepiireittäin. Todennäköisesti päädyn käyttämään yhdistelmää suoria lainauksia artikkeleista että itse kirjoittamiani lyhyitä tiivistelmiä.
+
+Huomionarvoista on myös, että aina kun lisään artikkelin Trelloon, lisään sen myös BibTeX-lähdeluetteloon. Näin varsinaista kandidaatintyötä kirjoittaessani minun ei tarvitse enää erikseen etsiä lähdeviittauksia.
+
+Aineiston keruun Trello-taulu on avoimesti nähtävillä seuraavassa osoitteessa:
+
+\url{https://trello.com/b/Q9ZenGG4}
+
+\emph{Vielä lisätarkennuksia tarvitsee, etenkin siihen miten raportin tekeminen tapahtuu. Käsiteltäviä asioita (osa näistä onkin jo käsitelty):
 (a) lähderyhmien valinta,
 (b) viitteiden ja lähteiden haku,
 (c) lähteiden arviointi,
 (d) lähteiden lukeminen,
 (e) tiedon organisointi,
-(f) raportointi.  % (f) tärkeää ettei jää vain lukemiseksi!
-
-Kirjallisuustutkimuksen yleinen menetelmä pitää sovittaa tähän
-nimenomaiseen aiheeseen sekä tekijän lähtökohtiin. Kuinka sinä teet
-muistiinpanot (että myös kirjoitat etkä pelkästään lue). Eli tälle
-pitää hieman miettiä omakohtaista vaiheistusta. Siis nähdä ihan
-oikeasti, kuinka sinä saat tutkielman tehtyä.
-
-Ja... raportointi ei ole kirjoittamista vaan jo kirjoitettujen
-muistiinpanojen koostamista yhteneväksi teokseksi.
+(f) raportointi. }
 
 \section{Haasteet}
 
-Yleensä kaikkiin töihin liittyy kompastuskiviä. Ne on syytä tiedostaa
-etukäteen. Yhdessä työssä aihe on suurpiirteinen (työn rajaaminen
-vaikeaa), toisessa materiaalia on niukasti saatavissa, kolmannessa
-taas materiaalia on hukkumiseen asti.  Eli, nämä pitäisi kyseisen
-tutkimuksen osalta kirjata ylös, ja nähdä ne myös mahdollisuuksina
-(positiivisina haasteina) ei ainostaan esteinä.
+Työn haasteet liittyvät toisiinsa liittyen työn rajaukseen ja siihen, että materiaalia on huomattavan paljon saatavilla.
+
+Laiskan evaluaation sisältä pystyisi kandin melko suppean laajuuden huomioiden käsittelemään halutessaan vain yksittäistäkin osa-aluetta, esimerkiksi sen hyödyntämistä yritysmaailmassa, tai teknistä toteutusta parissa eri ohjelmointikielessä. Tämä on hyvä pitää mielessä, jos vaikuttaa siltä, jos kandin sivumäärä meinaa karata käsistä.
+
+Tehdyn tutkimuksen suuri määrä johtaa ennen kaikkea siihen, että tarjolla olevaa artikkelivalikoimaa on hyvä arvioida ennen artikkeleihin syventymistä, ja näin valita tieteellisesti vakuuttavimmat ja oman aiheen kannalta relevanteimmat artikkelit. Trelloa voisi luontevasti käyttää siihen, että ensiksi koostaa laajemman listan artikkeleista, jota tarvittaessa karsii, ja sitten vasta lukee artikkelit syvällisemmin ja tekee niistä muistiinpanot.
 
 \section{Resurssit}
 
-Kuka tätä työtä tekee, kuka ohjaa, jne. Paljonko on käyttää
-aikaa. Tarvitaanko muuta? (Onko työssä joku kokeellinen osuus?)
+Työssä ei ole muita osapuolia kuin minä ja työn ohjaaja Juha Sorva. Juhan kanssa olemme tähän asti saaneet hyvin sujuvasti sovittua yksittäiset tapaamiset, ja sen kanssa tuskin tulee jatkossakaan ongelmia. Tapaamme hieman kurssin virallista tapaamissykliä tiheämmin, koska suoritan kurssin tavallisesta poikkealla aikataululla.
+
+\emph{Vähän keinotekoinen luku, voisi luontevasti yhdistää aikatauluun.}
 
 \section{Aikataulu}
 
-Laadi tutkimustyölle ja raportoinnille realistinen aikataulu.
-Huolehdi, että suunnitelmasi vastaa kandidaatin tutkielman sekä
-seminaarin aikataulua sekä laajuutta.  \emph{Kurssiesitteessä omalle
-  kirjoitusprosessille on arvioitu noin 6 op eli 160 tuntia eli noin 4
-  viikkoa työtä.}
+Kandityöstä on tavoitteenani saada V3, eli viimeistelemätön mutta täyspitkä versio, valmiiksi jo 24. helmikuuta mennessä. Syynä on, että lähden 25. helmikuuta vaihto-opiskelemaan Etelä-Koreaan, enkä halua jättää työtä täysin keskeneräiseksi siinä kohtaa.
 
+Yhdistän kandin suorituksen kesäkandikurssiin. Palattuani Etelä-Koreasta heinäkuun lopussa jatkan kandityön viimeistelyn parissa, ja osallistun elokuussa niille luennoille, joihin en nyt keväällä. Hoidan seminaarin, opponoinnin ja kypsyysnäytteen kesäkurssin aikataulusta riippuen elokuun lopulla tai syyskuun alussa.
+
+\emph{Tähän vielä tarkempi aikataulu, josta voidaan torstaina jutella. Voisi vaikka käyttää taulukkoformaattia hyödyksi.}
 %\begin{tabular}{|p{30mm}|p{120mm}|}
 %\hline
 %abcd   & qwerty qwerty \\ \hline
@@ -135,19 +137,9 @@ seminaarin aikataulua sekä laajuutta.  \emph{Kurssiesitteessä omalle
 %abcd   & qwerty qwerty \\ \hline
 %\end{tabular}
 
-
 \section{Esittäminen}
 
-Laadi lyhyt sisällysluettelo, jossa on hahmoteltuna kandityön pää- ja
-alaluvut. Yleensä perusrunko on
-(1) Johdanto,
-(2) Tausta,
-(3) Sisäluvut,
-(4) Yhteenveto.
-%
-Sinun täytyy suunnitella oma raportointisi tähän sopivaksi.
-
-\emph{Rakenne tarkentuu työn edetessä. Tutkimussuunnitelmaan ei välttämättä tarvita lähdeluetteloa, mutta halutessasi voit sisällyttää tärkeimmät lähteet.}
+\emph{Katsotaan tätä torstaina. Tarvitsen ideoita hyvään sisällysluettelorakenteeseen, joka tukisi tiedonhaun tyyliäni hyvin.}
 
 % ---------------------------------------------------------------------
 %
