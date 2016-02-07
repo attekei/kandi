@@ -23,7 +23,7 @@
 \def\LANG{English}
 }
 
-% Ajaa ja prosessoi koodin listalla olevien optioiden suhteen. 
+% Ajaa ja prosessoi koodin listalla olevien optioiden suhteen.
 % Eli jos ei main.tex:ssä anneta optiota, niin nimiölehti suomeksi.
 \ExecuteOptions{finnish}
 \ProcessOptions
@@ -31,7 +31,7 @@
 % Lataa seuraavat paketit
 \RequirePackage{amssymb}
 \RequirePackage{graphicx}
-\RequirePackage{natbib}   
+\RequirePackage{natbib}
 \RequirePackage[english,swedish,finnish]{babel}
 
 % ------------------- Tavallisen sivun muotoilu -----------------------
@@ -42,7 +42,7 @@
 % 12pt  fonttikoko: '(' on korkein kirjain, joka on noin 12 pt
 % pt    = in/72,27 = 25,4mm/72,27
 % pc    = 12pt
- 
+
 % Kelluvien elementtien (kuva, taulukko) käsittelyyn liittyviä
 % parametreja (Latex companion 2ed, s. 284).
 %
@@ -60,11 +60,11 @@
 \evensidemargin 0mm
 \oddsidemargin 0mm
 \textwidth 159.2mm
-% Nyt varsinainen tekstiosan leveys eli \textwidth 
+% Nyt varsinainen tekstiosan leveys eli \textwidth
 %  on 210 mm - 2*25.4mm = 159.2mm. [s. 85 LaTeX Companion 1ed]
 
 % Sivun varsinainen tekstiosan korkeus eli \textheigth:
-% 
+%
 % Sivunumero alas:
 % 297mm - 2*25.4mm = 246.2mm.
 \topmargin 0mm
@@ -110,17 +110,17 @@
 
 % ----------------- Muuttujia -----------------------------------------
 
-\def\AALTOFI{Aalto-yliopisto \\ 
+\def\AALTOFI{Aalto-yliopisto \\
 Perustieteiden korkeakoulu \\
-Tietotekniikan koulutusohjelma \\}
-\def\AALTOSV{Aalto-universitetet \\ 
+Informaatioverkostojen koulutusohjelma \\}
+\def\AALTOSV{Aalto-universitetet \\
 Högskolan för teknikvetenskaper \\
 Examensprogrammet för datateknik \\}
-\def\AALTOEN{Aalto University \\ 
+\def\AALTOEN{Aalto University \\
 School of Science \\
 Degree Program of Computer Science and Engineering \\}
 
-\def\THESISFI{Kandidaatintyö}
+\def\THESISFI{Kandidaatintyö, välipalautus V1}
 \def\THESISSV{Kandidatarbete}
 \def\THESISEN{Bachelor's Thesis}
 
@@ -178,7 +178,7 @@ Degree Program of Computer Science and Engineering \\}
   \end{center}
   \par
   \vfill
-% {\small 
+% {\small
 %   Jätetty tarkistettavaksi tekniikan kandidaatintutkielmaa varten \@DATE.}
 %
 %%  {\small
@@ -190,7 +190,7 @@ Degree Program of Computer Science and Engineering \\}
   \global\let\maketitle\relax
   \global\let\@thanks\@empty
   \global\let\and\relax
-}                                                                               
+}
 
 % -------------- Tiivistelmäsivun asemointi ---------------------------
 
@@ -208,7 +208,7 @@ Degree Program of Computer Science and Engineering \\}
 \makebox[69.2mm][r]{KANDIDAATINTYÖN} \\
 \makebox[90mm][l]{Perustieteiden korkeakoulu}%
 \makebox[69.2mm][r]{TIIVISTELMÄ}\\
-\makebox[90mm][l]{Tietotekniikan koulutusohjelma} 
+\makebox[90mm][l]{Informaatioverkostojen koulutusohjelma}
 \vskip 1mm
 \begin{tabular}{|p{154.7mm}|}
 \hline
@@ -239,7 +239,7 @@ Degree Program of Computer Science and Engineering \\}
 \hline
 \makebox[37mm][l]{\bf Avainsanat:}%
 \parbox[t][\height+4pt]{117.7mm}{\@KEYWORDS \par}\\
-\hline 
+\hline
 \makebox[37mm][l]{\bf Kieli:}Suomi \\
 \hline
 \end{tabular}
@@ -297,7 +297,7 @@ Degree Program of Computer Science and Engineering \\}
 \makebox[69.2mm][r]{ABSTRACT OF} \\
 \makebox[90mm][l]{School of Science}%
 \makebox[69.2mm][r]{BACHELOR'S THESIS}\\
-\makebox[90mm][l]{Degree Program of Computer Science and Engineering } 
+\makebox[90mm][l]{Degree Program of Computer Science and Engineering }
 \vskip 1mm
 \begin{tabular}{|p{154.7mm}|}
 \hline
@@ -305,7 +305,7 @@ Degree Program of Computer Science and Engineering \\}
 \parbox[t][\height+4pt]{117.7mm}{\@author \par} \\
 \hline
 \makebox[37mm][l]{\bf Title of thesis:}%
-\parbox[t][\height+4pt]{117.7mm}{\@ENTITLE \par} \\   
+\parbox[t][\height+4pt]{117.7mm}{\@ENTITLE \par} \\
 \hline
 \makebox[37mm][l]{\bf Date:}\@ENDATE \\
 \hline

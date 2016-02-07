@@ -1,0 +1,52 @@
+% --------------------------------------------------------------------
+% Cheatsheet:
+% \verb!lazy val!   -- esim. lyhyisiin koodinpätkiin
+% \begin{verbatim}  -- esim. pitkiin koodinpätkiin
+% `` tekstiä ''     -- lainausmerkit
+% \textbf{huom!}    -- boldaus
+% \begin{quotation}
+% \noindent \it     -- quoten lisäys
+% \ldots            -- kolme pistettä
+% footnote{juh}     -- alaviite
+% \citet, \citep
+% \citet[s.234]{}   -- viitteet, http://merkel.zoneo.net/Latex/natbib.php
+% \begin{sloppypar} -- ahdas teksti
+% \clearpage        -- onkkelmien korjaamiseen lukujen kanssa
+% --                -- yhdysviiva
+% \enumerate
+% \itemize          -- listat
+% \begin[htb]{figure}
+% \begin[htb]{table} - Kuva ja taulukko, (h)ere, (t)op, (b)ottom
+% \begin{equation}  -- kaava
+% \label{eq:kaava1} -- laabeli
+
+\section{Sisältökappale}
+
+
+% Määriteltäviä käsitteitä:
+% Non-Strict Semantics
+% Jotain muuta
+
+% 1. Aloitan tarinan todellisen elämän esimerkillä, jossa on tullut vastaan aito tarve sille, että koodia ei evaluoida tiukasti "rivi kerrallaan". Siisteintä (ja emotionaalisesti tehokkainta) olisi saada oikein kouriintuntuva esimerkki tilanteesta, jossa ollaan joduttu ongelmiin, kun laiskaa evaluointia ei ole aluksi käytetty. Esimerkillä pyrin herättämään lukijan mielenkiinnon, ja nivomaan aiheen välittömästi konkretiaan ennen siihen syventymistä.
+
+% 2. Kerron, kuinka 2000-luvulla on näkynyt paljon kehitystä, jossa ajatusta siitä, että lausekkeita ei ole aina pakko evaluoida välittömästi kun ne koodissa määritellään, on sovellettu laajemmalle. Esimerkiksi uudet ohjelmointikielet kuten Scala tukevat sitä, ja monet laiskan evaluoinnin ajatusta hyödyntävät kirjastot ovat nähneet päivänvalon esimerkiksi JavaScriptissä. Jos tuntuu luontevalta, niin samassa yhteydessä voi antaa lukijalle alustavan intuition laiskasta evaluoinnista vertauskuvia hyödyntäen (korostaen että kyseessä analogia, ei eksakti käsitemäärittely).
+
+% 3. Määrittelen sitä tietotekniikan kontekstia, jossa nyt liikutaan, ja määrittelen keskeisiä käsitteitä "up-to-bottom". Ensiksi kerron mistä koodin evaluoinnissa on kyse, sitten mitä evaluointistrategia tarkoittaa ja millaisia erilaisia evaluointistrategioita on olemassa (vielä kuitenkaan vertailematta niiden vahvuuksia/heikkouksia). Lopulta tarkennan laiskaan evaluointiin sekä siihen tiiviisti liittyviin käsitteisiin (mm. call-by-need, call-by-name ja thunk). Lukija saa tästä tarvittavaa sanavarastoa tekstin lukemiseen.
+
+% 4. Kerron, että olen hakemassa vastausta kahteen tutkimuskysymykseen: mikä sen merkitys tietotekniikassa on nykyhetkellä, ja millaisia vahvuuksia tai heikkouksia laiskalla evaluoinnilla on. Samassa yhteydessä kerron perustellen, että olen tarkoituksella jättänyt laiskan evaluoinnin matemaattisen ja kääntäjäteknisen tarkastelun tämän työn ulkopuolelle. Myös työn muista tavoitteista mainitseminen on mahdollista: voin vaikka mainita siitä, että toivon työn tulosten olevan hyödynnettävissä ohjelmoinnin opetuksessa.
+
+% 5. Kerron käyttämäni tieteelliset menetelmät (kirjallisuuskatsaus ja mielipidekartoitus) ja perustelen miksi päädyin juuri näihin menetelmiin. Valotan kirjallisuuskatsauksen prosessia: mitä hakusanoja käytin, mitä tietokantoja hyödynsin ja millaisia määriä artikkeleita kävin läpi. Käyn samaan tapaan läpi mielipidekartoituksen toteutuksen, eli sekä tunnettujen kirjoittajien blogien läpikäynnin että kokemusten keräämisen tuttavapiiristäni.
+
+% 6. Esittelen työn rakennetta perustellen sen menetelmien ja tutkimuskysymysten avulla. Kerron, että käsittelen ensin katsausmaisesti laiskan evaluoinnin varhaista historiaa, minkä jälkeen poraudun ensimmäiseen tutkimuskysymykseen laiskasta evaluoinnista nykypäivänä. Sitten, kun lukijalla on hyvä yleiskuva nykypäivän sovellutuksista, on sujuvaa siirtyä puhumaan yksittäisten sovellutusten yksityiskohdista sekä vahvuuksista ja heikkouksista.
+
+% 7. Nykypäivän tilannetta taustoitan aluksi kertomalla, kuinka idea laiskasta evaluoinnista on saanut alkunsa akateemisena ideana, jota alettiin kokeilla erilaisissa ohjelmointikielissä, ja jopa prosessoriarkkitehtuureissa. Tästä siirryn Haskellin kehitykseen, ja siihen, kuinka laiskan evaluoinnin vaatimus osaltaan johti puhtaasti funktionaalisen ohjelmoinnin paradigman kehittymiseen.  Käsittelyssä tässä kappaleessa siis käytännössä noin vuodet 1975-2000. Tässä elävöitän tekstiä historia-anekdooteilla.
+
+% 8. Käyn läpi sitä, kuinka Haskell ja laiska evaluointi alkoi inspiroimaan monia uusia ohjelmointikieliä ja ohjelmointikielien kirjastoja. Tässä kohtaa keskityn nimenomaan siihen diversiteettiin, eli millaisissa erilaisissa muodoissa laiska evaluointi nykyään esiintyy, ja kuinka sitä käytetään myös tiukan evaluoinnin rinnalla. Käyn läpi paljon esimerkkejä laiskan evaluoinnin sovellutuksista. Jos esimerkkien määrä on suuri, se voi aiheuttaa haasteita luvun jäsentämiselle.
+
+% 9. Nyt valitsen kiinnostavimmat aihealueet/sovellutukset tarkempaan tarkasteluun, ja otan tässä kohtaa myös vahvuus/heikkous -selvityksen mukaan. Perustelen, että laiskaa evaluointia ei ole mieltä tutkia yhtenä kokonaisuutena mielipidearvioinnin keinoin, vaan on järkevämpää keskittyä yksittäisiin sovellutuksiin. Aiheita/sovellutuksia voisi olla esimerkiksi Haskell, Scala, JavaScript-kirjastot ja FRP. Tässä voi saada aikaan mielenkiintoista mielipiteiden, blogien ja tieteellisten artikkeleiden "vuoropuhelua".
+
+% 10. Mielipiteistä ja sovellutuksista voisi jatkaa vielä kertomalla laiskan evaluoinnin hyödyntämisestä tieteellisessä tutkimuksessa, kuten laskennallisessa biologiassa. Myös yritysesimerkkejä voi ottaa mukaan. Tämä olisi teoriassa yhdistettävissä edelliseen lukuun, mutta toisaalta koen tämän olevan kuitenkin korkeammalla tasolla (kielten ja kirjastojen vahvuudet/heikkoudet vs. laiskan evaluoinnin soveltuvuus yleisemmin eri alojen työhön).
+
+% 11. Tarinan kaaren kannalta olisi kandin loppupuolella kiva olla tulevaisuuden tarkastelua. Tässä voisin nostaa vielä pari aikaisemmin raportissa käsiteltyä trendiä, jotka vaikuttavat lupaavilta tulevaisuuden osalta, erikseen tarkasteluun. Voin myös koota yhteen, millaisten esteiden raivaaminen voisi auttaa laiskaa evaluointia entistä suurempaan suosioon.
+
+% 12. Yhteenvedon yhteydessä arvioidaan vielä työn metodisia heikkouksia/rajoituksia, ja mitä puutteita niistä on mahdollisesti seurannut. Sitä, mitä muuta yhteenvedossa olisi mielekästä käsitellä, pitää vielä selvittää.

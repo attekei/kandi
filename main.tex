@@ -99,19 +99,17 @@
 %
 % "\MUUTTUJA"-kohdat luetaan aaltosci_t.sty:ä varten.
 
-\author{Teemu Teekkari}
+\author{Atte Keinänen}
 
 
 % Otsikko nimiölehdelle. Yleensä sama kuin seuraavana oleva \TITLE,
 % mutta jos nimiölehdellä tarvetta "kaksiosaiselle" kaksiriviselle
-\title{\LaTeX{}-pohja kandidaatintyötä varten ohjeiden kera ja varuilta %
-kokeillaan vähän ylipitkää otsikkoa}
+\title{Laiska evaluointi funktionaalisessa ohjelmoinnissa}
 % 2-osainen otsikko:
 %\title{\LaTeX{}-pohja kandidaatintyölle \\[5mm] Pitkiä rivejä kokeilun vuoksi.}
 
 % Otsikko tiivistelmään. Jos lisäksi engl. tiivistelmä, niin viimeisin:
-\TITLE{\LaTeX{}-pohja kandidaatintyötä varten ohjeiden kera ja varuilta %
-kokeillaan vähän ylipitkää otsikkoa}
+\TITLE{Laiska evaluointi funktionaalisessa ohjelmoinnissa}
 %\TITLE{\LaTeX{} för kandidatseminariet med jättelång rubrik som fortsätter och
 % fortsätter ännu}
 \ENTITLE{\LaTeX{} template for Bachelor thesis with a pretty long title %
@@ -120,7 +118,7 @@ line which continues ynd continues}
 %\TITLE{\LaTeX{}-pohja kandidaatintyölle. Pitkiä rivejä kokeilun vuoksi.}
 
 % Ohjaajan laitos suomi/ruotsi ja tarvittaessa eng (tiivistelmän kieli/kielet)
-\DEPT{Poimi tähän ohjaajasi laitos, DEPT, main.tex}
+\DEPT{Tietotekniikan laitos}
 % suomi:
 %\DEPT{Tietotekniikan laitos}               % T
 %\DEPT{Tietojenkäsittelytieteen laitos}     % TKT
@@ -135,15 +133,15 @@ line which continues ynd continues}
 %\ENDEPT{Department of Media Technology}                 % ME
 
 % Vuosi ja päivämäärä, jolloin työ on jätetty tarkistettavaksi.
-\YEAR{20xx}
-\DATE{xx. xxxxxkuuta 20xx}
+\YEAR{2016}
+\DATE{\today}
 %\DATE{31. helmikuuta 2011}
 %\DATE{Den 31 februari 2011}
 \ENDATE{MonthName 31, 20xx}
 
 % Kurssin vastuuopettaja ja työsi ohjaaja(t)
-\SUPERVISOR{Vastuuopettajantitteli Vastuuopettajan nimi}
-\INSTRUCTOR{Ohjaajantitteli Sinun Ohjaajasi}
+\SUPERVISOR{Professori Juho Rousu}
+\INSTRUCTOR{Yliopistonlehtori Juha Sorva}
 %\INSTRUCTOR{Ohjaajantitteli Sinun Ohjaajasi, ToinenTitt Matti Meikäläinen}
 % DI       // på svenska DI diplomingenjör
 % TkL      // TkL teknologie licentiat
@@ -163,8 +161,8 @@ line which continues ynd continues}
 % Kirjoita tänne HOPS:ssa vahvistettu pääaineesi.
 % Pääainekoodit TIK-opinto-oppaasta.
 
-\PAAAINE{Tähän sinun pääaineesi nimi, kts main.tex}
-\CODE{Txxxx tai ILyyyy}
+\PAAAINE{Informaatioverkostot}
+\CODE{SCI3026}
 
 %\PAAAINE{Ohjelmistotuotanto ja -liiketoiminta}
 %\CODE{T3003}
@@ -195,8 +193,7 @@ line which continues ynd continues}
 
 % Avainsanat tiivistelmään. Tarvittaessa myös englanniksi:
 
-\KEYWORDS{avain, sanoja, niitäkin, tähän, vielä, useampi, vaikkei, %
-niitä, niin, montaa, oikeasti, tarvitse}
+\KEYWORDS{laiska evaluointi, evaluointistrategia, funktionaalinen ohjelmointi}
 \ENKEYWORDS{key, words, the same as in FIN/SWE}
 
 % Tiivistelmään tulee opinnäytteen sivumäärä.
@@ -215,7 +212,7 @@ niitä, niin, montaa, oikeasti, tarvitse}
 % VANHA //  sivunumerolla 1. %   Toisin sanoen, viimeisen lähdeluettelosivun
 % VANHA //  sivunumero EI ole sivujen määrä vaan se pitää laskea tähän käsin
 
-\PAGES{Kirjoita tähän oikea määrä, tässä esimerkissä 23}
+\PAGES{Täydennetään myöhemmin}
 %\PAGES{23}  % kaikki sivut laskettuna nimiölehdestä lähdeluettelon tai
              % mahdollisten liitteiden loppuun. Tässä 23 sivua
 
@@ -232,8 +229,9 @@ niitä, niin, montaa, oikeasti, tarvitse}
 % on 2. \maketitle komento jotenkin kadottaa sivunumeronsa.
 \setcounter{page}{2}    % sivunumeroksi tulee 2
 
-\input{luku_abstraktit}
-\newpage                       % pakota sivunvaihto
+% Toistaiseksi tarpeeton
+% \input{chapter_abstract}
+% \newpage                       % pakota sivunvaihto
 
 % -------------- Sisällysluettelo / TOC -------------------------------
 
@@ -247,7 +245,7 @@ niitä, niin, montaa, oikeasti, tarvitse}
 % Lyhenteet, termit ja symbolit.
 % Suositus: Käytä vasta kun paljon symboleja tai lyhenteitä.
 %
-\input{luku_lyhenteet}
+%\input{luku_lyhenteet}
 %\clearpage                     % luku loppuu, loput kelluvat tänne
 \newpage
 
@@ -286,7 +284,7 @@ niitä, niin, montaa, oikeasti, tarvitse}
 % \thispagestyle{empty}         % pyydetty ensimmäinen tekstisivu tyhjäksi
 
 % input-komento upottaa tiedoston
-\input{luku_sisalto}
+\input{chapter_content}
 %\clearpage                     % luku loppuu, loput kelluvat tänne, sivunv.
 
 %\input{luku2}                  % tässä tyylissä ei sivunvaihtoja lukujen
@@ -321,7 +319,7 @@ niitä, niin, montaa, oikeasti, tarvitse}
 %\addcontentsline{toc}{chapter}{\bibname}  % book, report
 
 % Määritä kaikki bib-tiedostot
-\bibliography{lahteet}
+\bibliography{bibliography}
 %\bibliography{thesis_sources,ietf_sources}
 
 \label{pages:refs}
@@ -337,7 +335,7 @@ niitä, niin, montaa, oikeasti, tarvitse}
 % ohjelmakoodeja tai datatiedostoja.
 
 \appendix
-\input{luku_liitteet}
+\input{chapter_appendix}
 
 \label{pages:appendices}
 
