@@ -14,7 +14,7 @@ My extraordinary bachelor thesis!
 
 Build PDF from LaTeX file, and rebuild on every file update:
 ```
-./build-pdf-watch.sh tutkimussuunnitelma.tex
+./build-pdf-watch.sh research_plan.tex
 ```
 
 Add BibTeX citation to `lahteet.bib` using Google Scholar:
