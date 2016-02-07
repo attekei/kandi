@@ -19,19 +19,53 @@
 % \begin[htb]{table} - Kuva ja taulukko, (h)ere, (t)op, (b)ottom
 % \begin{equation}  -- kaava
 % \label{eq:kaava1} -- laabeli
+%!TEX root = main.tex
 
-\section{Sisältökappale}
-
+\section{Johdanto}
 
 % Määriteltäviä käsitteitä:
 % Non-Strict Semantics
 % Jotain muuta
 
+% 1. ja 2. kirjoitetaan lopulliseen muotoonsa sitten, kun muut osat ovat jo hyvällä mallilla!
+
 % 1. Aloitan tarinan todellisen elämän esimerkillä, jossa on tullut vastaan aito tarve sille, että koodia ei evaluoida tiukasti "rivi kerrallaan". Siisteintä (ja emotionaalisesti tehokkainta) olisi saada oikein kouriintuntuva esimerkki tilanteesta, jossa ollaan joduttu ongelmiin, kun laiskaa evaluointia ei ole aluksi käytetty. Esimerkillä pyrin herättämään lukijan mielenkiinnon, ja nivomaan aiheen välittömästi konkretiaan ennen siihen syventymistä.
+
+Laiska evaluointi on 1970-luvulta juontuva ohjelmoinnin konsepti, jonka ytimessä on turhan ja liian aikaisen laskennan välttäminen ohjelmakoodia suorittaessa. Eli jos esimerkiksi listan alkiota ei koskaan tarvita, niin sen arvoakaan ei ole syytä laskea. Vastaavasti jos arvoa tarvitaankin, sitä ei lasketa listaa muodostettaessa, vaan vasta sitten kuin sitä on tarve käyttää.
+
+Laiska evaluointi on nimityksenä vakiintunut, mutta ``laiskuuden'' osalta hieman harhaanjohtava. Paremmin konseptia kuvaa sen englanninkielinen synonyymi \textit{call-by-need evaluation}, joka korostaa sitä, että laskentaa tehdään vasta kun tietoa tarvitaan. Toinen tulkinta on, että laskentaa viivytetään niin kauan, kunnes arvo on pakko laskea.
 
 % 2. Kerron, kuinka 2000-luvulla on näkynyt paljon kehitystä, jossa ajatusta siitä, että lausekkeita ei ole aina pakko evaluoida välittömästi kun ne koodissa määritellään, on sovellettu laajemmalle. Esimerkiksi uudet ohjelmointikielet kuten Scala tukevat sitä, ja monet laiskan evaluoinnin ajatusta hyödyntävät kirjastot ovat nähneet päivänvalon esimerkiksi JavaScriptissä. Jos tuntuu luontevalta, niin samassa yhteydessä voi antaa lukijalle alustavan intuition laiskasta evaluoinnista vertauskuvia hyödyntäen (korostaen että kyseessä analogia, ei eksakti käsitemäärittely).
 
-% 3. Määrittelen sitä tietotekniikan kontekstia, jossa nyt liikutaan, ja määrittelen keskeisiä käsitteitä "up-to-bottom". Ensiksi kerron mistä koodin evaluoinnissa on kyse, sitten mitä evaluointistrategia tarkoittaa ja millaisia erilaisia evaluointistrategioita on olemassa (vielä kuitenkaan vertailematta niiden vahvuuksia/heikkouksia). Lopulta tarkennan laiskaan evaluointiin sekä siihen tiiviisti liittyviin käsitteisiin (mm. call-by-need, call-by-name ja thunk). Lukija saa tästä tarvittavaa sanavarastoa tekstin lukemiseen.
+Laiskan evaluoinnin tekee aiheena kiinnostavaksi se, että sitä hyödynnetään kasvavissa määrin niin ohjelmointikielien suunnittelussa kuin yksittäisissa sovelluskirjastoissa. Esimerkiksi uudehkot ohjelmointikielet, kuten Scala ja Clojure, tarjoavat erityisiä syntaktisia rakenteita sitä varten. Toisaalta myös monet suositut apukirjastot, esimerkiksi JavaScript-kielen Immutable.js, Lazy.js ja Bacon.js, hyödyntävät sen periaatteita.
+
+Laiskaa evaluointia ei ole yhtä tapaa tehdä ``oikein'', vaan käyttökohteiden ja toteutustapojen diversiteetti on suuri. Myös tavoiteltavat hyödyt ovat erilaisia. Verrataan esimerkiksi ohjelmointikielen ja apukirjaston laatijoiden tavoitteita: ohjelmointikielen laatija voi käyttää laiskaa evaluointia kielen ilmaisuvoiman kasvattamiseen, kun taas apukirjaston laatija voi päästä sen avulla kilpailevia kirjastoja parempaan suorituskykyyn.
+
+Ymmärrän tässä työssä laiskan evaluoinnin laajasti, ja pyrin luomaan kokonaiskuvaa konseptin käyttökohteista ja toteutustavoista.  Seuraavaksi määrittelen tarkemmin, mitä tarkoitan laiskalla evaluoinnilla, ja mitä muita käsitteitä konseptiin tiiviisti liittyy. Sen jälkeen esittelen tutkimuskysymykset, joihin työni pyrkii vastaamaan.
+
+% 3. Määrittelen sitä tietotekniikan kontekstia, jossa nyt liikutaan, ja määrittelen keskeisiä käsitteitä "up-to-bottom". Ensiksi kerron mistä koodin evaluoinnissa on kyse, millaisia erilaisia evaluointitapoja on olemassa (vielä kuitenkaan vertailematta niiden vahvuuksia/heikkouksia). Lopulta tarkennan laiskaan evaluointiin sekä siihen tiiviisti liittyviin käsitteisiin (mm. call-by-need, call-by-name ja thunk). Lukija saa tästä tarvittavaa sanavarastoa tekstin lukemiseen.
+
+\subsection{Keskeisten käsitteiden määrittely}
+
+\textit{Lauseke} tarkoittaa ohjelmointikielen ilmaisua, jolle voidaan määrittää arvo. Esimerkiksi aritmeettiset operaatiot, muuttujien nimet ja funktiokutsut ovat lausekkeita.
+
+\textit{Evaluointi} tarkoittaa tarkoittaa lausekkeen arvon laskemista.
+
+\textit{Evaluointistrategia} tarkoittaa ohjelmointikielen sääntöjä, jotka määrittävät, missä tilanteissa lausekkeita evaluoidaan.
+
+\textit{Laiska evaluointi} tarkoittaa evaluointistrategiaa, joka viivyttää lausekkeen evaluointia saakka, kunnes sitä tarvitaan \citep{watt2004programming}. Käsitettä voi käyttää kuvaamaan myös yksittäistä lauseketta abstraktimman operaation, kuten esimerkiksi kokoelmien käsittelyn, suorittamisen viivästämistä vastaavaan tapaan.
+
+\subsection{Tutkimuskysymykset ja -menetelmät}
+
+Haluan saada kartoitettua työlläni laiskan evaluoinnin käyttökelpoisuutta tutkimuksessa ja työelämässä, ja haluan myös tuottaa sellaista tietoa, joka olisi käyttökelpoista laiskan evaluoinnin konseptien opetuksessa. Päädyin näiden tavoitteiden kautta seuraaviin tutkimuskysymyksiin:
+\begin{enumerate}
+  \item{Mikä on laiskan evaluoinnin merkitys nykypäivänä?}
+  \item{Mitkä ovat laiskan evaluoinnin hyödyt ja haitat?}
+\end{enumerate}
+
+Kysymyksessä 1 laiskan evaluoinnin merkityksen tutkiminen tarkoittaa, että tarkastelen (1) laiskan evaluoinnin historiaa, (2) laiskan evaluoinnin leviämistä moderneihin ohjelmointikieliin sekä kielien apukirjastoihin, (3) laiskan evaluoinnin kautta kehittyneitä uusia ohjelmoinnin konsepteja ja (4) laiskaa evaluointia käyttävien teknologioiden hyödyntämistä tutkimuksessa ja työelämässä. Toteutan kysymyksen 1 tarkastelun kirjallisuuskatsauksen avulla, keskittyen akateemisiin papereihin ja tukien akateemista tutkimusta etenkin viimeisimpien, 2010-luvulla tapahtuneiden kehityskulkujen osalta myös blogitekstien avulla.
+
+Kysymyksessä 2 selvitän sitä, millaisia subjektiivisia mielipiteitä laiskaa evaluointia hyödyntäviä teknologioita käyttävillä ihmisillä on sekä laiskasta evaluoinnista yleisesti, että kysymyksen 1 tarkastelussa esiin tulleista ohjelmointikielistä ja apukirjastoista. Tässä yhdistän sekä kirjallisuuskatsauksen että mielipidetutkimuksen tekniikoita.
 
 % 4. Kerron, että olen hakemassa vastausta kahteen tutkimuskysymykseen: mikä sen merkitys tietotekniikassa on nykyhetkellä, ja millaisia vahvuuksia tai heikkouksia laiskalla evaluoinnilla on. Samassa yhteydessä kerron perustellen, että olen tarkoituksella jättänyt laiskan evaluoinnin matemaattisen ja kääntäjäteknisen tarkastelun tämän työn ulkopuolelle. Myös työn muista tavoitteista mainitseminen on mahdollista: voin vaikka mainita siitä, että toivon työn tulosten olevan hyödynnettävissä ohjelmoinnin opetuksessa.
 
