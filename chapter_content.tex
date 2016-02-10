@@ -55,25 +55,57 @@ Ymmärrän tässä työssä laiskan evaluoinnin laajasti, ja pyrin luomaan kokon
 
 \textit{Laiska evaluointi} tarkoittaa evaluointistrategiaa, joka viivyttää lausekkeen evaluointia saakka, kunnes sitä tarvitaan \citep{watt2004programming}. Käsitettä voi käyttää kuvaamaan myös yksittäistä lauseketta abstraktimman operaation, kuten esimerkiksi kokoelmien käsittelyn, suorittamisen viivästämistä vastaavaan tapaan.
 
-\subsection{Tutkimuskysymykset ja -menetelmät}
+% 4. Kerron, että olen hakemassa vastausta kahteen tutkimuskysymykseen: mikä sen merkitys tietotekniikassa on nykyhetkellä, ja millaisia vahvuuksia tai heikkouksia laiskalla evaluoinnilla on. Samassa yhteydessä kerron perustellen, että olen tarkoituksella jättänyt laiskan evaluoinnin matemaattisen ja kääntäjäteknisen tarkastelun tämän työn ulkopuolelle. Myös työn muista tavoitteista mainitseminen on mahdollista: voin vaikka mainita siitä, että toivon työn tulosten olevan hyödynnettävissä ohjelmoinnin opetuksessa.
 
-Haluan saada kartoitettua työlläni laiskan evaluoinnin käyttökelpoisuutta tutkimuksessa ja työelämässä, ja haluan myös tuottaa sellaista tietoa, joka olisi käyttökelpoista laiskan evaluoinnin konseptien opetuksessa. Päädyin näiden tavoitteiden kautta seuraaviin tutkimuskysymyksiin:
+% 5. Kerron käyttämäni tieteelliset menetelmät (kirjallisuuskatsaus ja mielipidekartoitus) ja perustelen miksi päädyin juuri näihin menetelmiin. Valotan kirjallisuuskatsauksen prosessia: mitä hakusanoja käytin, mitä tietokantoja hyödynsin ja millaisia määriä artikkeleita kävin läpi. Käyn samaan tapaan läpi mielipidekartoituksen toteutuksen, eli sekä tunnettujen kirjoittajien blogien läpikäynnin että kokemusten keräämisen tuttavapiiristäni.
+
+\subsection{Tutkimuskysymykset}
+
+Haluan saada kartoitettua työlläni laiskan evaluoinnin käyttökelpoisuutta tutkimuksessa ja työelämässä, ja haluan myös tuottaa sellaista tietoa, joka olisi käyttökelpoista laiskan evaluoinnin konseptien yliopisto-opetuksessa. Päädyin näiden tavoitteiden kautta seuraaviin tutkimuskysymyksiin:
 \begin{enumerate}
   \item{Mikä on laiskan evaluoinnin merkitys nykypäivänä?}
   \item{Mitkä ovat laiskan evaluoinnin hyödyt ja haitat?}
 \end{enumerate}
 
-Kysymyksessä 1 laiskan evaluoinnin merkityksen tutkiminen tarkoittaa, että tarkastelen (1) laiskan evaluoinnin historiaa, (2) laiskan evaluoinnin leviämistä moderneihin ohjelmointikieliin sekä kielien apukirjastoihin, (3) laiskan evaluoinnin kautta kehittyneitä uusia ohjelmoinnin konsepteja ja (4) laiskaa evaluointia käyttävien teknologioiden hyödyntämistä tutkimuksessa ja työelämässä. Toteutan kysymyksen 1 tarkastelun kirjallisuuskatsauksen avulla, keskittyen akateemisiin papereihin ja tukien akateemista tutkimusta etenkin viimeisimpien, 2010-luvulla tapahtuneiden kehityskulkujen osalta myös blogitekstien avulla.
+Kysymyksessä 1 laiskan evaluoinnin merkityksen tutkiminen tarkoittaa, että tarkastelen (a) laiskan evaluoinnin varhaista historiaa pohjustuksenomaisesti, (b) laiskan evaluoinnin leviämistä moderneihin ohjelmointikieliin sekä kielien apukirjastoihin, (c) laiskan evaluoinnin kautta kehittyneitä uusia ohjelmoinnin konsepteja ja (d) laiskaa evaluointia käyttävien teknologioiden hyödyntämistä tutkimuksessa ja työelämässä.
 
-Kysymyksessä 2 selvitän sitä, millaisia subjektiivisia mielipiteitä laiskaa evaluointia hyödyntäviä teknologioita käyttävillä ihmisillä on sekä laiskasta evaluoinnista yleisesti, että kysymyksen 1 tarkastelussa esiin tulleista ohjelmointikielistä ja apukirjastoista. Tässä yhdistän sekä kirjallisuuskatsauksen että mielipidetutkimuksen tekniikoita.
+Kysymyksessä 2 selvitän sitä, millaisia subjektiivisia mielipiteitä laiskaa evaluointia hyödyntäviä teknologioita käyttävillä ihmisillä on sekä laiskasta evaluoinnista yleisesti, että kysymyksen 1 tarkastelussa esiin tulleista ohjelmointikielistä ja apukirjastoista.
 
-% 4. Kerron, että olen hakemassa vastausta kahteen tutkimuskysymykseen: mikä sen merkitys tietotekniikassa on nykyhetkellä, ja millaisia vahvuuksia tai heikkouksia laiskalla evaluoinnilla on. Samassa yhteydessä kerron perustellen, että olen tarkoituksella jättänyt laiskan evaluoinnin matemaattisen ja kääntäjäteknisen tarkastelun tämän työn ulkopuolelle. Myös työn muista tavoitteista mainitseminen on mahdollista: voin vaikka mainita siitä, että toivon työn tulosten olevan hyödynnettävissä ohjelmoinnin opetuksessa.
 
-% 5. Kerron käyttämäni tieteelliset menetelmät (kirjallisuuskatsaus ja mielipidekartoitus) ja perustelen miksi päädyin juuri näihin menetelmiin. Valotan kirjallisuuskatsauksen prosessia: mitä hakusanoja käytin, mitä tietokantoja hyödynsin ja millaisia määriä artikkeleita kävin läpi. Käyn samaan tapaan läpi mielipidekartoituksen toteutuksen, eli sekä tunnettujen kirjoittajien blogien läpikäynnin että kokemusten keräämisen tuttavapiiristäni.
+\subsection{Tutkimusmenetelmät}
 
+Tarkastelen kysymystä 1 narratiivisen kirjallisuuskatsauksella avulla. Tavoitteena on kartoittaa, millaista tietoa aiheesta tällä hetkellä on, ja tuoda sitä yhteen helppotajuisen narratiivin muotoon. Tällä tavoin luotu katsaus soveltuu hyvin materiaaliksi opettajille \citep[s. 312]{baumeister1997writing}, joten menetelmävalinta on linjassa sen tavoitteen kanssa, että työstä olisi yliopisto-opetuksessa hyötyä.
+
+Kirjallisuuskatsauksen materiaalina käytän ensisijaisesti akateemisia artikkeleita, joita aiheesta on kirjoitettu paljon. Hain artikkeleita ensisijaisesti Scopus-tietokannasta, jossa käytin seuraavaa hakulauseketta:
+
+\begin{verbatim}
+ ("lazy evaluation" OR "non-strict" OR "call-by-need" OR "call by need")
+ AND ("functional")
+\end{verbatim}
+
+And-operaattorin vasemmalla puolella on kaikki laiskan evaluoinnin tyypillisimmät synonyymit vaihtoehtoisina hakutermeinä\footnote{Puhtaan funktionaalisen ohjelmoinnin, erityisesti Haskell-ohjelmointikielen, sanastossa käsitteellä \textit{non-strict} on usein laiskasta evaluoinnista eriävä merkitys. Tätä kasitellään tarkemmin luvussa 2. Kirjallisuudessa käsitteet kuitenkin esiintyvät myös toistensa synonyymeina. }. Operaattorin oikealla puolella oleva hakutermi \textit{functional} rajaa hakutulokset funktionaalisen ohjelmoinnin piiriin. Tämä hakulauseke tuotti otsikosta, tiviistelmästä ja avainsanoista haettaessa 326 tulosta. Tämä oli sopiva määrä tuloksia tutkimuskysymysten kannalta relevanteimpien artikkeleiden valikointia ajatellen.
+
+Scopus-tietokannan lisäksi seuloin artikkeleita samalla hakutermillä myös Google Scholarista. Lisäksi Stack Overflow -kysymyspalvelun vastausten ja Haskellin oman wiki-alustan kautta löytyi useita linkkejä relevantteihin artikkeleihin. Täydensin akateemisista artikkeleista saatua tietoa myös vähäisissä määrin blogikirjoituksilla. Niistä on iloa sellaisten uusien kehityskulkujen esittelyssä, joiden esiintyminen akateemisissa artikkeleissa on hyvin vähäistä.
+
+\textit{Pitää vielä selvittää, mitkä tutkimusmenetelmät kuvaisivat parhaiten sitä mielipideselvitystä, joka tehdään tutkimuskysymykseen 2 vastaamiseksi.}
 % 6. Esittelen työn rakennetta perustellen sen menetelmien ja tutkimuskysymysten avulla. Kerron, että käsittelen ensin katsausmaisesti laiskan evaluoinnin varhaista historiaa, minkä jälkeen poraudun ensimmäiseen tutkimuskysymykseen laiskasta evaluoinnista nykypäivänä. Sitten, kun lukijalla on hyvä yleiskuva nykypäivän sovellutuksista, on sujuvaa siirtyä puhumaan yksittäisten sovellutusten yksityiskohdista sekä vahvuuksista ja heikkouksista.
 
+Kirjallisuuskatsauksen ja mielipideselvityksen käsittelyjärjestystä tässä työssä esittelee seuraava osio, työn rakenne.
+
+\subsection{Työn rakenne}
+
+\textit{Kirjoitan myöhemmin auki, kun sisällysluettelo hahmottuu:}
+
+Esittelen työn rakennetta perustellen sen menetelmien ja tutkimuskysymysten avulla. Kerron, että käsittelen ensin katsausmaisesti laiskan evaluoinnin varhaista historiaa, minkä jälkeen poraudun ensimmäiseen tutkimuskysymykseen laiskasta evaluoinnista nykypäivänä. Sitten, kun lukijalla on hyvä yleiskuva nykypäivän sovellutuksista, on sujuvaa siirtyä puhumaan yksittäisten sovellutusten yksityiskohdista sekä vahvuuksista ja heikkouksista.
+
 % 7. Nykypäivän tilannetta taustoitan aluksi kertomalla, kuinka idea laiskasta evaluoinnista on saanut alkunsa akateemisena ideana, jota alettiin kokeilla erilaisissa ohjelmointikielissä, ja jopa prosessoriarkkitehtuureissa. Tästä siirryn Haskellin kehitykseen, ja siihen, kuinka laiskan evaluoinnin vaatimus osaltaan johti puhtaasti funktionaalisen ohjelmoinnin paradigman kehittymiseen.  Käsittelyssä tässä kappaleessa siis käytännössä noin vuodet 1975-2000. Tässä elävöitän tekstiä historia-anekdooteilla.
+
+\subsection{Laiskan evaluoinnin historian alkutaival}
+
+Laiska evaluointi sai alkusysäyksensä 1970-luvulla. Sarja julkaisuja loi pohjaa ajatukselle laiskoista funktionaalisista kielistä työkaluna käytännönläheiseen ohjelmistokehitykseen. Ajatus esiteltiin ensimmäisenä matemaattisesti lamdakalkyylin, funktionaalisen ohjelmoinnin kannalta keskeisen matemaattisen teorian, näkökulmasta \citep{wadsworth1971semantics}. Viisi vuotta myöhemmin julkaistiin toisistaan riippumatta kolme artikkelia \citep{henderson1976lazy,friedman1976cuns,saslmanualturner}, joissa esiteltiin laiskaa evaluointia ohjelmoinnin perspektiivistä.
+
+1980-luvulla vaihteessa oli uraauurtavaa kehitystä kohti ensimmäisiä laiskoja ohjelmointikieliä. Ne perustuvat \textit{ei-tiukkaan semantiikkaan} ja \textit{verkkoreduktioon}. Ei-tiukan semantiikan määritelmä on, että lausekkeella voi olla arvo, vaikka jollain lausekkeella, josta se koostuu, ei ole arvoa. Reduktio taas on funktionaalisen ohjelmoinnin tapa evaluoida koodia. Imperatiivisen, tiukan semantiikan ja ei-tiukan reduktion vertaileminen auttaa selventämään konseptia:
+
 
 % 8. Käyn läpi sitä, kuinka Haskell ja laiska evaluointi alkoi inspiroimaan monia uusia ohjelmointikieliä ja ohjelmointikielien kirjastoja. Tässä kohtaa keskityn nimenomaan siihen diversiteettiin, eli millaisissa erilaisissa muodoissa laiska evaluointi nykyään esiintyy, ja kuinka sitä käytetään myös tiukan evaluoinnin rinnalla. Käyn läpi paljon esimerkkejä laiskan evaluoinnin sovellutuksista. Jos esimerkkien määrä on suuri, se voi aiheuttaa haasteita luvun jäsentämiselle.
 
@@ -84,3 +116,6 @@ Kysymyksessä 2 selvitän sitä, millaisia subjektiivisia mielipiteitä laiskaa 
 % 11. Tarinan kaaren kannalta olisi kandin loppupuolella kiva olla tulevaisuuden tarkastelua. Tässä voisin nostaa vielä pari aikaisemmin raportissa käsiteltyä trendiä, jotka vaikuttavat lupaavilta tulevaisuuden osalta, erikseen tarkasteluun. Voin myös koota yhteen, millaisten esteiden raivaaminen voisi auttaa laiskaa evaluointia entistä suurempaan suosioon.
 
 % 12. Yhteenvedon yhteydessä arvioidaan vielä työn metodisia heikkouksia/rajoituksia, ja mitä puutteita niistä on mahdollisesti seurannut. Sitä, mitä muuta yhteenvedossa olisi mielekästä käsitellä, pitää vielä selvittää.
+
+% \subsection{Yhteenveto}
+% Työssä jäi vähäiseksi algoritminen ja matemaattinen näkökulma. Miksi se olisi ollut hyödyllistä?
