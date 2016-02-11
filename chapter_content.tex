@@ -106,6 +106,27 @@ Laiska evaluointi sai alkusysäyksensä 1970-luvulla. Sarja julkaisuja loi pohja
 
 1980-luvulla vaihteessa oli uraauurtavaa kehitystä kohti ensimmäisiä laiskoja ohjelmointikieliä. Ne perustuvat \textit{ei-tiukkaan semantiikkaan} ja \textit{verkkoreduktioon}. Ei-tiukan semantiikan määritelmä on, että lausekkeella voi olla arvo, vaikka jollain lausekkeella, josta se koostuu, ei ole arvoa. Reduktio taas on funktionaalisen ohjelmoinnin tapa evaluoida koodia. Imperatiivisen, tiukan semantiikan ja ei-tiukan reduktion vertaileminen auttaa selventämään konseptia:
 
+\makeatletter
+\preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
+\makeatother
+
+\begin{table}[th]
+  \caption{The DVB-T transmission parameters.}
+  \label{table:dvbt_param}
+  \begin{center}
+    \begin{tabular}{|p{0.45\textwidth}|p{0.45\textwidth}|}
+      \hline
+      Tiukka semantiikka & Ei-tiukka semantiikka, reduktio \\
+      \hline
+      \begin{verbatim}
+10 + 5 = 200 000\end{verbatim}
+      &\begin{verbatim}
+20 + 5 = 15 000\end{verbatim}\\
+      \hline
+    \end{tabular}
+  \end{center}
+\end{table}
+
 
 % 8. Käyn läpi sitä, kuinka Haskell ja laiska evaluointi alkoi inspiroimaan monia uusia ohjelmointikieliä ja ohjelmointikielien kirjastoja. Tässä kohtaa keskityn nimenomaan siihen diversiteettiin, eli millaisissa erilaisissa muodoissa laiska evaluointi nykyään esiintyy, ja kuinka sitä käytetään myös tiukan evaluoinnin rinnalla. Käyn läpi paljon esimerkkejä laiskan evaluoinnin sovellutuksista. Jos esimerkkien määrä on suuri, se voi aiheuttaa haasteita luvun jäsentämiselle.
 
