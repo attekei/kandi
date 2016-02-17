@@ -61,7 +61,7 @@ Ymmärrän tässä työssä laiskan evaluoinnin laajasti, ja pyrin luomaan kokon
 
 \subsection{Tutkimuskysymykset}
 
-Haluan saada kartoitettua työlläni laiskan evaluoinnin käyttökelpoisuutta tutkimuksessa ja työelämässä, ja haluan myös tuottaa sellaista tietoa, joka olisi käyttökelpoista laiskan evaluoinnin konseptien yliopisto-opetuksessa. Päädyin näiden tavoitteiden kautta seuraaviin tutkimuskysymyksiin:
+Haluan saada kartoitettua työlläni laiskan evaluoinnin käyttökelpoisuutta tutkimuksessa ja työelämässä, ja haluan myös tuottaa sellaista tietoa, joka olisi käyttökelpoista laiskan evaluoinnin konseptien yliopisto-opetuksen suunnittelutyössä. Päädyin näiden tavoitteiden kautta seuraaviin tutkimuskysymyksiin:
 \begin{enumerate}
   \item{Mikä on laiskan evaluoinnin merkitys nykypäivänä?}
   \item{Mitkä ovat laiskan evaluoinnin hyödyt ja haitat?}
@@ -74,7 +74,7 @@ Kysymyksessä 2 selvitän sitä, millaisia subjektiivisia mielipiteitä laiskaa 
 
 \subsection{Tutkimusmenetelmät}
 
-Tarkastelen kysymystä 1 narratiivisen kirjallisuuskatsauksella avulla. Tavoitteena on kartoittaa, millaista tietoa aiheesta tällä hetkellä on, ja tuoda sitä yhteen helppotajuisen narratiivin muotoon. Tällä tavoin luotu katsaus soveltuu hyvin materiaaliksi opettajille \citep[s. 312]{baumeister1997writing}, joten menetelmävalinta on linjassa sen tavoitteen kanssa, että työstä olisi yliopisto-opetuksessa hyötyä.
+Tarkastelen kysymystä 1 narratiivisen kirjallisuuskatsauksella avulla. Tavoitteena on kartoittaa, millaista tietoa aiheesta tällä hetkellä on, ja tuoda sitä yhteen helppotajuisen narratiivin muotoon. Tällä tavoin luotu katsaus soveltuu hyvin materiaaliksi opettajille \citep[s. 312]{baumeister1997writing}, joten menetelmävalinta on linjassa sen tavoitteen kanssa, että työstä olisi hyötyä yliopisto-opetuksen suunnittelussa.
 
 Kirjallisuuskatsauksen materiaalina käytän ensisijaisesti akateemisia artikkeleita, joita aiheesta on kirjoitettu paljon. Hain artikkeleita ensisijaisesti Scopus-tietokannasta, jossa käytin seuraavaa hakulauseketta:
 
@@ -83,7 +83,7 @@ Kirjallisuuskatsauksen materiaalina käytän ensisijaisesti akateemisia artikkel
  AND ("functional")
 \end{verbatim}
 
-And-operaattorin vasemmalla puolella on kaikki laiskan evaluoinnin tyypillisimmät synonyymit vaihtoehtoisina hakutermeinä\footnote{Puhtaan funktionaalisen ohjelmoinnin, erityisesti Haskell-ohjelmointikielen, sanastossa käsitteellä \textit{non-strict} on usein laiskasta evaluoinnista eriävä merkitys. Tätä kasitellään tarkemmin luvussa 2. Kirjallisuudessa käsitteet kuitenkin esiintyvät myös toistensa synonyymeina. }. Operaattorin oikealla puolella oleva hakutermi \textit{functional} rajaa hakutulokset funktionaalisen ohjelmoinnin piiriin. Tämä hakulauseke tuotti otsikosta, tiviistelmästä ja avainsanoista haettaessa 326 tulosta. Tämä oli sopiva määrä tuloksia tutkimuskysymysten kannalta relevanteimpien artikkeleiden valikointia ajatellen.
+And-operaattorin vasemmalla puolella on kaikki laiskan evaluoinnin tyypillisimmät synonyymit vaihtoehtoisina hakutermeinä.\footnote{Puhtaan funktionaalisen ohjelmoinnin, erityisesti Haskell-ohjelmointikielen, sanastossa käsitteellä \textit{non-strict} on usein laiskasta evaluoinnista eriävä merkitys. Tätä kasitellään tarkemmin luvussa 2. Kirjallisuudessa käsitteet kuitenkin esiintyvät myös toistensa synonyymeina.} Operaattorin oikealla puolella oleva hakutermi \textit{functional} rajaa hakutulokset funktionaalisen ohjelmoinnin piiriin. Tämä hakulauseke tuotti otsikosta, tiviistelmästä ja avainsanoista haettaessa 326 tulosta. Tämä oli sopiva määrä tuloksia tutkimuskysymysten kannalta relevanteimpien artikkeleiden valikointia ajatellen.
 
 Scopus-tietokannan lisäksi seuloin artikkeleita samalla hakutermillä myös Google Scholarista. Lisäksi Stack Overflow -kysymyspalvelun vastausten ja Haskellin oman wiki-alustan kautta löytyi useita linkkejä relevantteihin artikkeleihin. Täydensin akateemisista artikkeleista saatua tietoa myös vähäisissä määrin blogikirjoituksilla. Niistä on iloa sellaisten uusien kehityskulkujen esittelyssä, joiden esiintyminen akateemisissa artikkeleissa on hyvin vähäistä.
 
@@ -100,43 +100,177 @@ Esittelen työn rakennetta perustellen sen menetelmien ja tutkimuskysymysten avu
 
 % 7. Nykypäivän tilannetta taustoitan aluksi kertomalla, kuinka idea laiskasta evaluoinnista on saanut alkunsa akateemisena ideana, jota alettiin kokeilla erilaisissa ohjelmointikielissä, ja jopa prosessoriarkkitehtuureissa. Tästä siirryn Haskellin kehitykseen, ja siihen, kuinka laiskan evaluoinnin vaatimus osaltaan johti puhtaasti funktionaalisen ohjelmoinnin paradigman kehittymiseen.  Käsittelyssä tässä kappaleessa siis käytännössä noin vuodet 1975-2000. Tässä elävöitän tekstiä historia-anekdooteilla.
 
-\subsection{Laiskan evaluoinnin historian alkutaival}
+\section{Laiskan evaluoinnin historiaa}
 
 Laiska evaluointi sai alkusysäyksensä 1970-luvulla. Sarja julkaisuja loi pohjaa ajatukselle laiskoista funktionaalisista kielistä työkaluna käytännönläheiseen ohjelmistokehitykseen. Ajatus esiteltiin ensimmäisenä matemaattisesti lamdakalkyylin, funktionaalisen ohjelmoinnin kannalta keskeisen matemaattisen teorian, näkökulmasta \citep{wadsworth1971semantics}. Viisi vuotta myöhemmin julkaistiin toisistaan riippumatta kolme artikkelia \citep{henderson1976lazy,friedman1976cuns,saslmanualturner}, joissa esiteltiin laiskaa evaluointia ohjelmoinnin perspektiivistä.
 
-1980-luvulla vaihteessa oli uraauurtavaa kehitystä kohti ensimmäisiä laiskoja ohjelmointikieliä. Ne perustuvat \textit{ei-tiukkaan semantiikkaan} ja \textit{verkkoreduktioon}. Ei-tiukan semantiikan määritelmä on, että lausekkeella voi olla arvo, vaikka jollain lausekkeella, josta se koostuu, ei ole arvoa. Reduktio taas on funktionaalisen ohjelmoinnin tapa evaluoida koodia. Imperatiivisen, tiukan semantiikanja ei-tiukan reduktion evaluointimallien vertaileminen auttaa selventämään konseptia:
+1980-luvulla vaihteessa oli uraauurtavaa kehitystä kohti ensimmäisiä laiskoja ohjelmointikieliä. Saman aikaan kehitettiin myös täysin uudenlaisia tietokoneita, jotka kilpailivat alan standardin, Von Neumannin arkkitehtuurin, kanssa. Kuitenkin pidemmän päälle osoittautui, ettei tarvetta erikoisille arkkitehtuureille ole, vaan hyvin laadituilla ohjelmointikielten kääntäjillä voidaan päästä hyviin lopputuloksiin myös Von Neuman -arkkitehtuuria hyödyntävissä tietokoneissa. \citep{hudak2007history}
+
+\subsection{Ei-tiukka semantiikka ja graafireduktio}
+
+Yhdistävää 1980-luvun vaihteessa kehitetyille laiskoille ohjelmointikielille oli, että niissä alettiin hyödyntämään sittemmin vakiintuneita \textit{ei-tiukan semantiikan} ja \textit{graafireduktion} periaatteita. Jos ohjelmointikieli perustuu ei-tiukalle semantiikalle, niin lausekkeella voi olla arvo, vaikka jollakin sen alilausekkeista (pienemmistä lausekkeista, joista lauseke koostuu) ei olisi arvoa. Vastaavasti \textit{tiukkaan semantiikkaan} perustuvat ohjelmointikielet toimivat siten, että jos joltakin alilausekkeelta puuttuu arvo, niin lausekkellakaan ei ole arvoa, ja tällöin lausekkeen evaluoinnin voi ajatella epäonnistuneen \citep[s. 523]{scott2009programming}.
+
+Tiukkaa semantiikkaa käytetään yleisesti imperatiivisissa ohjelmointikielissä. Useimmissa suosituissa imperatiivisissa kielissä, esimerkiksi Pythonissa, tiukan semantiikan toteutus perustuu funktioiden evaluointijärjestykseen liittyviin sääntöihin. Evaluointi etenee ``sisimmät ensin'' -periaattella. Siinä funktion kaikki argumentit evaluoidaan ennen kuin funktiota kutsutaan, ja evaluointi etenee sisimmästä funktiokutsusta ulompia funktiokutsuja kohti.
+
+Vastaavasti ei-tiukan semantiikan tyypillisin toteutus, jota tapaa esimerkiksi Haskellissa, perustuu ``uloimmat ensin'' -periaatteeseen. Siinä funktioiden evaluointi etenee uloimmasta funktiokutsusta kohti sisempiä, ja ainoastaan ne funktion argumentit, joita funktio todellisuudessa käyttää, evaluoidaan. Siten Haskellissa on mahdollista tehdä jopa sellaisia funktioita, joka ei tarvitse argumentteja lainkaan, ja siten palauttaa arvon riippumatta siitä, onko parametrilausekkeilla arvoa vai ei. \citep{haskellwikinonstrict}.
+
+Taulukko \ref{table:python_haskell_semantics} demonstroi semantiikan vaikutusta funktioiden evaluointiin. Siinä on toiminallisuudeltaan vastaava koodi suoritetaan sekä Pythonilla että Haskellilla. Funktio \verb!noreturn! aiheuttaa ikuisen silmukan, minkä tähden se ei koskaan palauta arvoa. Haskellilla lausekkeen evaluointi palauttaa arvon, koska \verb!noreturn! -funktiota ei koskaan kutsuta.
 
 \makeatletter
 \preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
 \makeatother
-
+\newpage
 \begin{table}[th]
-  \label{table:dvbt_param}
   \begin{center}
-    \begin{tabular}{|p{0.45\textwidth}|p{0.45\textwidth}|}
+    \begin{tabular}{|p{0.5\textwidth}|p{0.40\textwidth}|}
       \hline
-      Tiukka semantiikka & Ei-tiukka semantiikka, reduktio \\
+       Python, tiukka semantiikka& Haskell, ei-tiukka semantiikka \\
       \hline
-      \begin{verbatim}
-10 + 5 = 200 000\end{verbatim}
-      &\begin{verbatim}
-20 + 5 = 15 000\end{verbatim}\\
+      \footnotesize
+
+      \begin{alltt}
+def noreturn(x):
+    while True:
+        x = -x
+    return x # not reached
+
+def even(x):
+  return x % 2 == 0
+
+> any(even(n) for n in [3, 2, noreturn(6)])
+\(\Rightarrow\) (ei palauta arvoa)
+    \end{alltt}
+      &\footnotesize\begin{alltt}
+noreturn :: Integer -> Integer
+noreturn x = negate (noreturn x)
+
+> any . even . [3, 2, noreturn 6]
+\(\Rightarrow\) True
+
+\end{alltt}
+
+      \textit{Katsotaan, haluanko tässä vielä käydä evaluoinnin välivaiheita läpi, vai viittaanko samaan esimerkkiin myöhemmin uudelleen.}\\
       \hline
     \end{tabular}
-    \caption{Evaluointimallien vertailu}
+    \caption{Esimerkki kielen semantiikan vaikututuksesta evaluointijärjestykseen }
+    \label{table:python_haskell_semantics}
   \end{center}
 \end{table}
 
+Graafireduktio on tapa ei-tiukan semantiikan toteuttamiseen. Se esittää lausekkeet verkon muodossa, mikä mahdollistaa toistuvien lausekkeiden jakamisen muiden lausekkeiden kesken \citep{hudak1989conception}. Esimerkiksi lausekkeen \verb!(1+2)*(1+2)! verkkoesityksessä lauseke \verb!(1+2)! pystytään jakamaan, minkä myötä sen arvo tarvitsee evaluoida vain kerran. % LÄHDE?
+
+Ei-tiukan semantiikan ``uloimmat ensin'' -suoritusjärjestys ja graafireduktiossa tapahtuva lausekkeiden jakaminen luovat perustan laiskalle evaluoinnille. Lausekkeen arvoa ei lasketa ennen kuin on tarve, eikä sitä turhaan lasketa uudelleen, jos sitä käytetään myöhemmin uudelleen.
+
+\subsection{Haskellin ja puhtaan funktionaalisen ohjelmoinnin kehitys}
+
+\citet{hudak2007history} kuvaa, kuinka 1980-luvun puolivälissä laiskaa evaluointia hyödyntäviä ohjelmointikieliä alkoi olla ruuhkaksi asti. Useimmat kielistä soveltuivat vain kapeaan määrään käyttökohteita, ja niillä ei ollut riittävää määrää käyttäjiä suuren suosion saavuttamiseksi. Kuitenkin artikkelin kirjoittajat olivat tällöin sitä mieltä, että kielet muistuttivat ominaisuuksiltaan hyvin paljon toisiaan. Alkoi kehittyä ajatus siitä, että olisi hyvä luoda yksi, yleinen kieli, joka korvaisi kerralla monia aikaisempia kieliä.
+
+Tämä johti Haskell-ohjelmointikielen kehityksen aloittamiseen. Siitä vastasi Haskell-komitea, jossa vaikutti monia aikaisempien laiskaa evaluointia hyödyntäneiden kielien suunnittelijoita. Komitea onnistui keräämään yhteen aikaisemmin erillään samaa aihepiiriä tutkineita, mikä kiihdytti laiskan evaluoinnin parissa tapahtunutta tieteellistä kehitystä. Alkuvaiheen kehitystyö oli onnistunutta, ja Haskellista kehittyi etenkin tietojenkäsittelytieteen akateemisen tutkimuksen parissa suosittu kieli.
+
+Haskell ei määritelmällisesti ole laiska ohjelmointikieli, vaan jo Haskell 1.1 -raportissa \citep{yale1991report} se määriteltiin ainoastaan ei-tiukkaa semantiikkaa käyttäväksi kieleksi. Käytännössäkään kieli ei ole täysin laiska, vaan Haskellin kääntäjät tekevät useita nopeusoptimointeja suorittamalla tiettyjä osia koodista tiukkaan semantiikan säännöllä. Useimmat kielen rakenteet noudattavat kuitenkin oletusarvoisesti laiskan evaluoinnin periaatteita.
+
+Laiskassa evaluoinnissa koodia ei suoriteta imperatiivisten kielien tapaan rivi riviltä, vaan suoritusjärjestys määräytyy tarpeen mukaan. IO-operaatioita, eli esimerkiksi näytölle tulostamista tai käyttäjän syötteen odottamista, ei pystytä suorittamaan halutussa järjestyksessä pelkkien funktiokutsujen avulla. Tästä seurasi, että Haskellista tuli \textit{puhtaasti funktionaalinen} ohjelmointikieli. Käsitteellä tarkoitetaan, että kielen funktiokonstruktiot ovat funktioita matemaattisessa mielessä: funktion kutsuminen samoilla argumenteilla palauttaa aina saman arvon, eikä funktioilla voi suorittaa IO-operaatioita tai muita ohjelman tilaa muuttavia operaatioita.
+
+% Jotain mainintaa pysyvätilaisista muuttujista?
+
+Laiskan evaluoinnin periaatteiden noudattaminen on johtanut moniin innovaatioihin funktionaalisen ohjelmoinnin saralla. Koska Haskell on puhtaasti funktionaalinen kieli, täytyi kehittää kokonaan uusia konsepteja, jotta esimerkiksi IO-operaatioiden suorittaminen halutussa järjestyksessä ja niiden ketjuttaminen toisiinsa onnistuu. Tunnetuimmaksi konseptiksi on noussut \textit{monadi}. Alkuperäisessä monadin konseptin esitelleessä artikkelissa sitä kutsutaan ``imperatiivisen funktionaalisen ohjelmoinnin'' työkaluksi, mikä kuvaa monadien mahdollistamia sekventiaalisia IO-operaatioita \citep{PeytonJones199371}.
+
+Niin monadi kuin monet muutkin Haskelliin kehitetyt puhtaan funktionaalisen ohjelmoinnin konseptit ovat levinneet myös sellaisiin ohjelmointikieliin, jotka ovat evaluointistrategialtaan tiukkoja. Siten laiskan evaluoinnin vaalimisen Haskellissa voi ajatella olleen hyödyksi tietojenkäsittelytieteen kehitykselle laajemminkin.
+
+\subsection{Päättymättömät tietorakenteet ja kontrollirakenteet}
+
+Jo 1980-luvun varhaisessa tutkimuksessa käsiteltiin laiskan evaluoinnin mahdollistamia laiskoja tietorakenteita, etenkin ``päättymättömiä tietorakenteita''. Näitä ovat muun muassa päättymättömät listat, puurakenteet ja tapahtumavirrat. Ne ovat tyypillisesti rekursion avulla toteutettuja, ja laiskan evaluoinnin ansiosta tietorakenteessa tarvitsee mennä vain niin ``syvälle'' kuin on tarvetta.
+
+\newpage
+
+Eräs klassinen esimerkki on matematiikan äärettömiä lukujonojen kuvaaminen. Seuraavassa on Fibonaccin lukujono ilmaistuna rekursiivisesti Haskellilla. Huomionarvoista on, kuinka paljon koodi muistuttaa tapaa, jolla rekursiivinen lukujono ilmaistaisiin matematiikassa:
+
+\begin{alltt}
+fib 0 = 0
+fib 1 = 1
+fib n = fib (n-1) + fib (n-2)
+\end{alltt}
+
+Laiska evaluointi mahdollistaa myös omien kontrollirakenteiden kirjoittamisen. Esimerkiksi if-ehtolauseesta on Haskellissa helppoa tehdä oma versio, jossa ehdon täyttymisen perusteella evaluoidaan vain jompikumpi vaihtoehtoisista lausekkeista:
+
+\begin{alltt}
+% Käyttö: myIf condition onTrue onFalse
+myIf :: Bool -> a -> a -> a
+myIf True  x _ = x
+myIf False _ y = y
+\end{alltt}
+
+Omien kontrollirakenteiden tuki helpottaa kieleen upotettujen \textit{täsmäkielien} rakentamista. Täsmäkielillä tarkoitetaan pieniä, tavanomaisesti deklaratiivisia kieliä, jotka ovat hyvin ilmaisuvoimaisia tietyssä ongelma-avaruudessa \citep{van2000domain}. Käytännössä täsmäkielet toteutetaan usein ohjelmointikielen apukirjastoina, ja täsmäkielen syntaksi on yhdistelmä ohjelmointikielen alkuperäistä syntaksia ja täsmäkielen tuomia lisäyksiä.
+
+Seuraavassa luvussa siirrytään tarkastelemaan sitä, millaisia sovellutuksia laiskalle evaluoinnille on löydetty erilaisissa ohjelmointikielissä ja ohjelmointiin liittyvissä \mbox{konteksteissa.}
 
 % 8. Käyn läpi sitä, kuinka Haskell ja laiska evaluointi alkoi inspiroimaan monia uusia ohjelmointikieliä ja ohjelmointikielien kirjastoja. Tässä kohtaa keskityn nimenomaan siihen diversiteettiin, eli millaisissa erilaisissa muodoissa laiska evaluointi nykyään esiintyy, ja kuinka sitä käytetään myös tiukan evaluoinnin rinnalla. Käyn läpi paljon esimerkkejä laiskan evaluoinnin sovellutuksista. Jos esimerkkien määrä on suuri, se voi aiheuttaa haasteita luvun jäsentämiselle.
 
+\section{Laiskan evaluoinnin sovellutuksia}
+
+
+Laiskalle evaluoinnille on löydetty lukuisia erilaisia sovellutuksia. Tähän lukuun on koottu niistä merkittävimpiä. \textit{Kirjoitetaan tämä pohjustusteksti uudelleen, kun sisältö on selkeytynyt.}
+
+\subsection{Tuki Scala-ohjelmointikielessä}
+
+\textit{Scala} on sekä funktionaalista että imperatiivista ohjelmointia tukeva yleiskäyttöinen ohjelmointikieli. Scala-lähdekoodi kääntyy Java-tavukoodiksi, ja kieli on täysin yhteensopiva Java-kirjastojen kanssa. Scala on semantiikaltaan tiukka kieli, mutta evaluointijärjestystä on mahdollista muuttaa paikallisesti kahdella mekanismilla: \textit{laiskoilla muuttujilla} ja \textit{by-name-parametreilla}.
+
+Laiska muuttuja luodaan lisäämällä \verb!lazy! -avainsana muuttujan määrittelyn alkuun. Kyseisen muuttujan arvon määrittävä lauseke evaluoidaan vasta sitten, kun muuttujaa käytetään ensimmäistä keraa. Arvo myös sidotaan muuttujaan, eli jos muuttujaa tarvitaan uudelleen, niin arvoa ei tarvitse evaluoida uudelleen.
+
+By-name-parametri on funktion parametri, joka luodaan funktion määrittelyssä syntaksilla \verb!parameterName: => Type!. Funktiokutsussa parametrin arvo evaluoidaan vasta, kun parametria käytetään. Laiskasta muuttujasta poiketen arvoa ei kuitenkaan evaluointihetkellä sidota parametriin, vaan jos parametria käytetään uudelleen, niin arvokin evaluoidaan uudelleen.
+
+Laiskojen muuttujien ja by-name-parametrien avulla Scalassa pystyy toteuttamaan monia laiskalle evaluoinnille ja puhtaalle funktionaaliselle ohjelmoinnille tyypillisiä asioita, kuten omia kontrollirakenteita ja laiskoja listoja \citet{chiusano2014functional}. Siten Scalaa pidetään myös tehokkaana kielenä täsmäkielien toteuttamiseen.
+
+\subsection{Tuki Clojure-ohjelmointikielessä}
+
+Clojure on funktionaalinen, Lisp-kieleä muistuttava yleiskäyttöinen ohjelmointikieli, joka Scalan tapaan kääntyy Java-tavukoodiksi ja on täysin yhteensopiva Java-kirjastojen kanssa. Clojure on semantiikaltaan tiukka kieli, eikä se tue Scalan tapaan yleistetysti laiskoja muuttujia ja parametreja. Kieli kuitenkin tukee laiskoja listoja, joita varten kielessä on valmis tuki \verb!lazy-seq! -makron avulla.
+
+Käytännössä Clojuren käyttäjä tulee käyttäneeksi laiskoja listoja paljon, sillä monet kielen yleisimmistä listaoperaatioista palauttavat laiskan listan. Näitä operaatioita ovat esimerkiksi \verb!map!, \verb!filter! ja \verb!take!. Clojuren laiskojen listojen arvoja lasketaan sitä mukaan kuin niitä tarvitaan, ja arvot pysyvät muistissa tulevia käyttökertoja varten.
+
+Clojure tukee makroja, joiden avulla kielen kääntäjää pystyy laajentamaan ohjelmakoodista käsin, ja sen myötä kieleen voi luoda omia kontrollirakenteita. Tämän myötä Clojure ei tarvitse laiskaa evaluointia ollakseen silti tehokas kieli täsmäkielien luomiseen.
+
+\subsection{Käyttö JavaScript-apukirjastoissa}
+
+JavaScript on ainoa verkkoselainten yleisesti tukema ohjelmointikieli, ja lisäksi JavaScriptiä käytetään runsaasti myös palvelinohjelmointiin. Se on semantiikaltaan tiukka kieli, ja tukee rajoitetusti funktionaalisen ohjelmoinnin konsepteja.  JavaScriptiin on 2010-luvulla kehitetty useita apukirjastoja, jotka tuovat funktionaalisen ohjelmoinnin työkaluvalikoimaa laajemmin ohjelmoijien käyttöön. Näistä uusimmissa näkyy kasvavissa määrin laiskan evaluoinnin konseptien vaikutus kirjastosuunnitteluun.
+
+``Immutable.js'' on Facebookin vuonna 2014 julkaisema JavaScript-apukirjasto, joka tarjoaa tuen funktionaaliselle ohjelmoinnille ominaisille pysyvätilaisille tietorakenteille.
+
+\subsection{Apukirjastot}
+\begin{itemize}
+  \item{Laiska JavaScript-ohjelmointi, Lazy.js jne}
+  \item{FRP, Bacon.js, Elm \citep{czaplicki2012elm}}
+\end{itemize}
+\subsection{Muut}
+\begin{itemize}
+  \item{Concurrency hässäkät, parallelism?}
+  \item{Piirisuunnittelu \citep{charlton1991lazy}}
+  \item{Persistentit ohjelmointikielet (aika UG aihe) \citep{wevers2014persistent}}
+  \item{Logiikkapohjainen ohjelmointi (jälleen aika UG aihe) \citep{alpuente1997specialization}}
+\end{itemize}
+
+% Non-deterministinen ohjelmointi
+
+% "Beyond lazy evaluation": optimistinen evaluointi, lempeä evaluointi
+
 % 9. Nyt valitsen kiinnostavimmat aihealueet/sovellutukset tarkempaan tarkasteluun, ja otan tässä kohtaa myös vahvuus/heikkous -selvityksen mukaan. Perustelen, että laiskaa evaluointia ei ole mieltä tutkia yhtenä kokonaisuutena mielipidearvioinnin keinoin, vaan on järkevämpää keskittyä yksittäisiin sovellutuksiin. Aiheita/sovellutuksia voisi olla esimerkiksi Haskell, Scala, JavaScript-kirjastot ja FRP. Tässä voi saada aikaan mielenkiintoista mielipiteiden, blogien ja tieteellisten artikkeleiden "vuoropuhelua".
 
+\section{Laiskan evaluoinnin edut ja haitat}
+
+It makes it practical to modularise a program as a generator which constructs a large number of possible answers, and a selector which chooses the appropriate one.
+
+%   \item{Lazy I/O \citep[s.123]{o2008real}}
+
 % 10. Mielipiteistä ja sovellutuksista voisi jatkaa vielä kertomalla laiskan evaluoinnin hyödyntämisestä tieteellisessä tutkimuksessa, kuten laskennallisessa biologiassa. Myös yritysesimerkkejä voi ottaa mukaan. Tämä olisi teoriassa yhdistettävissä edelliseen lukuun, mutta toisaalta koen tämän olevan kuitenkin korkeammalla tasolla (kielten ja kirjastojen vahvuudet/heikkoudet vs. laiskan evaluoinnin soveltuvuus yleisemmin eri alojen työhön).
+
+\section{Laiskan evaluoinnin yleisyys tutkimuksessa ja työelämässä}
 
 % 11. Tarinan kaaren kannalta olisi kandin loppupuolella kiva olla tulevaisuuden tarkastelua. Tässä voisin nostaa vielä pari aikaisemmin raportissa käsiteltyä trendiä, jotka vaikuttavat lupaavilta tulevaisuuden osalta, erikseen tarkasteluun. Voin myös koota yhteen, millaisten esteiden raivaaminen voisi auttaa laiskaa evaluointia entistä suurempaan suosioon.
 
 % 12. Yhteenvedon yhteydessä arvioidaan vielä työn metodisia heikkouksia/rajoituksia, ja mitä puutteita niistä on mahdollisesti seurannut. Sitä, mitä muuta yhteenvedossa olisi mielekästä käsitellä, pitää vielä selvittää.
+
+\section{Yhteenveto ja johtopäätökset}
+
+Laiskasta evaluoinnista on kehitetty edelleen uusia evaluointistrategioita. Optimistinen evaluointi, lempeä evaluointi. \citep{ennals2003optimistic} \citep{maessen2002hybrid}
 
 % \subsection{Yhteenveto}
 % Työssä jäi vähäiseksi algoritminen ja matemaattinen näkökulma. Miksi se olisi ollut hyödyllistä?
