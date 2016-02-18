@@ -200,7 +200,8 @@ myIf True  x _ = x
 myIf False _ y = y
 \end{alltt}
 
-Omien kontrollirakenteiden tuki helpottaa kieleen upotettujen \textit{täsmäkielien} rakentamista. Täsmäkielillä tarkoitetaan pieniä, tavanomaisesti deklaratiivisia kieliä, jotka ovat hyvin ilmaisuvoimaisia tietyssä ongelma-avaruudessa \citep{van2000domain}. Käytännössä täsmäkielet toteutetaan usein ohjelmointikielen apukirjastoina, ja täsmäkielen syntaksi on yhdistelmä ohjelmointikielen alkuperäistä syntaksia ja täsmäkielen tuomia lisäyksiä.
+% Tässä olisi ehkä kiva mainita toki siitä, että täsmäkielen rakentamiseen vaikuttaa toki monta muutakin tekijää.
+Omien kontrollirakenteiden tuki helpottaa kieleen upotettujen \textit{täsmäkielten} rakentamista. Täsmäkielillä tarkoitetaan pieniä, tavanomaisesti deklaratiivisia kieliä, jotka ovat hyvin ilmaisuvoimaisia tietyssä ongelma-avaruudessa \citep{van2000domain}. Täsmäkielet toteutetaan usein ohjelmointikielen apukirjastoina, ja täsmäkieli on siinä tapauksessa yhdistelmä ohjelmointikielen valmiita ominaisuuksia ja apukirjastossa siihen laadittuja lisäyksiä.
 
 Seuraavassa luvussa siirrytään tarkastelemaan sitä, millaisia sovellutuksia laiskalle evaluoinnille on löydetty erilaisissa ohjelmointikielissä ja ohjelmointiin liittyvissä \mbox{konteksteissa.}
 
@@ -219,21 +220,38 @@ Laiska muuttuja luodaan lisäämällä \verb!lazy! -avainsana muuttujan määrit
 
 By-name-parametri on funktion parametri, joka luodaan funktion määrittelyssä syntaksilla \verb!parameterName: => Type!. Funktiokutsussa parametrin arvo evaluoidaan vasta, kun parametria käytetään. Laiskasta muuttujasta poiketen arvoa ei kuitenkaan evaluointihetkellä sidota parametriin, vaan jos parametria käytetään uudelleen, niin arvokin evaluoidaan uudelleen.
 
-Laiskojen muuttujien ja by-name-parametrien avulla Scalassa pystyy toteuttamaan monia laiskalle evaluoinnille ja puhtaalle funktionaaliselle ohjelmoinnille tyypillisiä asioita, kuten omia kontrollirakenteita ja laiskoja listoja \citet{chiusano2014functional}. Siten Scalaa pidetään myös tehokkaana kielenä täsmäkielien toteuttamiseen.
+Laiskojen muuttujien ja by-name-parametrien avulla Scalassa pystyy toteuttamaan monia laiskalle evaluoinnille ja puhtaalle funktionaaliselle ohjelmoinnille tyypillisiä piirteitä, kuten omia kontrollirakenteita ja laiskoja listoja \citet{chiusano2014functional}. Siten Scalaa pidetään myös tehokkaana kielenä täsmäkielien toteuttamiseen.
 
 \subsection{Tuki Clojure-ohjelmointikielessä}
 
 Clojure on funktionaalinen, Lisp-kieleä muistuttava yleiskäyttöinen ohjelmointikieli, joka Scalan tapaan kääntyy Java-tavukoodiksi ja on täysin yhteensopiva Java-kirjastojen kanssa. Clojure on semantiikaltaan tiukka kieli, eikä se tue Scalan tapaan yleistetysti laiskoja muuttujia ja parametreja. Kieli kuitenkin tukee laiskoja listoja, joita varten kielessä on valmis tuki \verb!lazy-seq! -makron avulla.
 
-Käytännössä Clojuren käyttäjä tulee käyttäneeksi laiskoja listoja paljon, sillä monet kielen yleisimmistä listaoperaatioista palauttavat laiskan listan. Näitä operaatioita ovat esimerkiksi \verb!map!, \verb!filter! ja \verb!take!. Clojuren laiskojen listojen arvoja lasketaan sitä mukaan kuin niitä tarvitaan, ja arvot pysyvät muistissa tulevia käyttökertoja varten.
+Käytännössä Clojuren käyttäjä tulee käyttäneeksi laiskoja listoja paljon, sillä monet kielen yleisimmistä listaoperaatioista palauttavat laiskan listan. Näitä operaatioita ovat esimerkiksi \verb!map!, \verb!filter! ja \verb!take!. Clojuren laiskojen listojen arvoja evaluoidaan sitä mukaan kuin niitä tarvitaan, ja arvot pysyvät muistissa tulevia käyttökertoja varten.
 
-Clojure tukee makroja, joiden avulla kielen kääntäjää pystyy laajentamaan ohjelmakoodista käsin, ja sen myötä kieleen voi luoda omia kontrollirakenteita. Tämän myötä Clojure ei tarvitse laiskaa evaluointia ollakseen silti tehokas kieli täsmäkielien luomiseen.
+Clojure tukee \textit{makroja}, joiden avulla kielen kääntäjää pystyy laajentamaan ohjelmakoodista käsin, ja sen myötä kieleen voi luoda omia kontrollirakenteita. Tämän myötä Clojure ei tarvitse laiskaa evaluointia ollakseen silti tehokas kieli täsmäkielien luomiseen.
 
 \subsection{Käyttö JavaScript-apukirjastoissa}
 
 JavaScript on ainoa verkkoselainten yleisesti tukema ohjelmointikieli, ja lisäksi JavaScriptiä käytetään runsaasti myös palvelinohjelmointiin. Se on semantiikaltaan tiukka kieli, ja tukee rajoitetusti funktionaalisen ohjelmoinnin konsepteja.  JavaScriptiin on 2010-luvulla kehitetty useita apukirjastoja, jotka tuovat funktionaalisen ohjelmoinnin työkaluvalikoimaa laajemmin ohjelmoijien käyttöön. Näistä uusimmissa näkyy kasvavissa määrin laiskan evaluoinnin konseptien vaikutus kirjastosuunnitteluun.
 
-``Immutable.js'' on Facebookin vuonna 2014 julkaisema JavaScript-apukirjasto, joka tarjoaa tuen funktionaaliselle ohjelmoinnille ominaisille pysyvätilaisille tietorakenteille.
+\textit{Immutable.js} on Facebookin julkaisema JavaScript-apukirjasto, joka tarjoaa tuen funktionaaliselle ohjelmoinnille ominaisille pysyvätilaisille tietorakenteille. Kaikki kirjastossa määritellyt tietorakenteet, esimerkiksi indeksoidun listan \verb!List! tai pinon \verb!Stack!, voi muuttaa laiskaksi \verb!Seq!-konstruktorilla. Listaoperaatiot ovat tämän luokan metodeja, ja kun \verb!Seq!-instanssille kutsuu näitä metodeja, ne palauttavat uuden laiskan listan.
+Ketjutetut listaoperaatiot evaluoidaan vasta sitten, kun lopullista arvoa tarvitaan.
+
+\begin{sloppypar}
+\verb!Seq! tukee myös päättymättömiä listoja kirjaston tarjoamien \verb!Range!- ja \verb!Repeat! \mbox{-konstruktoreiden} sekä iteraattorifunktioiden avulla. \verb!Seq! ei kuitenkaan Clojuren laiskojen listojen tapaan pidä evaluoituja arvoja muistissa.
+\end{sloppypar}
+
+\textit{Lazy.js} on JavaScriptin-apukirjasto listamaisten tietorakenteiden käsittelemiseen. Siinä Immutablen laiskaa listan luontia vastaa konstruktori \verb!Sequence!. Lazy.js ei Immutablen tapaan esittele uusia tietorakenteita, vaan sitä voi käyttää yhdessä JavaScriptin sisäänrakennettujen tietorakenteiden kanssa. Toisin kuin Immutable.js, se myös tukee joitain funktionaalisen reaktiivisen ohjelmoinnin konsepteja, joita käsittelen seuraavassa luvussa.
+
+Sekä Immutable.js että Lazy.js lupaavat, että viivyttämällä listaoperaatioiden evaluointia ne ovat merkittävästi nopeampia kuin kilpailijansa, joissa tyypillisesti listan arvo evaluoidaan uudelleen jokaisen listaoperaation kutsun yhteydessä.
+
+\subsection{Reaktiivinen ohjelmointi}
+
+Funktionaalinen reaktiivinen ohjelmointi, lyhyemmin FRP, on deklaratiivinen ohjelmointiparadigma, jolla voi käsitellä muuttuvatilaisia arvoja funktionaalisessa ohjelmoinnissa. FRP esittää muuttuvatilaisen arvon aikariippuvaisena ``signaalina'' . Näitä signaaleja voi transformoida ja yhdistellä joustavasti \citep{czaplicki2012elm}.
+
+Paradigma sai alkunsa Haskellin tutkimuksesta, kun \citep{m} 
+
+ \citep{czaplicki2012elm}
 
 \subsection{Apukirjastot}
 \begin{itemize}
