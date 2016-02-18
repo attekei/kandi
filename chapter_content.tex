@@ -222,6 +222,8 @@ By-name-parametri on funktion parametri, joka luodaan funktion määrittelyssä 
 
 Laiskojen muuttujien ja by-name-parametrien avulla Scalassa pystyy toteuttamaan monia laiskalle evaluoinnille ja puhtaalle funktionaaliselle ohjelmoinnille tyypillisiä piirteitä, kuten omia kontrollirakenteita ja laiskoja listoja \citet{chiusano2014functional}. Siten Scalaa pidetään myös tehokkaana kielenä täsmäkielien toteuttamiseen.
 
+\textit{Jotain vielä generaattoreista ja iteraattoreista?}
+
 \subsection{Tuki Clojure-ohjelmointikielessä}
 
 Clojure on funktionaalinen, Lisp-kieleä muistuttava yleiskäyttöinen ohjelmointikieli, joka Scalan tapaan kääntyy Java-tavukoodiksi ja on täysin yhteensopiva Java-kirjastojen kanssa. Clojure on semantiikaltaan tiukka kieli, eikä se tue Scalan tapaan yleistetysti laiskoja muuttujia ja parametreja. Kieli kuitenkin tukee laiskoja listoja, joita varten kielessä on valmis tuki \verb!lazy-seq! -makron avulla.
@@ -245,13 +247,19 @@ Ketjutetut listaoperaatiot evaluoidaan vasta sitten, kun lopullista arvoa tarvit
 
 Sekä Immutable.js että Lazy.js lupaavat, että viivyttämällä listaoperaatioiden evaluointia ne ovat merkittävästi nopeampia kuin kilpailijansa, joissa tyypillisesti listan arvo evaluoidaan uudelleen jokaisen listaoperaation kutsun yhteydessä.
 
-\subsection{Reaktiivinen ohjelmointi}
+\textit{Halutaanko sekä Clojure-osioon että tähän lähdeviittaukset kielen/kirjastojen dokumentaatioihin?}
 
-Funktionaalinen reaktiivinen ohjelmointi, lyhyemmin FRP, on deklaratiivinen ohjelmointiparadigma, jolla voi käsitellä muuttuvatilaisia arvoja funktionaalisessa ohjelmoinnissa. FRP esittää muuttuvatilaisen arvon aikariippuvaisena ``signaalina'' . Näitä signaaleja voi transformoida ja yhdistellä joustavasti \citep{czaplicki2012elm}.
+\subsection{Käyttö reaktiivisessa ohjelmoinnissa}
 
-Paradigma sai alkunsa Haskellin tutkimuksesta, kun \citep{m} 
+\textit{Funktionaalinen reaktiivinen ohjelmointi}, lyhyemmin FRP, on deklaratiivinen ohjelmointiparadigma, jolla voi käsitellä muuttuvatilaisia arvoja funktionaalisessa ohjelmoinnissa. FRP esittää muuttuvatilaisen arvon aikariippuvaisena ``signaalina'' . Näitä signaaleja voi transformoida ja yhdistellä joustavasti \citep{czaplicki2012elm}.
 
- \citep{czaplicki2012elm}
+Paradigma sai alkunsa Haskellin tutkimuksesta, kun \citet{elliott1997functional} julkaisivat kokeellisen täsmäkielen nimeltä \textit{Fran} animaation kuvaamiseen funktionaalisessa ohjelmoinnissa. Fran pyrki pääsemään irti grafiikkaohjelmoinnin perinteisestä  imperatiivisesta ja diskreetistä luonteesta, ja korvasti sen jatkuvaan aikatarkasteluun perustuvalla mallilla. Fran rakennettiin Haskellilla, ja siten siinä käytettiin laiskaa evaluointia laajasti.
+
+\textit{Reaktiivinen ohjelmointi} tarkoittaa laajemmin ohjelmointiparadigmaa, joka keskittyy datavirtojen ja niiden muutosten käsittelyyn. FRP on inspiroinut monia 2010-luvun suosittuja reaktiivisia kirjastoja, kuten \textit{React}, \textit{RxJS} ja \textit{Bacon.JS}, ja näiden lisäksi myös uusia ohjelmointikieliä on luotu reaktiivisten periaatteiden pohjalta, kuten Elm. Nämä perustuvat diskreettien datavirtojen käsittelyyn, minkä takia ne eivät sovi yhteen FRP:n alkuperäisen määritelmän kanssa \citep{whyprogramwithconttime}.
+
+Valtaosa suosituista kirjastoista ei hyödynnä laiskaa evaluointia.
+
+\subsection{Muut}
 
 \subsection{Apukirjastot}
 \begin{itemize}
@@ -274,8 +282,10 @@ Paradigma sai alkunsa Haskellin tutkimuksesta, kun \citep{m}
 
 \section{Laiskan evaluoinnin edut ja haitat}
 
-It makes it practical to modularise a program as a generator which constructs a large number of possible answers, and a selector which chooses the appropriate one.
+\subsection{Yleisellä tasolla}
 
+
+\subsection{Reaktiivisessa ohjelmoinnissa}
 %   \item{Lazy I/O \citep[s.123]{o2008real}}
 
 % 10. Mielipiteistä ja sovellutuksista voisi jatkaa vielä kertomalla laiskan evaluoinnin hyödyntämisestä tieteellisessä tutkimuksessa, kuten laskennallisessa biologiassa. Myös yritysesimerkkejä voi ottaa mukaan. Tämä olisi teoriassa yhdistettävissä edelliseen lukuun, mutta toisaalta koen tämän olevan kuitenkin korkeammalla tasolla (kielten ja kirjastojen vahvuudet/heikkoudet vs. laiskan evaluoinnin soveltuvuus yleisemmin eri alojen työhön).
