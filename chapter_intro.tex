@@ -1,0 +1,81 @@
+% --------------------------------------------------------------------
+% Cheatsheet:
+% \verb!lazy val!   -- esim. lyhyisiin koodinpätkiin
+% \begin{verbatim}  -- esim. pitkiin koodinpätkiin
+% `` tekstiä ''     -- lainausmerkit
+% \textbf{huom!}    -- boldaus
+% \begin{quotation}
+% \noindent \it     -- quoten lisäys
+% \ldots            -- kolme pistettä
+% footnote{juh}     -- alaviite
+% \citet, \citep
+% \citet[s.234]{}   -- viitteet, http://merkel.zoneo.net/Latex/natbib.php
+% \begin{sloppypar} -- ahdas teksti
+% \clearpage        -- onkkelmien korjaamiseen lukujen kanssa
+% --                -- yhdysviiva
+% \enumerate
+% \itemize          -- listat
+% \begin[htb]{figure}
+% \begin[htb]{table} - Kuva ja taulukko, (h)ere, (t)op, (b)ottom
+% \begin{equation}  -- kaava
+% \label{eq:kaava1} -- laabeli
+%!TEX root = main.tex
+
+\section{Johdanto}
+
+Laiska evaluointi on 1970-luvulta juontuva ohjelmoinnin konsepti, jonka ytimessä on turhan ja liian aikaisen laskennan välttäminen ohjelmakoodia suorittaessa. Eli jos esimerkiksi listan alkiota ei koskaan tarvita, niin sen arvoakaan ei ole syytä laskea. Vastaavasti jos arvoa tarvitaankin, sitä ei lasketa listaa muodostettaessa, vaan vasta sitten kuin sitä on tarve käyttää.
+
+Laiska evaluointi on nimityksenä vakiintunut, mutta ``laiskuuden'' osalta hieman harhaanjohtava. Paremmin konseptia kuvaa sen englanninkielinen synonyymi \textit{call-by-need evaluation}, joka korostaa sitä, että laskentaa tehdään vasta kun tietoa tarvitaan. Toinen tulkinta on, että laskentaa viivytetään niin kauan, kunnes arvo on pakko laskea.
+
+Laiskan evaluoinnin tekee aiheena kiinnostavaksi se, että sitä hyödynnetään kasvavissa määrin niin ohjelmointikielien suunnittelussa kuin yksittäisissä sovelluskirjastoissa. Esimerkiksi uudehkot ohjelmointikielet, kuten Scala ja Clojure, tarjoavat erityisiä syntaktisia rakenteita sitä varten. Toisaalta myös monet suositut apukirjastot, esimerkiksi JavaScript-kielen Immutable.js, Lazy.js ja Bacon.js, hyödyntävät sen periaatteita.
+
+Laiskaa evaluointia ei ole yhtä tapaa tehdä ``oikein'', vaan käyttökohteiden ja toteutustapojen diversiteetti on suuri. Myös tavoiteltavat hyödyt ovat erilaisia. Verrataan esimerkiksi ohjelmointikielen ja apukirjaston laatijoiden tavoitteita: ohjelmointikielen laatija voi käyttää laiskaa evaluointia kielen ilmaisuvoiman kasvattamiseen, kun taas apukirjaston laatija voi päästä sen avulla kilpailevia kirjastoja parempaan suorituskykyyn.
+
+Ymmärrän tässä työssä laiskan evaluoinnin laajasti, ja pyrin luomaan kokonaiskuvaa konseptin käyttökohteista ja toteutustavoista.  Seuraavaksi määrittelen tarkemmin, mitä tarkoitan laiskalla evaluoinnilla, ja mitä muita käsitteitä konseptiin tiiviisti liittyy. Sen jälkeen esittelen tutkimuskysymykset, joihin työni pyrkii vastaamaan.
+
+\subsection{Keskeisten käsitteiden määrittely}
+
+\textit{Lauseke} tarkoittaa ohjelmointikielen ilmaisua, jolle voidaan määrittää arvo. Esimerkiksi aritmeettiset operaatiot, muuttujien nimet ja funktiokutsut ovat lausekkeita.
+
+\textit{Evaluointi} tarkoittaa tarkoittaa lausekkeen arvon laskemista.
+
+\textit{Evaluointistrategia} tarkoittaa ohjelmointikielen sääntöjä, jotka määrittävät, missä tilanteissa lausekkeita evaluoidaan.
+
+\textit{Laiska evaluointi} tarkoittaa evaluointistrategiaa, joka viivyttää lausekkeen evaluointia saakka, kunnes sitä tarvitaan \citep{watt2004programming}. Käsitettä voi käyttää kuvaamaan myös yksittäistä lauseketta abstraktimman operaation, kuten esimerkiksi kokoelmien käsittelyn, suorittamisen viivästämistä vastaavaan tapaan.
+
+\subsection{Tutkimuskysymykset}
+
+Haluan saada kartoitettua työlläni laiskan evaluoinnin käyttökelpoisuutta tutkimuksessa ja työelämässä, ja haluan myös tuottaa sellaista tietoa, joka olisi käyttökelpoista laiskan evaluoinnin konseptien yliopisto-opetuksen suunnittelutyössä. Päädyin näiden tavoitteiden kautta seuraaviin tutkimuskysymyksiin:
+\begin{enumerate}
+  \item{Mikä on laiskan evaluoinnin merkitys nykypäivänä?}
+  \item{Mitkä ovat laiskan evaluoinnin hyödyt ja haitat?}
+\end{enumerate}
+
+Kysymyksessä 1 laiskan evaluoinnin merkityksen tutkiminen tarkoittaa, että tarkastelen (a) laiskan evaluoinnin varhaista historiaa pohjustuksenomaisesti, (b) laiskan evaluoinnin leviämistä moderneihin ohjelmointikieliin sekä kielien apukirjastoihin, (c) laiskan evaluoinnin kautta kehittyneitä uusia ohjelmoinnin konsepteja ja (d) laiskaa evaluointia käyttävien teknologioiden hyödyntämistä tutkimuksessa ja työelämässä.
+
+Kysymyksessä 2 selvitän sitä, millaisia subjektiivisia mielipiteitä laiskaa evaluointia hyödyntäviä teknologioita käyttävillä ihmisillä on sekä laiskasta evaluoinnista yleisesti, että kysymyksen 1 tarkastelussa esiin tulleista ohjelmointikielistä ja apukirjastoista.
+
+\subsection{Tutkimusmenetelmät}
+
+Tarkastelen kysymystä 1 narratiivisen kirjallisuuskatsauksella avulla. Tavoitteena on kartoittaa, millaista tietoa aiheesta tällä hetkellä on, ja tuoda sitä yhteen helppotajuisen narratiivin muotoon. Tällä tavoin luotu katsaus soveltuu hyvin materiaaliksi opettajille \citep[s. 312]{baumeister1997writing}, joten menetelmävalinta on linjassa sen tavoitteen kanssa, että työstä olisi hyötyä yliopisto-opetuksen suunnittelussa.
+
+Kirjallisuuskatsauksen materiaalina käytän ensisijaisesti akateemisia artikkeleita, joita aiheesta on kirjoitettu paljon. Hain artikkeleita ensisijaisesti Scopus-tietokannasta, jossa käytin seuraavaa hakulauseketta:
+
+\begin{verbatim}
+ ("lazy evaluation" OR "non-strict" OR "call-by-need" OR "call by need")
+ AND ("functional")
+\end{verbatim}
+
+And-operaattorin vasemmalla puolella on kaikki laiskan evaluoinnin tyypillisimmät synonyymit vaihtoehtoisina hakutermeinä.\footnote{Puhtaan funktionaalisen ohjelmoinnin, erityisesti Haskell-ohjelmointikielen, sanastossa käsitteellä \textit{non-strict} on usein laiskasta evaluoinnista eriävä merkitys. Tätä käsitellään tarkemmin luvussa 2. Kirjallisuudessa käsitteet kuitenkin esiintyvät myös toistensa synonyymeina.} Operaattorin oikealla puolella oleva hakutermi \textit{functional} rajaa hakutulokset funktionaalisen ohjelmoinnin piiriin. Tämä hakulauseke tuotti otsikosta, tiivistelmästä ja avainsanoista haettaessa 326 tulosta. Tämä oli sopiva määrä tuloksia tutkimuskysymysten kannalta relevanteimpien artikkeleiden valikointia ajatellen.
+
+Scopus-tietokannan lisäksi seuloin artikkeleita samalla hakutermillä myös Google Scholarista. Lisäksi Stack Overflow -kysymyspalvelun vastausten ja Haskellin oman wiki-alustan kautta löytyi useita linkkejä relevantteihin artikkeleihin. Täydensin akateemisista artikkeleista saatua tietoa myös vähäisissä määrin blogikirjoituksilla. Niistä on iloa sellaisten uusien kehityskulkujen esittelyssä, joiden esiintyminen akateemisissa artikkeleissa on hyvin vähäistä.
+
+\begin{sloppypar}
+Kysymykseen 2 vastatakseni käytän yhdistelmää eri tiedonhakutapoja. Hyödynnän (a) kirjallisuuskatsauksen tiedonhaussa vastaan tulleita mielipidelatautuneita artikkeleita, (b) blogikirjoituksia ja (c) kysymällä mielipiteitä työkavereiltani Slack-kommunikaatioalustan avulla. Blogikirjoituksissa painotan kirjoittajia, joilla on myös akateemista näyttöä aihepiiristä. Mielipiteen kysymisessä pyydän vastaajia kertomaan, että mikäli he ovat missään kontekstissa käyttäneet laiskaa evaluointia esimerkiksi ohjelmointikielessä tai apukirjastossa, millaisia vahvuuksia tai heikkouksia he ovat kohdanneet.
+\end{sloppypar}
+
+Kirjallisuuskatsauksen ja mielipideselvityksen käsittelyjärjestystä tässä työssä esittelee seuraava osio, työn rakenne.
+
+\subsection{Työn rakenne}
+
+Tutkimuskysymykseen 1 vastausta pohjustetaan luvussa \ref{historia}, joka käsittelee laiskan evaluoinnin historiaa ja keskeisempiä konsepteja. Se antaa lukijalle valmiudet ymmärtää laiskan evaluoinnin nykyisiä sovellutuksia, jotka ovat luvun \ref{sovellutuksia} aiheena. Luku \ref{subjektiiviset-edut} käsittelee subjektiivisesti koettuja etuja ja haittoja, joita laiskaan evaluointiin yleensä ja laiskan evaluoinnin sovellutuksiin liittyy. Luvussa \ref{yhteenveto} vedetään työtä yhteen ja tarkastellaan työn rajausta.

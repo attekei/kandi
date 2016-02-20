@@ -1,0 +1,33 @@
+% 9. Nyt valitsen kiinnostavimmat aihealueet/sovellutukset tarkempaan tarkasteluun, ja otan tässä kohtaa myös vahvuus/heikkous -selvityksen mukaan. Perustelen, että laiskaa evaluointia ei ole mieltä tutkia yhtenä kokonaisuutena mielipidearvioinnin keinoin, vaan on järkevämpää keskittyä yksittäisiin sovellutuksiin. Aiheita/sovellutuksia voisi olla esimerkiksi Haskell, Scala, JavaScript-kirjastot ja FRP. Tässä voi saada aikaan mielenkiintoista mielipiteiden, blogien ja tieteellisten artikkeleiden "vuoropuhelua".
+
+\section{Subjektiiviset edut ja haitat} \label{subjektiiviset-edut}
+
+\textit{Tulen kirjoittamaan tähän etujen/haittojen kartoitusprosessista sekä siitä, millaisiin alalukuihin olen jakanut osion ja miksi. Voi myös vähän käsitellä sitä miksi Haskell dominoi keskustelua. Se vie laiskan evaluoinnin selvästi pisimmälle suosituista kielistä, ja siten sitä on hyvä käyttää yleisenä benchmarkina laiskaan evaluointiin liittyvässä keskustelussa, toki terveen kritiikin kera. }
+
+\subsection{Ilmaisuvoima}
+
+\subsection{Ajan- ja tilankäytön ennustettavuus}
+\subsection{Suoritusjärjestys ja vianetsintä}
+\subsection{Käytön laajuus}
+\subsection{Soveltuvuus tutkimukseen ja työkäyttöön}
+\subsection{Johtopäätökset}
+
+\subsection{Vanha osiointi}
+
+\subsubsection{Laskennallisen biologian tutkimuksessa}\label{sec:superscience}
+
+\citet{daniels2012experience} ovat käyttäneet Haskellia laskennallisen biologian tutkimuksessa. He käyttivät onnistuneesti laiskaa evaluointia, esimerkiksi laiskoja monadeja, tutkimuksessaan. He kokivat puhtaasti funktionaalisen ohjelmoinnin ja laiskan evaluoinnin auttamaan heitä pitämään lähdekoodin modulaarisena ja korkealaatuisena. Kuitenkin he kokivat ajonaikaisten ohjelmointivirheiden selvittämisen hankalaksi. Syyksi he ilmaisivat, että testausta paljon helpottavalle \textit{funktiokutsupinojen seuraamiselle} on laiskoissa funktionaalisissa kielissä heikko tuki. He toisaalta viittasivat myös siihen, että Haskellin kehittyessä kutsupinojen seuraaminen saattaa helpottua.
+
+\subsubsection{Kaupallisessa sovelluskehityksessä}
+
+\citet{sampson2009experience} laati tiiminsä kanssa Haskellilla asiakkaalle liiketoimintakriittisen sovelluksen. Hän toteaa, että laiskasta evaluoinnista oli sekä hyötyä että haittaa. Se aiheutti haasteita kahdella osa-alueella: rinnakkaisuudessa useiden säikeiden kanssa työskennellessä sekä tilavuotojen muodossa. \textit{[Rinnakkaisuudesta tähän.]} Tilavuodot johtuivat siitä, että evaluoimattomat lausekkeet pitävät vanhentunutta dataa sovellusmuistissa (keossa) kasvattaen muistinkulutusta valtavasti. \textit{Tätä ongelmaa pitää avata vielä lisää. Rinnakkaisuuden aiheuttamien haasteiden avaamiseen auttaisi, että sekä rinnakkaisuutta että ko. ongelmaan liittyvää päänormaalimuotoa (evaluoinnin välitulosta) käsiteltäisiin tekstissä aikaisemmin.}
+
+Sampson toteaa myös, että oli vaikeaa hahmottaa, missä tilanteessa mikäkin arvo evaluoidaan, eli milloin ohjelma tekee työtä ja milloin ei. Apukirjastot usein palauttavat evaluoimattomia arvoja, jotka muodostuvat isosta määrästä lausekkeita, ja niiden evaluointi tapahtuu vasta sitten, kun arvoja käytetään. Arvon käyttämisen kohtaa voi olla kuitenkaan kirjoittajien mielestä vaikeaa löytää.
+
+Sampson toteavat artikkelin lopussa, että hän ja tiimi ovat projektin jälkeen epävarmoja laiskan evaluoinnin tuomasta arvosta: joka kerta kun he tuntevat saaneensa siitä hyvän otteen uusia ongelmia ilmenee. Hän kokee, että aiheesta pitäisi vähintäänkin olla olemassa hyvä kirja, joka käsittelisi kaikkia laiskan evaluoinnin kanssa ilmeneviä ongelmia sekä auttaisi luomaan lukijalle hyvä intuitio laiskasti evaluoitujen systeemien käyttäytymisestä.
+
+\citet{pop2010experience} käytti Pythonin ja Haskellin yhdistelmää Googlen virtuaalikoneiden hallintatyökalun toteuttamiseen. He kokivat ajonaikaisten ongelmien löytämisen vaikeaksi funktiokutsupinojen seurannan puutteen vuoksi, samaan tapaan kuin laskennallisen biologian tutkijat luvussa \ref{sec:superscience}. Haskellin tarjoamat vaihtoehdot ongelmien etsimiseen olivat hyvin primitiivisiä, ja yhdessä laiskuuden kanssa se teki hänen mielestään ongelmien löytämisestään aloittelevalle Haskell-kehittäjälle paljon vaikeampaa verrattuna perinteisempään skriptikieleen.
+
+%   \item{Lazy I/O \citep[s.123]{o2008real}}
+
+% 10. Mielipiteistä ja sovellutuksista voisi jatkaa vielä kertomalla laiskan evaluoinnin hyödyntämisestä tieteellisessä tutkimuksessa, kuten laskennallisessa biologiassa. Myös yritysesimerkkejä voi ottaa mukaan. Tämä olisi teoriassa yhdistettävissä edelliseen lukuun, mutta toisaalta koen tämän olevan kuitenkin korkeammalla tasolla (kielten ja kirjastojen vahvuudet/heikkoudet vs. laiskan evaluoinnin soveltuvuus yleisemmin eri alojen työhön).
