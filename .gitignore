@@ -24,3 +24,4 @@ main.pdf
 tutkimussuunnitelma.pdf
 *.synctex.gz
 node_modules
+_minted-main

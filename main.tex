@@ -32,8 +32,21 @@
 \usepackage{supertabular,array}  % useampisivuinen taulukko
 \usepackage{etoolbox}
 \usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{minted}
 
 % Koko dokumentin kattavia asetuksia:
+
+\lstset{framesep=10pt}
+\setminted{mathescape,
+		   xleftmargin=18pt,
+		   linenos,
+		   breaklines,
+		   fontsize=\footnotesize,
+		   fontfamily=tt,
+		   framesep=2mm}
+\renewcommand\listingscaption{Listaus}
+
 
 % Tavutettavia sanoja:
 %\hyphenation{vää-rin me-ne-vi-en eri-kois-ten sa-no-jen tavu-raja-ehdo-tuk-set}
@@ -195,7 +208,7 @@ line which continues ynd continues}
 
 % Avainsanat tiivistelmään. Tarvittaessa myös englanniksi:
 
-\KEYWORDS{laiska evaluointi, call-by-need, evaluointistrategia, suoritusjärjestys, funktionaalinen ohjelmointi, Haskel}
+\KEYWORDS{laiska evaluointi, call-by-need, evaluointistrategia, suoritusjärjestys, funktionaalinen ohjelmointi, Haskell}
 \ENKEYWORDS{key, words, the same as in FIN/SWE}
 
 % Tiivistelmään tulee opinnäytteen sivumäärä.

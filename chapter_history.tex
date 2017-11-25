@@ -23,7 +23,7 @@
 
 \section{Varhainen historia ja keskeisimmät konseptit}\label{historia}
 
-Laiska evaluointi sai alkusysäyksensä 1970-luvulla. Sarja julkaisuja loi pohjaa ajatukselle laiskoista funktionaalisista kielistä työkaluna käytännönläheiseen ohjelmistokehitykseen. Ajatus esiteltiin ensimmäisenä matemaattisesti lamdakalkyylin, funktionaalisen ohjelmoinnin kannalta keskeisen matemaattisen teorian, näkökulmasta \citep{wadsworth1971semantics}. Viisi vuotta myöhemmin julkaistiin toisistaan riippumatta kolme artikkelia \citep{henderson1976lazy,friedman1976cuns,saslmanualturner}, joissa esiteltiin laiskaa evaluointia ohjelmoinnin perspektiivistä.
+Laiskan evaluoinnin periaate syntyi 1970-luvulla. Sarja julkaisuja loi pohjaa ajatukselle laiskoista funktionaalisista kielistä työkaluna käytännönläheiseen ohjelmistokehitykseen. Ajatus esiteltiin ensimmäisenä matemaattisesti lamdakalkyylin, funktionaalisen ohjelmoinnin kannalta keskeisen matemaattisen teorian, näkökulmasta \citep{wadsworth1971semantics}. Viisi vuotta myöhemmin julkaistiin toisistaan riippumatta kolme artikkelia \citep{henderson1976lazy,friedman1976cuns,saslmanualturner}, joissa esiteltiin laiskaa evaluointia ohjelmoinnin perspektiivistä.
 
 1980-luvulla vaihteessa oli uraauurtavaa kehitystä kohti ensimmäisiä laiskoja ohjelmointikieliä. Saman aikaan kehitettiin myös täysin uudenlaisia tietokoneita, jotka kilpailivat alan standardin, Von Neumannin arkkitehtuurin, kanssa. Kuitenkin pidemmän päälle osoittautui, ettei tarvetta erikoisille arkkitehtuureille ole, vaan hyvin laadituilla ohjelmointikielten kääntäjillä voidaan päästä hyviin lopputuloksiin myös Von Neuman -arkkitehtuuria hyödyntävissä tietokoneissa. \citep{hudak2007history}
 
@@ -55,18 +55,15 @@ def noreturn(x):
         x = -x
     return x # not reached
 
-def even(x):
-  return x % 2 == 0
-
-> any(even(n) for n in [3, 2, noreturn(6)])
+> [3, 2, noreturn(6)]
 \(\Rightarrow\) (ei palauta arvoa)
     \end{alltt}
       &\footnotesize\begin{alltt}
 noreturn :: Integer -> Integer
 noreturn x = negate (noreturn x)
 
-> any . even . [3, 2, noreturn 6]
-\(\Rightarrow\) True
+> [3, 2, noreturn 6]
+\(\Rightarrow\) [3, 2, noreturn 6]
 
 \end{alltt}
 
@@ -84,7 +81,7 @@ Ei-tiukan semantiikan ``uloimmat ensin'' -suoritusjärjestys ja graafireduktioss
 
 \subsection{Haskellin ja puhtaan funktionaalisen ohjelmoinnin kehitys}
 
-\citet{hudak2007history} kuvaa, kuinka 1980-luvun puolivälissä laiskaa evaluointia hyödyntäviä ohjelmointikieliä alkoi olla ruuhkaksi asti. Useimmat kielistä soveltuivat vain kapeaan määrään käyttökohteita, ja niillä ei ollut riittävää määrää käyttäjiä suuren suosion saavuttamiseksi. Kuitenkin artikkelin kirjoittajat olivat tällöin sitä mieltä, että kielet muistuttivat ominaisuuksiltaan hyvin paljon toisiaan. Alkoi kehittyä ajatus siitä, että olisi hyvä luoda yksi, yleinen kieli, joka korvaisi kerralla monia aikaisempia kieliä.
+\citet{hudak2007history} kuvaa, kuinka 1980-luvun puolivälissä laiskaa evaluointia hyödyntävien ohjelmointikielien määrä kasvoi nopeasti. Useimmat kielistä soveltuivat vain kapeaan määrään käyttökohteita, ja niillä ei ollut riittävää määrää käyttäjiä suuren suosion saavuttamiseksi. Kuitenkin artikkelin kirjoittajat olivat tällöin sitä mieltä, että kielet muistuttivat ominaisuuksiltaan hyvin paljon toisiaan. Alkoi kehittyä ajatus siitä, että olisi hyvä luoda yksi, yleinen kieli, joka korvaisi kerralla monia aikaisempia kieliä.
 
 Tämä johti Haskell-ohjelmointikielen kehityksen aloittamiseen. Siitä vastasi Haskell-komitea, jossa vaikutti monia aikaisempien laiskaa evaluointia hyödyntäneiden kielien suunnittelijoita. Komitea onnistui keräämään yhteen aikaisemmin erillään samaa aihepiiriä tutkineita, mikä kiihdytti laiskan evaluoinnin parissa tapahtunutta tieteellistä kehitystä. Alkuvaiheen kehitystyö oli onnistunutta, ja Haskellista kehittyi etenkin tietojenkäsittelytieteen akateemisen tutkimuksen parissa suosittu kieli.
 

@@ -27,6 +27,7 @@ Laiskalle evaluoinnille on löydetty lukuisia erilaisia sovellutuksia. Tähän l
 
 \subsection{Laiskat muuttujat ja by-name-parametrit Scalassa}
 
+% "Semantiikaltaan tiukka kieli" => suoritusjärjestykseltään applikatiivinen kieli?
 \textit{Scala} on sekä funktionaalista että imperatiivista ohjelmointia tukeva yleiskäyttöinen ohjelmointikieli. Scala-lähdekoodi kääntyy Java-tavukoodiksi, ja kieli on täysin yhteensopiva Java-kirjastojen kanssa. Scala on semantiikaltaan tiukka kieli, mutta evaluointijärjestystä on mahdollista muuttaa paikallisesti kahdella mekanismilla: \textit{laiskoilla muuttujilla} ja \textit{by-name-parametreilla}.
 
 Laiska muuttuja luodaan lisäämällä \verb!lazy! -avainsana muuttujan määrittelyn alkuun. Kyseisen muuttujan arvon määrittävä lauseke evaluoidaan vasta sitten, kun muuttujaa käytetään ensimmäistä kertaa. Arvo myös sidotaan muuttujaan, eli jos muuttujaa tarvitaan uudelleen, niin arvoa ei tarvitse evaluoida uudelleen.
@@ -57,7 +58,7 @@ JavaScript on ainoa verkkoselainten yleisesti tukema ohjelmointikieli, ja lisäk
 
 \textit{Lazy.js} on JavaScriptin-apukirjasto sekvenssien käsittelemiseen. Siinä Immutablen laiskaa sekvenssin luontia vastaa konstruktori \verb!Sequence!. Lazy.js ei Immutablen tapaan esittele uusia tietorakenteita, vaan sitä voi käyttää yhdessä JavaScriptin sisäänrakennettujen listamaisten tietorakenteiden kanssa. Toisin kuin Immutable.js, se myös tukee joitain funktionaalisen reaktiivisen ohjelmoinnin konsepteja, joita käsittelen seuraavassa luvussa.
 
-Sekä Immutable.js että Lazy.js lupaavat, että viivyttämällä sekvensseille kohdistettujen operaatioiden evaluointia ne ovat merkittävästi nopeampia kuin kilpailijansa, joissa tyypillisesti listan arvo evaluoidaan uudelleen jokaisen listaoperaation kutsun yhteydessä.
+Sekä Immutable.js että Lazy.js väittävät verkkosivustoillaan, että viivyttämällä sekvensseille kohdistettujen operaatioiden evaluointia ne ovat merkittävästi nopeampia kuin kilpailijansa, joissa tyypillisesti listan arvo evaluoidaan uudelleen jokaisen listaoperaation kutsun yhteydessä.
 
 \textit{Halutaanko sekä Clojure-osioon että tähän lähdeviittaukset kielen/kirjastojen dokumentaatioihin?}
 
