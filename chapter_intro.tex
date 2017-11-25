@@ -83,12 +83,12 @@ main = do
 > -- (erillistä `print` -kutsua ei REPlissä tarvita)
 > head list
 25
-> -- Nyt ainoastaan viimeinen arvo on evaluoimatta
+> -- Nyt ensimmäinen arvo on memoisoitu, eli se voidaan palauttaa suoraan muistista,
+> -- ja vain toinen arvo on evaluoimatta
 > :sprint list
 [25,_]
 > -- Tulostetaan listan kaikki arvot
-> -- Ensimmäinen arvo oli jo muistissa ("memoisoituna"),
-> -- joten vain toinen tarvitsee evaluoida
+> -- Ensimmäinen arvo palautetaan muistista ja toinen evaluoidaan
 > list
 [25,10]
 > :sprint list
