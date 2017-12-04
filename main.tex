@@ -34,6 +34,7 @@
 \usepackage{amssymb}
 \usepackage{xcolor}
 \usepackage{minted}
+\usepackage{longtable}
 
 % Koko dokumentin kattavia asetuksia:
 
@@ -249,7 +250,8 @@ line which continues ynd continues}
 % \newpage                       % pakota sivunvaihto
 
 % -------------- Sisällysluettelo / TOC -------------------------------
-
+\input{acronyms}
+\clearpage
 \tableofcontents
 
 \label{pages:prelude}
@@ -300,6 +302,7 @@ line which continues ynd continues}
 
 % input-komento upottaa tiedoston
 \input{chapter_intro}
+\input{chapter_terminology}
 \input{chapter_history}
 \input{chapter_applications}
 \input{chapter_opinions}

@@ -1,0 +1,102 @@
+% --------------------------------------------------------------------
+% Cheatsheet:
+% \verb!lazy val!   -- esim. lyhyisiin koodinpätkiin
+% \begin{verbatim}  -- esim. pitkiin koodinpätkiin
+% `` tekstiä ''     -- lainausmerkit
+% \textbf{huom!}    -- boldaus
+% \begin{quotation}
+% \noindent \it     -- quoten lisäys
+% \ldots            -- kolme pistettä
+% footnote{juh}     -- alaviite
+% \citet, \citep
+% \citet[s.234]{}   -- viitteet, http://merkel.zoneo.net/Latex/natbib.php
+% \begin{sloppypar} -- ahdas teksti
+% \clearpage        -- onkkelmien korjaamiseen lukujen kanssa
+% --                -- yhdysviiva
+% \enumerate
+% \itemize          -- listat
+% \begin[htb]{figure}
+% \begin[htb]{table} - Kuva ja taulukko, (h)ere, (t)op, (b)ottom
+% \begin{equation}  -- kaava
+% \label{eq:kaava1} -- laabeli
+%!TEX root = main.tex
+
+\section{Käsitteiden määrittely}\label{kasitteisto}
+
+% Monille näistä käsitteistä on hankalaa hakea historiaa, ja historian mukaan jäsentely tuntuu keinotekoiselta, joten pidetään historiaosia erillisenä.
+%	* Mageeta tässä osiossa on se, että jos tämä paisuu liian raskaaksi, niin käsitemäärittelyjä pystyy melko joustavasti ripottelemaan muihin osioihin sitä mukaa kun käsitteitä tulee vastaan
+%	- [ ] Kirjoitetaan intro tähän osioon vasta sitten, kun käsitteet on määritelty
+%		* Jotain tällaista: Eri kirjoittajat käyttäjät eri käsitteitä eri tavoin, ja sekaannuksia sekä käsitteiden sävyeroja on syytä tuoda eksplisiittisesti esiin
+
+\subsection{Funktionaalinen ohjelmointi}
+Funktionaalinen ohjelmointi on ohjelmointikielten kategoria, joka on saanut inspiraationsa lamdakalkyylistä, matemaattisen logiikan mallista, jonka \citet{church1932set} on laatinut.
+
+\citet{scott2009programming} sanoo, että tiukasti määriteltynä funktionaalinen ohjelmointi määrittelee ohjelman ulostulot niiden sisääntulojen funktiona. Funktiot ovat funktioita matemaattisessa mielessä, eli niillä ei ole sisäistä tilaa. Ohjelmien koostaminen tapahtuu yhdistämällä yksinkertaisia funktioita toisiinsa.
+
+Funktionaaliseen ohjelmointiin liittyy läheisesti seuraavat käsitteet:
+\begin{itemize}
+	\item \textit{Deklaratiivinen ohjemointi} on funktionaalisen ohjelmoinnin yläkategoria, jossa keskiössä on sen kuvaaminen, mitä tietokoneen halutaan tekevän. Deklaratiivisille ohjelmointikielille on ominaista korkea abstraktiotaso ja se, että ohjelmoijan on luontevaa muotoilla ongelmansa kielen tarjoamilla abstraktioilla. Deklaratiivisen ohjelmoinnin vastakohta on imperatiivinen ohjelmointi, jossa puolestaan keskitytään siihen, miten tietokoneen kuuluisi suorittaa halutut tehtävät.
+
+	\item \textit{Deterministisyys} tarkoittaa sitä, että tietyillä sisääntuloilla ohjelman ulostulo on aina sama riippumatta ajanhetkestä tai muista tekijöistä.
+
+	\item \textit{Viittausten läpinäkyvyys} (eng. \textit{referential transparency}) tarkoittaa sitä, että ohjelmointikielen lausekkeen korvaaminen sen arvolla ei muuta ohjelman ulostuloa. Viittaukseltaan läpinäkyvät lausekkeet ovat deterministisiä.
+
+	\item \textit{Sivuvaikutus} (eng. \textit{side effect}) tarkoittaa sitä, että ohjelmointikielen yhden aliohjelman kutsuminen vaikuttaa ohjelman muiden aliohjelmien palauttamiin arvoihin ohjelman myöhemmässä suoritusvaiheessa. Jos ohjelmassa on sivuvaikutuksia, se ei ole deterministinen, ja siten funktionaalisissa ohjelmointikielissä on mahdollisimman vähän sivuvaikutuksia.
+
+	\item \textit{Puhdas funktio} (eng. \textit{pure function}) tarkoittaa funktiota, joka on sivuvaikutukseton, viittauksiltaan läpinäkyvä ja deterministinen.
+
+	\item \textit{Puhtaasti funktionaalinen ohjelmointikieli} (eng. \textit{pure function}) sisältää ainoastaan puhtaita funktioita. Tällaisia kieliä ovat esimerkiksi Haskell ja Miranda.
+\end{itemize}
+
+Käsitteistä deterministisyys, viittausten läpinäkyvyys ja sivaikutuksettomuus ovat merkitykseltään osin päällekkäisiä, ja niitä kaikkia käytetään yleisesti funktionaalisen ohjelmoinnin luonteen kuvaamiseen.
+
+Usein ohjelmointikielet sisältävät funktionaalisen ohjelmoinnin piirteitä, mutta eivät täytä puhtaasti funktionaalisen kielen kriteeristöä. Tällaisia kieliä ovat esimerkiksi Scala, Clojure ja Lisp. Hämäävästi kuitenkin monia näistä kielistä kutsutaan usein funktionaalisiksi kieliksi, koska ne eroavat merkittävästi imperatiivisista ohjelmointikielistä.
+
+\subsection{Evaluointisemantiikat}
+
+Evaluointisemantiikka määrittelee säännöt ohjelmointikielen funktiokutsujen eri vaiheiden evaluoinnille. Käytännössä se vastaa yhteen tai useampaan seuraavista kysymyksistä:
+
+\begin{itemize}
+    \item Milloin funktiolle funktiokutsussa annetut parametrilausekkeet evaluoidaan?
+    \item Millä tavoin evaluoidut parametrilausekkeiden arvot välitetään funktion ohjelmakoodille?
+\end{itemize}
+
+Monille evaluointisemantiikoille ei ole yksiselitteistä määritelmää, ja joitain termejä käytetään hämmentävästi sekaisin keskenään. Pyrin seuraavassa sekä kuvaamaan kunkin evaluointisemantiikan tyypillisimmän määritelmän että kertomaan, mitä muita merkityksiä kyseiselle käsitteelle välillä kirjallisuudessa liitetään.
+% - [ ] Jonkinlainen ryhmittelevä visualisointi / taulukko kärkeen jossa kaikki semantiikat (seuraavat bullet pointit) olisi esillä ja näkyisi miten ne suhtautuvat toisiinsa
+
+\subsubsection{Applikatiivinen evaluointi ja normaalijärjestyksessä evaluointi}
+
+\citet{scott2009programming} mukaan \textit{applikatiivinen evaluonti} (eng. \textit{applicative evaluation}) tarkoittaa funktion parametrienlausekkeiden evaluointia ennen funktion ohjelmakoodin suorituksen aloittamista, ja ohjelmakoodille välitetään evaluoidut arvot.
+
+\textit{Normaalijärjestyksessä evaluointi} (eng. \textit{normal-order evaluation}) puolestaan tarkoittaa, että parametrilausekkeet evaluoidaan vasta sitten, kun niitä oikeasti tarvitaan. Evaluoimattomat parametrilausekkeet välitetään ohjelmakoodille, ja vasta sitten kun ohjelmointikoodissa käytetään parametrien arvoa, lausekkeet evaluoidaan.
+
+\subsubsection{Parametrimoodit}
+% Call-By-Value, Call-By- Name, Call-By-Need
+% (ehkä ylimääräisiä: Call-By-Sharing, Call-By-Reference)
+
+% Vois tsekata vielä miten alkuperäisessä lähteessä tarkalleen näitä kuvataan
+Parametrimoodeja yhdistää lähinnä niiden nimeämiskäytäntö, joka helpottaa niiden vertaamista keskenään. Yleisimmin käytettyjä parametrimoodeja ovat \citet{scott2009programming} mukaan
+
+\begin{itemize}
+	\item \textit{Call-by-value}, jossa funktiota kutsuttaessa parametrilauseke evaluoidaan ennen funktion ohjelmakoodia, ja arvo on käytettävissä parametria vastaavassa muuttujassa funktion ohjelmakoodissa. Jos parametrilausekkeena on ollut muuttuja, muuttujan arvo kopioidaan uuteen muuttujaan funktion ohjelmakoodia varten.
+    \item \textit{Call-by-name}, jossa argumenttilausekkeet sijoitetaan suoraan funktion ohjelmakoodiin niihin kohtiin, joissa argumentteihin käytetään. Argumenttilauseke evaluoidaan uudestaan joka kerta, kun ohjelmakoodissa tarvitaan kyseisen argumentin arvoa.
+    \item \textit{Call-by-need}, jossa argumenttilauseke evaluoidaan vasta, kun funktion ohjelmakoodi tarvitsee sen arvoa ensimmäistä kertaa. Kun argumenttilauseke on evaluoitu, se pidetään muistissa sitä varten, jos ohjelmakoodi tarvitsee argumenttia uudestaan. Usein tätä periaatetta kutsutaan memoisoinniksi (eng. \textit{memoization})
+\end{itemize}
+
+Call-by-value evaluoidaan applikoiden siinä missä call-by-name ja call-by-need evaluoidaan normaalijärjestyksessä. Siten parametrimoodit voi nähdä applikatiivisen evaluoinnin ja normaalijärjestyksessä evaluoinnin alakategorioina.
+
+\subsubsection{Tiukka ja ei-tiukka semantiikka}
+
+HaskellWikin(2017) mukaan tiukassa semantiikka tarkoittaa sitä, että ohjelmointikielen lausekkeella ei voi olla arvoa, jos millä tahansa sen alilausekkeella ei ole arvoa.  Ei-tiukassa semantiikassa puolestaan lausekkeilla voi olla arvo, vaikka alilausekkeilla, oista nämä lausekkeet koostuvat, ei olisi arvoa. Se, että lauseke ei saa arvoa, voi aiheutua esimerkiksi päättymättömästä silmukasta tai suoritusvirheestä.
+
+Tiukan ja ei-tiukan semantiikan eron voi ilmaista denotatiivisen semantiikan avulla, joka on tapa formalisoida ohjelmointikielen käyttäytymistä matemaattisia ilmaisuja hyödyntäen. Jos oletamme 
+
+
+% Kuvataan ero denotatiivisen semantiikan ja tarkemmin bottom typen / non-terminationin avulla; haasteena voi olla, että merkintätapa on lukijalle hiukkasen vieras. Onneksi verbaalisella selityksellä voi täydentää akateemista notaatiota.
+
+\subsubsection{Ahne ja laiska evaluointi}
+% jotkut pitävät ”laiskan evaluoinnin” määritelmän tarkoittavan toteutustapaa, jossa jokaisesta funktion argumentista pidetään yllä tietoa että onko se evaluoimaton, evaluoidaanko arvoa juuri nyt, vai mikä evaluoitu arvo on
+% en tiedä onko ahneelle evaluoinnille ollenkaan vastaavaa tarjolla
+
+% 0 Within the functional programming community, the term “lazy evaluation” is often used for any implementation that declines to evaluate unneeded function parameters; this includes both naive implementations of normal-order evaluation and the memoizing mechanism described here.
+
