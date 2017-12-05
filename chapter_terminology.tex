@@ -61,14 +61,64 @@ Evaluointisemantiikka määrittelee säännöt ohjelmointikielen funktiokutsujen
     \item Millä tavoin evaluoidut parametrilausekkeiden arvot välitetään funktion ohjelmakoodille?
 \end{itemize}
 
-Monille evaluointisemantiikoille ei ole yksiselitteistä määritelmää, ja joitain termejä käytetään hämmentävästi sekaisin keskenään. Pyrin seuraavassa sekä kuvaamaan kunkin evaluointisemantiikan tyypillisimmän määritelmän että kertomaan, mitä muita merkityksiä kyseiselle käsitteelle välillä kirjallisuudessa liitetään.
+Monille evaluointisemantiikoille ei ole yksiselitteistä määritelmää, ja joitain termejä käytetään hämmentävästi sekaisin keskenään. Pyrin seuraavassa sekä kuvaamaan kunkin evaluointisemantiikan tyypillisimmän määritelmän että kertomaan, mitä muita merkityksiä kyseiselle käsitteelle välillä kirjallisuudessa liitetään. Pyrin myös kuvan \ref{figure:evaluation_semantics} puuhierarkialla havainnollistamaan, miten käsitteet liittyvät toisiinsa ja miten käsitteitä voi ryhmitellä keskenään.
+
+
+\begin{figure}[h]
+  \begin{center}
+	\footnotesize
+	\begin{forest}
+	for tree={
+	  draw,
+	  anchor=north,
+	  align=center,
+	  child anchor=north
+	},
+	[{Evaluointisemantiikka}, align=center, name=SS,s=0.3cm,l sep=0.7cm
+	  [Tiukka evaluointi, name=PDC,l sep=0.7cm
+		  [{Applikatiivinen evaluointi}, name=MS,l sep=0.7cm, tikz={\node [draw,label={[gray]below:{\small Ahne evaluointi}},dashed,gray,fit=()(!1)(!l)] {};}
+		    [{Call-by-value}, name=MOODI]
+		  ]
+	  ]
+	  [Ei-tiukka evaluointi,l sep=0.7cm
+		[Normaalijarjestyksessa evaluointi,l sep=0.7cm, tikz={\node [draw,label={[gray]below:{\small Laiska evaluointi}},dashed,gray,fit=()(!1)(!l)] {};}
+			[Call-by-name]
+			[Call-by-need\\\scriptsize(call-by-name\\\scriptsize memoisoinnilla)]
+		  ]
+	  ]
+	]
+	\node[anchor=west,align=left] 
+	  at ([xshift=-4.5cm]MOODI.west) {Miten parametrit\\välitetään koodille?};
+	\node[anchor=west,align=left] 
+	  at ([xshift=-4.5cm]MOODI.west|-MS) {Milloin parametrit\\evaluoidaan?};
+	\node[anchor=west,align=left] 
+	  at ([xshift=-4.5cm]MOODI.west|-PDC) {Mitä jos ei arvoa\\ alilausekkeella?};
+	\path (current bounding box.west)|-coordinate(l)(MS.base);
+	\end{forest}
+\normalsize
+    \caption{Evaluointisemantiikkojen keskinäisiä suhteita puuhierarkialla havainnollistettuna}
+    \label{figure:evaluation_semantics}
+  \end{center}
+\end{figure}
+
 % - [ ] Jonkinlainen ryhmittelevä visualisointi / taulukko kärkeen jossa kaikki semantiikat (seuraavat bullet pointit) olisi esillä ja näkyisi miten ne suhtautuvat toisiinsa
+
+\subsubsection{Tiukka ja ei-tiukka semantiikka}
+
+HaskellWikin (2017) mukaan \textit{tiukassa semantiikka} (eng. \textit{strict semantics}) tarkoittaa sitä, että ohjelmointikielen lausekke ei voi olla arvoa, jos millä tahansa sen alilausekkeella ei ole arvoa. \textit{Ei-tiukassa semantiikassa} (eng. \textit{non-strict semantics}) puolestaan lausekkeilla voi olla arvo, vaikka alilausekkeilla, joista nämä lausekkeet koostuvat, ei olisi arvoa.
+
+Tilanne, jossa ohjelmointikielen lauseke ei saa arvoa, voi tarkoittaa käytännössä esimerkiksi ikuiseen silmukkaan jäämistä (kuten johdantoluvun \verb!noreturn! -funktiota kutsuessa) tai virheilmoitusta, joka lopettaa ohjelman suorituksen.
 
 \subsubsection{Applikatiivinen evaluointi ja normaalijärjestyksessä evaluointi}
 
 \citet{scott2009programming} mukaan \textit{applikatiivinen evaluonti} (eng. \textit{applicative evaluation}) tarkoittaa funktion parametrienlausekkeiden evaluointia ennen funktion ohjelmakoodin suorituksen aloittamista, ja ohjelmakoodille välitetään evaluoidut arvot.
 
 \textit{Normaalijärjestyksessä evaluointi} (eng. \textit{normal-order evaluation}) puolestaan tarkoittaa, että parametrilausekkeet evaluoidaan vasta sitten, kun niitä oikeasti tarvitaan. Evaluoimattomat parametrilausekkeet välitetään ohjelmakoodille, ja vasta sitten kun ohjelmointikoodissa käytetään parametrien arvoa, lausekkeet evaluoidaan.
+
+Applikatiivisessa evaluointi noudattaa tiukkaa semantiikkaa, sillä kaikilla funktioparametreilla (eli alilausekkeilla) on oltava arvo ennen kuin funktio itsessään evaluoidaan. Siten applikatiivisen evaluoinnin voi ajatella olevan tiukan semantiikan alakategoria evaluointisemantiikkojen hierarkiassa.
+
+Vastaavasti normaalijärjestyksessä evaluointi, jossa evaluointia viivästetään, täytää ei-tiukan semantiikan kriteeristön, koska jokin parametri voi jäädä funktiokutsussa evaluoimatta, jos sitä ei tarvita funktion ohjelmakoodissa. Siinä tilanteessa ei ole merkitystä, olisiko tällä parametrilla ollut arvoa vai ei.
+
 
 \subsubsection{Parametrimoodit}
 % Call-By-Value, Call-By- Name, Call-By-Need
@@ -79,24 +129,62 @@ Parametrimoodeja yhdistää lähinnä niiden nimeämiskäytäntö, joka helpotta
 
 \begin{itemize}
 	\item \textit{Call-by-value}, jossa funktiota kutsuttaessa parametrilauseke evaluoidaan ennen funktion ohjelmakoodia, ja arvo on käytettävissä parametria vastaavassa muuttujassa funktion ohjelmakoodissa. Jos parametrilausekkeena on ollut muuttuja, muuttujan arvo kopioidaan uuteen muuttujaan funktion ohjelmakoodia varten.
-    \item \textit{Call-by-name}, jossa argumenttilausekkeet sijoitetaan suoraan funktion ohjelmakoodiin niihin kohtiin, joissa argumentteihin käytetään. Argumenttilauseke evaluoidaan uudestaan joka kerta, kun ohjelmakoodissa tarvitaan kyseisen argumentin arvoa.
-    \item \textit{Call-by-need}, jossa argumenttilauseke evaluoidaan vasta, kun funktion ohjelmakoodi tarvitsee sen arvoa ensimmäistä kertaa. Kun argumenttilauseke on evaluoitu, se pidetään muistissa sitä varten, jos ohjelmakoodi tarvitsee argumenttia uudestaan. Usein tätä periaatetta kutsutaan memoisoinniksi (eng. \textit{memoization})
+    \item \textit{Call-by-name}, jossa parametrilausekkeet sijoitetaan suoraan funktion ohjelmakoodiin niihin kohtiin, joissa argumentteihin käytetään. Parametrilauseke evaluoidaan uudestaan joka kerta, kun ohjelmakoodissa tarvitaan kyseisen argumentin arvoa.
+    \item \textit{Call-by-need}, jossa parametrilauseke evaluoidaan vasta, kun funktion ohjelmakoodi tarvitsee sen arvoa ensimmäistä kertaa. Kun parametrilauseke on evaluoitu, se pidetään muistissa sitä varten, jos ohjelmakoodi tarvitsee argumenttia uudestaan. Usein tätä muistissa pitämisen periaatetta kutsutaan \textit{memoisoinniksi} (eng. \textit{memoization})
 \end{itemize}
 
 Call-by-value evaluoidaan applikoiden siinä missä call-by-name ja call-by-need evaluoidaan normaalijärjestyksessä. Siten parametrimoodit voi nähdä applikatiivisen evaluoinnin ja normaalijärjestyksessä evaluoinnin alakategorioina.
 
-\subsubsection{Tiukka ja ei-tiukka semantiikka}
+\subsubsection{Laiska ja ahne evaluointi}
 
-HaskellWikin(2017) mukaan tiukassa semantiikka tarkoittaa sitä, että ohjelmointikielen lausekkeella ei voi olla arvoa, jos millä tahansa sen alilausekkeella ei ole arvoa.  Ei-tiukassa semantiikassa puolestaan lausekkeilla voi olla arvo, vaikka alilausekkeilla, oista nämä lausekkeet koostuvat, ei olisi arvoa. Se, että lauseke ei saa arvoa, voi aiheutua esimerkiksi päättymättömästä silmukasta tai suoritusvirheestä.
+Laiska evaluointi (eng. \textit{lazy evaluation}) esiintyy kirjallisuudessa tarkoittaen samaa kuin joko normaalijärjestyksessä evaluointi tai jokin sen alakategorioista. Myös \citet{scott2009programming} toteaa, että laiskaa evaluointia käytetään usein eräänlaisena yleiskäsitteenä samankaltaisille evaluointisemantiikoille.
 
-Tiukan ja ei-tiukan semantiikan eron voi ilmaista denotatiivisen semantiikan avulla, joka on tapa formalisoida ohjelmointikielen käyttäytymistä matemaattisia ilmaisuja hyödyntäen. Jos oletamme 
+Ahne evaluointi (eng. \textit{eager evaluation}) määritellään usein laiskan evaluoinnin vastakohdaksi. Se voi kontekstista riippuen tarkoittaa samaa kuin esimerkiksi applikatiivinen evaluointi tai call-by-value -parametrimoodi.
 
+Käsitesekaannuksen välttämiseksi en vastaisuudessa tässä työssä käytä laiskan tai ahneen evaluoinnin käsitteitä, vaan viittaan aina yksiselitteisemmin määritettyihin evaluointisemantiikkoihin.
+
+
+
+% \begin{enumerate}
+% 	\item Määritellään \verb!noreturn! -funktio, joka ei esimerkiksi ikuisen silmukan tai virhetilanteen takia koskaan palauta arvoa.
+% 
+% 	\item Muodostetaan lista, jonka alkioissa on ensin arvon saavia lausekkeita ja lopuksi kutsu \verb!noreturn! -funktioon. Yksinkertaisuuden nimissä käytetään arvon saavina lausekkeina numeroita.
+% 
+% 	\item Tarkistetaan ohjelmointikielen tarjoamalla komennolla, onko listassa jotain tiettyä arvoa, joka on 
+% \end{enumerate}
+% 
+% Python-
+% \begin{listing}[H]
+%     \caption{Python, tiukan semantiikan säännöillä evaluoitu lauseke}
+%   \bigskip
+%   \begin{minted}[linenos=false, xleftmargin=0pt]{python}
+% 2 in [2, 4, noreturn(5)]
+%   \end{minted}
+% \end{listing}
+% 
+% Haskellissa puolestaan lauseke noudattaa ei-tiukkaa semantiikkaa:
+
+% Yksi tyypillinen esimerkki Esimerkkinä Pythonissa seuraava \verb!noreturn! -funktio jää aina ikuiseen silmukkaan eikä koskaan palauta arvoa:
+%
+% \begin{listing}[H]
+%     \caption{Funktio joka ei koskaan saa arvoa Pythonissa}
+%   \bigskip
+%   \begin{minted}{python}
+% def noreturn(x):
+%   while True:
+%     x = -x
+%   return x
+% \end{minted}
+% \end{listing}
+%
+% Tämän funktion voi ilmaista denotatiivisen semantiikan avulla, joka on tapa formalisoida ohjelmointikielen käyttäytymistä matemaattisia ilmaisuja hyödyntäen. Denotatiivisen semantiikan kielellä tämän funktion käyttäytymisen voi ilmaista \textit{pohjatyypin} (eng. \textit{bottom type}) avulla, jota Haskell-yhteisössä merkataan tyypillisesti symbolilla \(\bot\). Pohjatyyppi tarkoittaa, että laskennan suoritus ei koskaan pääty onnistuneesti. \mbox{Pythonin} \verb!noreturn! -funktio merkitään
+%
+% \[
+% noreturn\; x = \bot
+% \]
+%
+% mikä tarkoittaa, että funktion suoritus ei pääty onnistuneesti millään muuttujan \(x\) arvolla. Samalla merkintä näyttää, että funktio noudattaa ei-tiukkaa semantiikkaa.
+%
+% Vastaavasti Haskell
 
 % Kuvataan ero denotatiivisen semantiikan ja tarkemmin bottom typen / non-terminationin avulla; haasteena voi olla, että merkintätapa on lukijalle hiukkasen vieras. Onneksi verbaalisella selityksellä voi täydentää akateemista notaatiota.
-
-\subsubsection{Ahne ja laiska evaluointi}
-% jotkut pitävät ”laiskan evaluoinnin” määritelmän tarkoittavan toteutustapaa, jossa jokaisesta funktion argumentista pidetään yllä tietoa että onko se evaluoimaton, evaluoidaanko arvoa juuri nyt, vai mikä evaluoitu arvo on
-% en tiedä onko ahneelle evaluoinnille ollenkaan vastaavaa tarjolla
-
-% 0 Within the functional programming community, the term “lazy evaluation” is often used for any implementation that declines to evaluate unneeded function parameters; this includes both naive implementations of normal-order evaluation and the memoizing mechanism described here.
-
