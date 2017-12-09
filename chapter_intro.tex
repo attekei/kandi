@@ -23,116 +23,50 @@
 
 \section{Johdanto}
 
+Laiska evaluointi on 1970-luvulta juontuva ohjelmointikielten suoritusta ohjaava periaate. Sen taustalla on ajatus siitä, että ohjelmakoodia suorittaessa kannattaisi välttää turhaa tai liian aikaista laskentaa. Vastaavasti laskenta kannattaa tehdä vasta, kun laskennan tulosta tarvitaan.
+
+Periaatetta on luontevaa havainnollistaa esimerkillä. Kuvitellaan, että haluat laatia ohjelman jollain laiskan evaluoinnin periaatteita noudattavalla ohjelmointikielellä. Tämä ohjelma käsittelee listaa, joka koostuu aritmeettisista laskutoimituksista, ja tulostaa listan alkioita käyttäjälle. Ohjelmakoodi voisi näyttää seuraavalta:
 
 
 \begin{listing}[H]
-    \caption{Python, applikoiva evaluointijärjestys}
+  \caption{Pseudokielinen esimerkki listaa käsittelevästä ohjelmasta}
   \bigskip
   \begin{minted}{python}
-# Funktio, jonka suoritus jatkuu ikuisesti ja joka ei koskaan palauta arvoa
-def noreturn(x):
-  while True:
-    x = -x
-  return x
-
-# Luodaan lista, jonka ainoan alkion muodostava lauseke ei koskaan palauta arvoa
-# Lauseke evaluoidaan välittömästi, joten ohjelman suoritus ei etene
-list = [noreturn(1)]
-print "Tämä ei koskaan tulostu"
-\end{minted}
+list = [2*3, 5^10, 100/2]
+print(list[0])
+print(list[2])
+  \end{minted}
 \end{listing}
 
+Laiskan evaluoinnin periaatteita noudattaen ohjelman suoritus voisi tapahtua seuraavasti:
 
-\begin{listing}[H]
-  \caption{Haskell, normaalinen evaluointijärjestys}
-  \bigskip
-  \begin{minted}{haskell}
--- Funktio, jonka suoritus jatkuu ikuisesti ja joka ei koskaan palauta arvoa
-noreturn :: Integer -> Integer
-noreturn x = negate (noreturn x)
+\begin{itemize}
+    \item{Kun lista luodaan komennolla \verb!list = [2*5, 5^10, 100/2]!, mitään laskutoimitusta ei vielä lasketa, koska se olisi liian aikaista.}
+    \item{Kun listan alkioita tulostetaan, niiden arvot (25 ja 50) lasketaan vasta juuri ennen tulostamista.}
+    \item{Koska laskutoimituksen \verb!5^10! arvoa ei tulosteta ohjelman suorituksen aikana, sitä ei koskaan lasketa. Näin ylimääräiseltä laskennalta säästytään.}
+\end{itemize}
 
--- Luodaan lista, jonka ainoan alkion muodostava lauseke ei koskaan palauta arvoa
--- Lauseketta ei vielä evaluoida listan määrittelyhetkellä
-list = [noreturn 1]
+Laiska evaluointi on periaatteena monille ohjelmoijille vieras, koska suosituista yleiskäyttöisistä ohjelmointikielistä ainoastaan Haskell käyttää sitä suoritusmallinaan. Merkittävästi yleisempi on ahneeksi evaluoinniksi kutsuttu periaate, jossa ohjelmakoodin suoritus etenee ohjelmakoodin kuvaamassa järjestyksessä, eikä laskentaa viivästetä myöhempään ajanhetkeen.
 
--- Haskell-ohjelman suoritus tapahtuu `main` -päälausekkeessa
-main = do
-  -- Listan pituutta laskettaessa alkion arvoa ei tarvita,
-  -- joten alkion muodostavaa lauseketta ei tarvitse evaluoida
-  length list >>= print
-  "Tämä tulostuu" >>= print
-  -- Listan ensimmäisen arvon tulostaminen aiheuttaa lausekkeen evaluoinnin,
-  -- joten ohjelman suoritus ei enää etene
-  head list >>= print
-  "Tämä ei koskaan tulostu" >>= print
+Monissa moderneissa ohjelmointikielissä on kuitenkin mahdollista käyttää laiskaa evaluointia joissain kielen ominaisuuksissa. Näistä esimerkkejä ovat Clojuren laiskat listarakenteet, Scalan laiskat instanssimuuttujat ja C++:n laiskat futuurit. Lisäksi joissain ohjelmointikielissä on suosittuja apukirjastoja, joilla laiskaa evaluointi voi simuloida. Tällainen on esimerkiksi JavaScript-yhteisössä suosittu Immutable.js, joka tarjoaa laiskasti evaluoituja listarakenteita.
 
-\end{minted}
-\end{listing}
+Ohjelmointiyhteisön sisällä ymmärrys laiskasta evaluoinnista on vajavaista. Sen käytön hyödyistä ja haitoista on sirpaleista ja ristiriitaista tietoa. Lisäksi aihepiiristä keskusteleminen on hankalaa, koska laiskan evaluoinnin määritelmä ei ole yksiselitteinen.
 
-\begin{listing}[H]
-  \caption{Haskell, memoisaatio REPLissä havainnollistettuna}
-  \bigskip
-  \begin{minted}[linenos=false, xleftmargin=0pt]{haskell}
-> -- Luodaan kokonaisluvuista koostuva lista, jolla on kaksi alkiota
-> let list = [5 * 5, 5 + 5] :: [Integer]
-> -- Tulostetaan listan arvo ja huomataan, että alkioita ei vielä ole evaluoitu
-> -- Merkki `_` kertoo, että arvoa ei ole evaluoitu
-> :sprint list
-[_,_]
-> -- Tulostetaan listan ensimmäinen arvo
-> -- (erillistä `print` -kutsua ei REPlissä tarvita)
-> head list
-25
-> -- Nyt ensimmäinen arvo on memoisoitu, eli se voidaan palauttaa suoraan muistista,
-> -- ja vain toinen arvo on evaluoimatta
-> :sprint list
-[25,_]
-> -- Tulostetaan listan kaikki arvot
-> -- Ensimmäinen arvo palautetaan muistista ja toinen evaluoidaan
-> list
-[25,10]
-> :sprint list
-[25,10]
-\end{minted}
-\end{listing}
-Laiska evaluointi on 1970-luvulta juontuva ohjelmoinnin periaate, jonka ytimessä on turhan ja liian aikaisen laskennan välttäminen ohjelmakoodia suorittaessa. Eli jos esimerkiksi listan alkiota ei koskaan tarvita, niin sen arvoakaan ei ole syytä laskea. Vastaavasti jos arvoa tarvitaankin, sitä ei lasketa listaa muodostettaessa, vaan vasta sitten kuin sitä on tarve käyttää.
+\subsection{Tavoitteet ja tutkimuskysymykset}
 
-Laiska evaluointi on nimityksenä vakiintunut, mutta ``laiskuuden'' osalta hieman harhaanjohtava. Paremmin periaatetta kuvaa sen englanninkielinen synonyymi \textit{call-by-need evaluation}, joka korostaa sitä, että laskentaa tehdään vasta kun tietoa tarvitaan. Toinen tulkinta on, että laskentaa viivytetään niin kauan, kunnes arvo on pakko laskea.
+Työni keskeisimpänä tavoitteena on koota laiskaa evaluointia käsittelevää kirjallisuutta yhteen siten, että aihetta on helpompi opettaa esimerkiksi yliopistoympäristössä ja siitä on mahdollista käydä korkeatasoista keskustelua yhteisellä, yksiselitteisellä terminologialla. Päädyin näiden tavoitteiden kautta seuraaviin tutkimuskysymyksiin.
 
-Laiskan evaluoinnin tekee aiheena kiinnostavaksi se, että sitä hyödynnetään kasvavissa määrin niin ohjelmointikielien suunnittelussa kuin yksittäisissä sovelluskirjastoissa. Esimerkiksi uudehkot ohjelmointikielet, kuten Scala ja Clojure, tarjoavat erityisiä syntaktisia rakenteita sitä varten. Toisaalta myös monet suositut apukirjastot, esimerkiksi JavaScript-kielen Immutable.js, Lazy.js ja Bacon.js, hyödyntävät sen periaatteita.
-
-Laiskaa evaluointia ei ole yhtä tapaa tehdä ``oikein'', vaan käyttökohteiden ja toteutustapojen diversiteetti on suuri. Myös tavoiteltavat hyödyt ovat erilaisia. Verrataan esimerkiksi ohjelmointikielen ja apukirjaston laatijoiden tavoitteita: ohjelmointikielen laatija voi käyttää laiskaa evaluointia kielen ilmaisuvoiman kasvattamiseen, kun taas apukirjaston laatija voi päästä sen avulla kilpailevia kirjastoja parempaan suorituskykyyn.
-
-Ymmärrän tässä työssä laiskan evaluoinnin laajasti, ja pyrin luomaan kokonaiskuvaa periaatteen käyttökohteista ja toteutustavoista.  Seuraavaksi määrittelen tarkemmin, mitä tarkoitan laiskalla evaluoinnilla, ja mitä muita käsitteitä periaatteeseen tiiviisti liittyy. Sen jälkeen esittelen tutkimuskysymykset, joihin työni pyrkii vastaamaan.
-
-\subsection{Keskeisten käsitteiden määrittely}
-
-% Tämä kirjoitetaan proosamuotoon
-% Voi joko siirtää käsiteluetteloon 
-\textit{Lauseke} tarkoittaa ohjelmointikielen ilmaisua, jolle voidaan määrittää arvo. Esimerkiksi aritmeettiset operaatiot, muuttujien nimet ja funktiokutsut ovat lausekkeita.
-
-\textit{Evaluointi} tarkoittaa tarkoittaa lausekkeen arvon laskemista.
-
-% Evaluointisemantiikka
-\textit{Evaluointistrategia} tarkoittaa ohjelmointikielen sääntöjä, jotka määrittävät, missä tilanteissa lausekkeita evaluoidaan.
-
-% Veks vaan, meillä on parempi määritelmä jo. Toi "käsitettä voi käyttää..." on aivan bull-shieettiä
-\textit{Laiska evaluointi} tarkoittaa evaluointistrategiaa, joka viivyttää lausekkeen evaluointia saakka, kunnes sitä tarvitaan \citep{watt2004programming}. Käsitettä voi käyttää kuvaamaan myös yksittäistä lauseketta abstraktimman operaation, kuten esimerkiksi kokoelmien käsittelyn, suorittamisen viivästämistä vastaavaan tapaan.
-
-\subsection{Tutkimuskysymykset}
-
-% Kerro reiästä kirjallisuudessa
-
-Haluan saada kartoitettua työlläni laiskan evaluoinnin käyttökelpoisuutta tutkimuksessa ja työelämässä, ja haluan myös tuottaa sellaista tietoa, joka olisi käyttökelpoista laiskan evaluoinnin konseptien yliopisto-opetuksen suunnittelutyössä. Päädyin näiden tavoitteiden kautta seuraaviin tutkimuskysymyksiin:
 \begin{enumerate}
-  % \item{Käsitesekasotkun selventäminen}
-  \item{Mikä on laiskan evaluoinnin merkitys nykypäivänä?}
-  \item{Mitkä ovat laiskan evaluoinnin hyödyt ja haitat?}
+  \item{Millaista käsitteistöä laiskan evaluoinnin yhteydessä käytetään?}
+  \item{Mikä on laiskan evaluoinnin merkitys tietojenkäsittelytieteen historiassa ja nykypäivänä?}
+  \item{Millaisia etuja ja heikkouksia laiskaan evaluointiin liittyy?}
 \end{enumerate}
 
-Kysymyksessä 1 laiskan evaluoinnin merkityksen tutkiminen tarkoittaa, että tarkastelen (a) laiskan evaluoinnin varhaista historiaa pohjustuksenomaisesti, (b) laiskan evaluoinnin leviämistä moderneihin ohjelmointikieliin sekä kielien apukirjastoihin, (c) laiskan evaluoinnin kautta kehittyneitä uusia ohjelmoinnin konsepteja ja (d) laiskaa evaluointia käyttävien teknologioiden hyödyntämistä tutkimuksessa ja työelämässä.
+[kysymys 1 avataan tässä, ei vielä kirjoitettu]
 
-Kysymyksessä 2 selvitän sitä, millaisia subjektiivisia mielipiteitä laiskaa evaluointia hyödyntäviä teknologioita käyttävillä ihmisillä on sekä laiskasta evaluoinnista yleisesti, että kysymyksen 1 tarkastelussa esiin tulleista ohjelmointikielistä ja apukirjastoista.
+Kysymyksessä 2 laiskan evaluoinnin merkityksen tutkiminen tarkoittaa, että tarkastelen (a) laiskan evaluoinnin varhaista historiaa pohjustuksenomaisesti, (b) laiskan evaluoinnin leviämistä moderneihin ohjelmointikieliin, (c) laiskan evaluoinnin kautta kehittyneitä sovellutuksia ohjelmointikielissä ja ja (d) laiskaa evaluointia käyttävien teknologioiden hyödyntämistä tutkimuksessa ja työelämässä.
+
+Kysymyksessä 3 selvitän sitä, millaisia subjektiivisia mielipiteitä laiskaa evaluointia hyödyntäviä teknologioita käyttävillä ihmisillä on sekä laiskasta evaluoinnista yleisesti, että kysymyksen 1 tarkastelussa esiin tulleista ohjelmointikielistä ja apukirjastoista.
 
 \subsection{Tutkimusmenetelmät}
 
@@ -149,7 +83,10 @@ AND ("functional")
   \end{minted}
 \end{listing}
 
-And-operaattorin vasemmalla puolella on kaikki laiskan evaluoinnin tyypillisimmät synonyymit vaihtoehtoisina hakutermeinä.\footnote{Puhtaan funktionaalisen ohjelmoinnin, erityisesti Haskell-ohjelmointikielen, sanastossa käsitteellä \textit{non-strict} on usein laiskasta evaluoinnista eriävä merkitys. Tätä käsitellään tarkemmin luvussa 2. Kirjallisuudessa käsitteet kuitenkin esiintyvät myös toistensa synonyymeina.} Operaattorin oikealla puolella oleva hakutermi \textit{functional} rajaa hakutulokset funktionaalisen ohjelmoinnin piiriin. Tämä hakulauseke tuotti otsikosta, tiivistelmästä ja avainsanoista haettaessa 326 tulosta. Tämä oli sopiva määrä tuloksia tutkimuskysymysten kannalta relevanteimpien artikkeleiden valikointia ajatellen.
+% And-operaattorin vasemmalla puolella on kaikki laiskan evaluoinnin tyypillisimmät synonyymit vaihtoehtoisina hakutermeinä.
+% \footnote{Puhtaan funktionaalisen ohjelmoinnin, erityisesti Haskell-ohjelmointikielen, sanastossa käsitteellä \textit{non-strict} on usein laiskasta evaluoinnista eriävä merkitys. Tätä käsitellään tarkemmin luvussa 2. Kirjallisuudessa käsitteet kuitenkin esiintyvät myös toistensa synonyymeina.} Operaattorin oikealla puolella oleva hakutermi \textit{functional} rajaa hakutulokset funktionaalisen ohjelmoinnin piiriin. 
+
+Tämä hakulauseke tuotti otsikosta, tiivistelmästä ja avainsanoista haettaessa 326 tulosta. Tämä oli sopiva määrä tuloksia tutkimuskysymysten kannalta relevanteimpien artikkeleiden valikointia ajatellen.
 
 Scopus-tietokannan lisäksi seuloin artikkeleita samalla hakutermillä myös Google Scholarista. Lisäksi Stack Overflow -kysymyspalvelun vastausten ja Haskellin oman wiki-alustan kautta löytyi useita linkkejä relevantteihin artikkeleihin. Täydensin akateemisista artikkeleista saatua tietoa myös vähäisissä määrin blogikirjoituksilla. Niitä hyödynnän sellaisten uusien kehityskulkujen esittelyssä, joiden esiintyminen akateemisissa artikkeleissa on hyvin vähäistä.
 
@@ -161,4 +98,4 @@ Kirjallisuuskatsauksen ja mielipideselvityksen käsittelyjärjestystä tässä t
 
 \subsection{Työn rakenne}
 
-Tutkimuskysymykseen 1 vastausta pohjustan luvussa \ref{historia}, joka käsittelee laiskan evaluoinnin historiaa ja keskeisempiä konsepteja. Se antaa lukijalle valmiudet ymmärtää laiskan evaluoinnin nykyisiä sovellutuksia, jotka ovat luvun \ref{sovellutuksia} aiheena. Luvussa \ref{subjektiiviset-edut} käsittelen subjektiivisesti koettuja etuja ja haittoja, joita laiskaan evaluointiin yleensä ja laiskan evaluoinnin sovellutuksiin liittyy. Luvussa \ref{yhteenveto} vedän työtä yhteen ja tarkastelen työn rajausta.
+Aloitan työn tutkimuskysymykseen 1 vastaamalla eli käsitteitä määrittelemällä. Tutkimuskysymykseen 2 vastausta pohjustan luvussa \ref{historia}, joka käsittelee laiskan evaluoinnin historiaa ja keskeisempiä konsepteja. Se antaa lukijalle valmiudet ymmärtää laiskan evaluoinnin nykyisiä sovellutuksia, jotka ovat luvun \ref{sovellutuksia} aiheena. Luvussa \ref{subjektiiviset-edut} käsittelen subjektiivisesti koettuja etuja ja haittoja, joita laiskaan evaluointiin yleensä ja laiskan evaluoinnin sovellutuksiin liittyy. Luvussa \ref{yhteenveto} vedän työtä yhteen ja tarkastelen työn rajausta.

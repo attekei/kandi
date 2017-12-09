@@ -25,7 +25,25 @@
 
 \section{Subjektiiviset edut ja haitat} \label{subjektiiviset-edut}
 
-\textit{Tulen kirjoittamaan tähän etujen/haittojen kartoitusprosessista sekä siitä, millaisiin alalukuihin olen jakanut osion ja miksi. Voi myös vähän käsitellä sitä miksi Haskell dominoi keskustelua. Se vie laiskan evaluoinnin selvästi pisimmälle suosituista kielistä, ja siten sitä on hyvä käyttää yleisenä benchmarkina laiskaan evaluointiin liittyvässä keskustelussa, toki terveen kritiikin kera. }
+\begin{markdown}
+Päivitetty suunnitelma rakenteesta – tulevat alaluvut ovat vanhaa tekstiä:
+
+- Ilmaisuvoima
+	- Hyvää settiä jo olemassaolevassa tekstissä
+	- *The next Haskell will be strict [by default]* –Simon Peyton Jones (eli Haskellinkaan ei tarvitse olla tiukka, vaikka ilmaisuvoima pysyisi samana)
+- Suorituskyky
+	- Voisiko Haskellin evaluointilogiikasta  (graafireduktio + thunkit + kääntäjän tekemät optimoinnit) kertoa vasta tässä? Ehkä ei tämän aihepiirin kohdalla haittaa, että ennen mielipiteisiin syventymistä tulee teoreettista pohjaa (tekstimääräisesti teorian ja mielipiteiden suhde ehkä noin 50/50)
+	- Nopeus
+		- Teoriassa applikatiivista semantiikkaa / ahnetta evaluointia nopeampi ainakin joissain tilanteissa, koska laiska evaluointi jättää joitakin reduktiovaiheita välistä koska tarpeettomia asioita ei evaluoida
+		- Ajankäytön ennustettavuudesta: ohjelmat jumiuttavat garbage collection -ajot
+	- Muistinkäyttö
+		- Tilankäytön ennustettavuudesta: thunkkien aiheuttama evaluoinnin vaikea ennakoitavuus, muistivuodot
+- Vianetsintä ja suoritusjärjestys
+	- Jälleen musta nykyisellään aika hyvässä kuosissa
+	- Vähän voisi kyllä mainita lisää siitä, kuinka applicative semantics -kielissä suoritusjärjestys on hyvin yksiselitteinen
+- Koettu arvo
+	- Yhdistä nyk. ”käytön laajuus” tähän, on täysin päällekkäinen koetun arvon kanssa
+\end{markdown}
 
 \subsection{Ilmaisuvoima}
 % However, the real and major advantage that non-strictness gives you over strict languages is you get to write cleaner and more composable code. In particular, you can separate production and consumption of data: don't know how many prime numbers you're going to need? Just make `primes` a list of all prime numbers, and then which ones actually get generated depends on how you use them in the rest of your code. By contrast, writing code in a strict language that constructs a data structure in response to demand usually will require first-class functions and/or a lot of manual hoop-jumping to make it all behave itself.
@@ -55,11 +73,9 @@ Samaan tapaan \citet{pop2010experience} kokevat ajonaikaisten ongelmien löytäm
 
 \citet{sampson2009experience} kokee, että oli vaikeaa hahmottaa, missä tilanteessa mikäkin arvo evaluoidaan, eli milloin ohjelma tekee työtä ja milloin ei. Apukirjastot usein palauttavat evaluoimattomia arvoja, jotka muodostuvat isosta määrästä lausekkeita, ja niiden evaluointi tapahtuu vasta sitten, kun arvoja käytetään. Arvon käyttämisen kohtaa voi olla kuitenkaan kirjoittajien mielestä vaikeaa löytää. Tämä liittyy hänen mukaansa myös ajonaikaiseten virheiden paikantamisen vaikeuteen.
 
-\subsection{Käytön laajuus}
-\citet{vesakarvonen} sanoo laiskan evaluoinnin olevan ominaisuus, josta on tietyissä tilanteissa hyötyä, mutta ne kannattaa rajata tarkkaa. Siten hän kannattaa tiukasti evaluoituja ohjelmointikieliä ja laiskan evaluoinnin konseptien käyttöä niissä harkitusti.
-
 \subsection{Koettu arvo}
 
+\citet{vesakarvonen} sanoo laiskan evaluoinnin olevan ominaisuus, josta on tietyissä tilanteissa hyötyä, mutta ne kannattaa rajata tarkkaa. Siten hän kannattaa tiukasti evaluoituja ohjelmointikieliä ja laiskan evaluoinnin konseptien käyttöä niissä harkitusti.
+
 \citet{sampson2009experience} toteaa artikkelin lopussa, että hän ja tiimi ovat projektin jälkeen epävarmoja laiskan evaluoinnin tuomasta arvosta: joka kerta kun he tuntevat saaneensa siitä hyvän otteen uusia ongelmia ilmenee. Hän kokee, että aiheesta pitäisi vähintäänkin olla olemassa hyvä kirja, joka käsittelisi kaikkia laiskan evaluoinnin kanssa ilmeneviä ongelmia sekä auttaisi luomaan lukijalle hyvä intuitio laiskasti evaluoitujen systeemien käyttäytymisestä.
-\clearpage
 

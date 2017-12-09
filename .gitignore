@@ -25,3 +25,4 @@ tutkimussuunnitelma.pdf
 *.synctex.gz
 node_modules
 _minted-main
+_markdown_main

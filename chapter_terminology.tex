@@ -1,4 +1,4 @@
-% --------------------------------------------------------------------
+% ------------------------------------------------------------------
 % Cheatsheet:
 % \verb!lazy val!   -- esim. lyhyisiin koodinpätkiin
 % \begin{verbatim}  -- esim. pitkiin koodinpätkiin
@@ -20,8 +20,9 @@
 % \begin{equation}  -- kaava
 % \label{eq:kaava1} -- laabeli
 %!TEX root = main.tex
-
 \section{Käsitteiden määrittely}\label{kasitteisto}
+
+Käyn tässä osiossa läpi käsitteistöä, joka on olennaista laiskan evaluoinnin aihepiirin ymmärtämiselle. Ensiksi käsittelen funktionaalista ohjelmointia, ohjelmointikielen kategoriaa, jossa laiskaa evaluointia erityisesti esiintyy. Sen jälkeen käyn läpi evaluointisemantiikkoja, jotka määrittelevät ohjelmointikielten funktioden ja funktiokutsujen noudattamia sääntöjä.
 
 % Monille näistä käsitteistä on hankalaa hakea historiaa, ja historian mukaan jäsentely tuntuu keinotekoiselta, joten pidetään historiaosia erillisenä.
 %	* Mageeta tässä osiossa on se, että jos tämä paisuu liian raskaaksi, niin käsitemäärittelyjä pystyy melko joustavasti ripottelemaan muihin osioihin sitä mukaa kun käsitteitä tulee vastaan
@@ -29,9 +30,9 @@
 %		* Jotain tällaista: Eri kirjoittajat käyttäjät eri käsitteitä eri tavoin, ja sekaannuksia sekä käsitteiden sävyeroja on syytä tuoda eksplisiittisesti esiin
 
 \subsection{Funktionaalinen ohjelmointi}
-Funktionaalinen ohjelmointi on ohjelmointikielten kategoria, joka on saanut inspiraationsa lamdakalkyylistä, matemaattisen logiikan mallista, jonka \citet{church1932set} on laatinut.
+Funktionaalinen ohjelmointi on tapa rakentaa tietokoneohjelmia, joka on saanut inspiraationsa lamdakalkyylistä, matemaattisen logiikan mallista, jonka Alonzo Church laati 1930-luvulla \citep{church1932set}.
 
-\citet{scott2009programming} sanoo, että tiukasti määriteltynä funktionaalinen ohjelmointi määrittelee ohjelman ulostulot niiden sisääntulojen funktiona. Funktiot ovat funktioita matemaattisessa mielessä, eli niillä ei ole sisäistä tilaa. Ohjelmien koostaminen tapahtuu yhdistämällä yksinkertaisia funktioita toisiinsa.
+\citet{scott2009programming} sanoo, että tiukasti määriteltynä funktionaalisella tyylillä rakennettu ohjelma määrittelee ohjelman ulostulot niiden sisääntulojen funktiona. Funktiot ovat funktioita matemaattisessa mielessä, eli niillä ei ole sisäistä tilaa. Funktiot voivat kutsua toisiaan, ja siten ohjelmissa useat pienemmät funktiot yhdessä muodostavat ohjelman pääfunktion, joka muuntaa sisääntulot ulostuloiksi.
 
 Funktionaaliseen ohjelmointiin liittyy läheisesti seuraavat käsitteet:
 \begin{itemize}
@@ -45,12 +46,15 @@ Funktionaaliseen ohjelmointiin liittyy läheisesti seuraavat käsitteet:
 
 	\item \textit{Puhdas funktio} (eng. \textit{pure function}) tarkoittaa funktiota, joka on sivuvaikutukseton, viittauksiltaan läpinäkyvä ja deterministinen.
 
-	\item \textit{Puhtaasti funktionaalinen ohjelmointikieli} (eng. \textit{pure function}) sisältää ainoastaan puhtaita funktioita. Tällaisia kieliä ovat esimerkiksi Haskell ja Miranda.
+	\item \textit{Puhtaasti funktionaalinen ohjelmointi} (eng. \textit{pure function}) tarkoittaa ohjelmointityyliä, jossa käytetään ainoastaan puhtaita funktioita.
 \end{itemize}
 
 Käsitteistä deterministisyys, viittausten läpinäkyvyys ja sivaikutuksettomuus ovat merkitykseltään osin päällekkäisiä, ja niitä kaikkia käytetään yleisesti funktionaalisen ohjelmoinnin luonteen kuvaamiseen.
 
-Usein ohjelmointikielet sisältävät funktionaalisen ohjelmoinnin piirteitä, mutta eivät täytä puhtaasti funktionaalisen kielen kriteeristöä. Tällaisia kieliä ovat esimerkiksi Scala, Clojure ja Lisp. Hämäävästi kuitenkin monia näistä kielistä kutsutaan usein funktionaalisiksi kieliksi, koska ne eroavat merkittävästi imperatiivisista ohjelmointikielistä.
+Funktionaalinen ohjelmointityyli voi yksinkertaisimmillaan tarkoittaa sivuvaikutusten välttämistä, ja monet ohjelmointikielet tarjoavat tätä helpottavia työkaluja. Tällaisia kieliä ovat esimerkiksi Scala, Clojure ja Lisp. Jotkin kielet, kuten Haskell ja Miranda rakentuvat pitkälti puhtaasti funktionaalisen ohjelmointityylin ympärille, 
+
+Useat ohjelmointikielet tarjoavat ainakin rajatun tuen funktionaaliselle ohjelmointityylille. 
+% Usein ohjelmointikielet sisältävät funktionaalisen ohjelmoinnin piirteitä, mutta eivät tue puhtaasti funktionaalista ohjelmointityyliä. Tällaisia kieliä ovat esimerkiksi Scala, Clojure ja Lisp. Ohjelmointiyhteisössä näitä kuitenkin välillä kutsutaan hieman hämäävästi ``funktionaalisiksi kieliksi''.
 
 \subsection{Evaluointisemantiikat}
 
@@ -61,7 +65,9 @@ Evaluointisemantiikka määrittelee säännöt ohjelmointikielen funktiokutsujen
     \item Millä tavoin evaluoidut parametrilausekkeiden arvot välitetään funktion ohjelmakoodille?
 \end{itemize}
 
-Monille evaluointisemantiikoille ei ole yksiselitteistä määritelmää, ja joitain termejä käytetään hämmentävästi sekaisin keskenään. Pyrin seuraavassa sekä kuvaamaan kunkin evaluointisemantiikan tyypillisimmän määritelmän että kertomaan, mitä muita merkityksiä kyseiselle käsitteelle välillä kirjallisuudessa liitetään. Pyrin myös kuvan \ref{figure:evaluation_semantics} puuhierarkialla havainnollistamaan, miten käsitteet liittyvät toisiinsa ja miten käsitteitä voi ryhmitellä keskenään.
+Kuvassa 1 on eriteltynä työni kannalta merkittävimmät evaluointisemantiikat. Kuvasta myös näkyy kuinka evaluointisemantiikat voi hahmottaa puuhierarkiana, jossa kukin hierarkian taso vastaa johonkin kysymykseen evaluoinnin noudattamista säännöistä.
+
+Seuraavissa alaluvuissa kuvaan kunkin evaluointisemantiikan tyypillisimmän määritelmän ja kerron, mitä muita merkityksiä kyseiselle käsitteelle välillä kirjallisuudessa liitetään.
 
 
 \begin{figure}[h]
@@ -74,14 +80,14 @@ Monille evaluointisemantiikoille ei ole yksiselitteistä määritelmää, ja joi
 	  align=center,
 	  child anchor=north
 	},
-	[{Evaluointisemantiikka}, align=center, name=SS,s=0.3cm,l sep=0.7cm
+	[{Evaluointisemantiikat}, align=center, name=SS,s=0.3cm,l sep=0.7cm
 	  [Tiukka evaluointi, name=PDC,l sep=0.7cm
 		  [{Applikatiivinen evaluointi}, name=MS,l sep=0.7cm, tikz={\node [draw,label={[gray]below:{\small Ahne evaluointi}},dashed,gray,fit=()(!1)(!l)] {};}
 		    [{Call-by-value}, name=MOODI]
 		  ]
 	  ]
 	  [Ei-tiukka evaluointi,l sep=0.7cm
-		[Normaalijarjestyksessa evaluointi,l sep=0.7cm, tikz={\node [draw,label={[gray]below:{\small Laiska evaluointi}},dashed,gray,fit=()(!1)(!l)] {};}
+		[Normaalijärjestyksessä evaluointi,l sep=0.7cm, tikz={\node [draw,label={[gray]below:{\small Laiska evaluointi}},dashed,gray,fit=()(!1)(!l)] {};}
 			[Call-by-name]
 			[Call-by-need\\\scriptsize(call-by-name\\\scriptsize memoisoinnilla)]
 		  ]
@@ -96,7 +102,7 @@ Monille evaluointisemantiikoille ei ole yksiselitteistä määritelmää, ja joi
 	\path (current bounding box.west)|-coordinate(l)(MS.base);
 	\end{forest}
 \normalsize
-    \caption{Evaluointisemantiikkojen keskinäisiä suhteita puuhierarkialla havainnollistettuna}
+	\caption{\footnotesize \textbf{Evaluointisemantiikkojen keskinäisiä suhteita puuhierarkialla havainnollistettuna.} Tiukka ja ei-tiukka semantiikka eivät ole varsinaisia evaluointisemantiikkoja, mutta ne on sisällytetty kuvaan, koska etenkin Haskell-yhteisössä niistä käytetään samassa yhteydessä evaluointisemantiikkojen kanssa. Ahne ja laiska evaluointi ovat epätarkasti määriteltyjä yleiskäsitteitä, joten niiden alle kuuluu useampi evaluointisemantiikka.}
     \label{figure:evaluation_semantics}
   \end{center}
 \end{figure}
@@ -105,15 +111,62 @@ Monille evaluointisemantiikoille ei ole yksiselitteistä määritelmää, ja joi
 
 \subsubsection{Tiukka ja ei-tiukka semantiikka}
 
-HaskellWikin (2017) mukaan \textit{tiukassa semantiikka} (eng. \textit{strict semantics}) tarkoittaa sitä, että ohjelmointikielen lausekke ei voi olla arvoa, jos millä tahansa sen alilausekkeella ei ole arvoa. \textit{Ei-tiukassa semantiikassa} (eng. \textit{non-strict semantics}) puolestaan lausekkeilla voi olla arvo, vaikka alilausekkeilla, joista nämä lausekkeet koostuvat, ei olisi arvoa.
+Tiukka ja ei-tiukka semantiikka ovat etenkin Haskell-yhteisön käyttämiä termejä, jotka eivät suoranaisesti ota kantaa funktiokutsun eri vaiheiden evaluointiin. Ne ovat kuitenkin merkitykseltään läheisiä varsinaisille evaluointisemantiikoille, joten ne on luontevaa esitellä muiden evaluoiuntisemantiikkojen yhteydessä.
+
+HaskellWikin (2017) mukaan \textit{tiukassa semantiikka} (eng. \textit{strict semantics}) tarkoittaa sitä, että ohjelmointikielen lausekkeella ei voi olla arvoa, jos millä tahansa sen alilausekkeella ei ole arvoa. \textit{Ei-tiukassa semantiikassa} (eng. \textit{non-strict semantics}) puolestaan lausekkeilla voi olla arvo, vaikka alilausekkeilla, joista nämä lausekkeet koostuvat, ei olisi arvoa.
 
 Tilanne, jossa ohjelmointikielen lauseke ei saa arvoa, voi tarkoittaa käytännössä esimerkiksi ikuiseen silmukkaan jäämistä (kuten johdantoluvun \verb!noreturn! -funktiota kutsuessa) tai virheilmoitusta, joka lopettaa ohjelman suorituksen.
 
 \subsubsection{Applikatiivinen evaluointi ja normaalijärjestyksessä evaluointi}
 
-\citet{scott2009programming} mukaan \textit{applikatiivinen evaluonti} (eng. \textit{applicative evaluation}) tarkoittaa funktion parametrienlausekkeiden evaluointia ennen funktion ohjelmakoodin suorituksen aloittamista, ja ohjelmakoodille välitetään evaluoidut arvot.
+\citet{scott2009programming} mukaan \textit{applikatiivinen evaluonti} (eng. \textit{applicative evaluation}) tarkoittaa funktion parametrienlausekkeiden evaluointia ennen funktion ohjelmakoodin suorituksen aloittamista, ja ohjelmakoodille välitetään evaluoidut arvot. Listauksessa \ref{codepythonapplicative} on applikatiivisesta evaluoinnista Python-ohjelmointikielellä luotu esimerkki.
 
-\textit{Normaalijärjestyksessä evaluointi} (eng. \textit{normal-order evaluation}) puolestaan tarkoittaa, että parametrilausekkeet evaluoidaan vasta sitten, kun niitä oikeasti tarvitaan. Evaluoimattomat parametrilausekkeet välitetään ohjelmakoodille, ja vasta sitten kun ohjelmointikoodissa käytetään parametrien arvoa, lausekkeet evaluoidaan.
+\begin{listing}[H]
+  \caption{Esimerkki applikatiivisesta evaluoinnista Pythonilla}
+  \label{codepythonapplicative}
+  \bigskip
+  \begin{minted}{python}
+# Funktio, jonka suoritus jatkuu ikuisesti ja joka ei koskaan palauta arvoa
+def noreturn(x):
+  while True:
+    x = -x
+  return x
+
+# Luodaan lista, jonka ainoan alkion muodostava lauseke ei koskaan palauta arvoa
+# Lauseke evaluoidaan välittömästi, joten ohjelman suoritus ei etene
+list = [noreturn(1)]
+print "Tämä ei koskaan tulostu"
+  \end{minted}
+\end{listing}
+
+\textit{Normaalijärjestyksessä evaluointi} (eng. \textit{normal-order evaluation}) puolestaan tarkoittaa, että parametrilausekkeet evaluoidaan vasta sitten, kun niitä oikeasti tarvitaan. Evaluoimattomat parametrilausekkeet välitetään ohjelmakoodille, ja vasta sitten kun ohjelmointikoodissa käytetään parametrien arvoa, lausekkeet evaluoidaan. Listaus \ref{codehaskellnormalorder} demonstroi normaalijärjestyksessä evaluointia Haskell-ohjelmointikielessä.
+
+\begin{listing}[H]
+  \caption{Esimerkki normaalijärjestyksessä evaluoinnista Haskellilla}
+  \label{codehaskellnormalorder}
+  \bigskip
+  \begin{minted}{haskell}
+-- Funktio, jonka suoritus jatkuu ikuisesti ja joka ei koskaan palauta arvoa
+noreturn :: Integer -> Integer
+noreturn x = negate (noreturn x)
+
+-- Luodaan lista, jonka ainoan alkion muodostava lauseke ei koskaan palauta arvoa
+-- Lauseketta ei vielä evaluoida listan määrittelyhetkellä
+list = [noreturn 1]
+
+-- Haskell-ohjelman suoritus tapahtuu `main` -päälausekkeessa
+main = do
+  -- Listan pituutta laskettaessa alkion arvoa ei tarvita,
+  -- joten alkion muodostavaa lauseketta ei tarvitse evaluoida
+  length list >>= print
+  "Tämä tulostuu" >>= print
+  -- Listan ensimmäisen arvon tulostaminen aiheuttaa lausekkeen evaluoinnin,
+  -- joten ohjelman suoritus ei enää etene
+  head list >>= print
+  "Tämä ei koskaan tulostu" >>= print
+
+  \end{minted}
+\end{listing}
 
 Applikatiivisessa evaluointi noudattaa tiukkaa semantiikkaa, sillä kaikilla funktioparametreilla (eli alilausekkeilla) on oltava arvo ennen kuin funktio itsessään evaluoidaan. Siten applikatiivisen evaluoinnin voi ajatella olevan tiukan semantiikan alakategoria evaluointisemantiikkojen hierarkiassa.
 
@@ -137,11 +190,11 @@ Call-by-value evaluoidaan applikoiden siinä missä call-by-name ja call-by-need
 
 \subsubsection{Laiska ja ahne evaluointi}
 
-Laiska evaluointi (eng. \textit{lazy evaluation}) esiintyy kirjallisuudessa tarkoittaen samaa kuin joko normaalijärjestyksessä evaluointi tai jokin sen alakategorioista. Myös \citet{scott2009programming} toteaa, että laiskaa evaluointia käytetään usein eräänlaisena yleiskäsitteenä samankaltaisille evaluointisemantiikoille.
+Laiska evaluointi (eng. \textit{lazy evaluation}) esiintyy kirjallisuudessa tarkoittaen samaa kuin joko normaalijärjestyksessä evaluointi tai jokin sen alakategorioista. Myös \citet{scott2009programming} toteaa, että laiskaa evaluointia käytetään usein eräänlaisena yleiskäsitteenä useammille toisiaan muistuttaville evaluointisemantiikoille.
 
 Ahne evaluointi (eng. \textit{eager evaluation}) määritellään usein laiskan evaluoinnin vastakohdaksi. Se voi kontekstista riippuen tarkoittaa samaa kuin esimerkiksi applikatiivinen evaluointi tai call-by-value -parametrimoodi.
 
-Käsitesekaannuksen välttämiseksi en vastaisuudessa tässä työssä käytä laiskan tai ahneen evaluoinnin käsitteitä, vaan viittaan aina yksiselitteisemmin määritettyihin evaluointisemantiikkoihin.
+Laiska ja ahne evaluointi ovat mielestäni molemmat käsitteinä ongelmallisia, koska ne ovat alttiita sekaannuksille sen suhteen, mitä niillä milloinkin tarkoitetaan. Siksi vältän niiden käyttöä tulevissa luvuissa, ja viittaan sen sijaan tarkemmin määriteltyihin evaluointistrategioihin.
 
 
 

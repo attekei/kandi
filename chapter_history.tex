@@ -21,104 +21,71 @@
 % \label{eq:kaava1} -- laabeli
 %!TEX root = main.tex
 
-\section{Varhainen historia ja keskeisimmät konseptit}\label{historia}
+\section{Laiskan evaluoinnin kehitys \label{historia}}
 
-Laiskan evaluoinnin periaate syntyi 1970-luvulla. Sarja julkaisuja loi pohjaa ajatukselle laiskoista funktionaalisista kielistä työkaluna käytännönläheiseen ohjelmistokehitykseen. Ajatus esiteltiin ensimmäisenä matemaattisesti lamdakalkyylin, funktionaalisen ohjelmoinnin kannalta keskeisen matemaattisen teorian, näkökulmasta \citep{wadsworth1971semantics}. Viisi vuotta myöhemmin julkaistiin toisistaan riippumatta kolme artikkelia \citep{henderson1976lazy,friedman1976cuns,saslmanualturner}, joissa esiteltiin laiskaa evaluointia ohjelmoinnin perspektiivistä.
 
-1980-luvulla vaihteessa oli uraauurtavaa kehitystä kohti ensimmäisiä laiskoja ohjelmointikieliä. Saman aikaan kehitettiin myös täysin uudenlaisia tietokoneita, jotka kilpailivat alan standardin, Von Neumannin arkkitehtuurin, kanssa. Kuitenkin pidemmän päälle osoittautui, ettei tarvetta erikoisille arkkitehtuureille ole, vaan hyvin laadituilla ohjelmointikielten kääntäjillä voidaan päästä hyviin lopputuloksiin myös Von Neuman -arkkitehtuuria hyödyntävissä tietokoneissa. \citep{hudak2007history}
-
-\subsection{Ei-tiukka semantiikka ja graafireduktio}
-
-Yhdistävää 1980-luvun vaihteessa kehitetyille laiskoille ohjelmointikielille oli, että niissä alettiin hyödyntämään sittemmin vakiintuneita \textit{ei-tiukan semantiikan} ja \textit{graafireduktion} periaatteita. Jos ohjelmointikieli perustuu ei-tiukalle semantiikalle, niin lausekkeella voi olla arvo, vaikka jollakin sen alilausekkeista (pienemmistä lausekkeista, joista lauseke koostuu) ei olisi arvoa. Vastaavasti \textit{tiukkaan semantiikkaan} perustuvat ohjelmointikielet toimivat siten, että jos joltakin alilausekkeelta puuttuu arvo, niin lausekkeellakaan ei ole arvoa, ja tällöin lausekkeen evaluoinnin voi ajatella epäonnistuneen \citep[s. 523]{scott2009programming}.
-
-Tiukkaa semantiikkaa käytetään yleisesti imperatiivisissa ohjelmointikielissä. Useimmissa suosituissa imperatiivisissa kielissä, esimerkiksi Pythonissa, tiukan semantiikan toteutus perustuu funktioiden evaluointijärjestykseen liittyviin sääntöihin. Evaluointi etenee ``sisimmät ensin'' -periaatteella. Siinä funktion kaikki argumentit evaluoidaan ennen kuin funktiota kutsutaan, ja evaluointi etenee sisimmästä funktiokutsusta ulompia funktiokutsuja kohti.
-
-Vastaavasti ei-tiukan semantiikan tyypillisin toteutus, jota tapaa esimerkiksi Haskellissa, perustuu ``uloimmat ensin'' -periaatteeseen. Siinä funktioiden evaluointi etenee uloimmasta funktiokutsusta kohti sisempiä, ja ainoastaan ne funktion argumentit, joita funktio todellisuudessa käyttää, evaluoidaan. Siten Haskellissa on mahdollista tehdä jopa sellaisia funktioita, joka ei tarvitse argumentteja lainkaan, ja siten palauttaa arvon riippumatta siitä, onko parametrilausekkeilla arvoa vai ei. \citep{haskellwikinonstrict}.
-
-Taulukko \ref{table:python_haskell_semantics} demonstroi semantiikan vaikutusta funktioiden evaluointiin. Siinä on toiminallisuudeltaan vastaava koodi suoritetaan sekä Pythonilla että Haskellilla. Funktio \verb!noreturn! aiheuttaa ikuisen silmukan, minkä tähden se ei koskaan palauta arvoa. Haskellilla lausekkeen evaluointi palauttaa arvon, koska \verb!noreturn! -funktiota ei koskaan kutsuta.
-
-\makeatletter
-\preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
-\makeatother
-\newpage
-\begin{table}[th]
-  \begin{center}
-    \begin{tabular}{|p{0.5\textwidth}|p{0.40\textwidth}|}
-      \hline
-       Python, tiukka semantiikka& Haskell, ei-tiukka semantiikka \\
-      \hline
-      \footnotesize
-
-      \begin{alltt}
-def noreturn(x):
-    while True:
-        x = -x
-    return x # not reached
-
-> [3, 2, noreturn(6)]
-\(\Rightarrow\) (ei palauta arvoa)
-    \end{alltt}
-      &\footnotesize\begin{alltt}
-noreturn :: Integer -> Integer
-noreturn x = negate (noreturn x)
-
-> [3, 2, noreturn 6]
-\(\Rightarrow\) [3, 2, noreturn 6]
-
-\end{alltt}
-
-      \textit{Katsotaan, haluanko tässä vielä käydä evaluoinnin välivaiheita läpi. Onko tarpeellista?}\\
-      \hline
-    \end{tabular}
-    \caption{Esimerkki kielen semantiikan vaikutuksesta evaluointijärjestykseen }
-    \label{table:python_haskell_semantics}
-  \end{center}
-\end{table}
-
-Graafireduktio on tapa ei-tiukan semantiikan toteuttamiseen. Se esittää lausekkeet verkon muodossa, mikä mahdollistaa toistuvien lausekkeiden jakamisen muiden lausekkeiden kesken \citep{hudak1989conception}. Esimerkiksi lausekkeen \verb!(1+2)*(1+2)! verkkoesityksessä lauseke \verb!(1+2)! pystytään jakamaan, minkä myötä sen arvo tarvitsee evaluoida vain kerran. % LÄHDE?
-
-Ei-tiukan semantiikan ``uloimmat ensin'' -suoritusjärjestys ja graafireduktiossa tapahtuva lausekkeiden jakaminen luovat perustan laiskalle evaluoinnille. Lausekkeen arvoa ei lasketa ennen kuin on tarve, eikä sitä turhaan lasketa uudelleen, jos sitä käytetään myöhemmin uudelleen.
+Normaalijärjestyksessä evaluoinnin periaate syntyi 1970-luvulla. Sarja julkaisuja loi pohjaa ajatukselle "laiskoista" funktionaalisista kielistä työkaluna käytännönläheiseen ohjelmistokehitykseen. Ajatus esiteltiin ensimmäisenä matemaattisesti lamdakalkyylin, funktionaalisen ohjelmoinnin kannalta keskeisen matemaattisen teorian, näkökulmasta \citep{wadsworth1971semantics}. Viisi vuotta myöhemmin julkaistiin toisistaan riippumatta kolme artikkelia \citep{henderson1976lazy,friedman1976cuns,saslmanualturner}, joissa esiteltiin normaalijärjestyksessä laiskaa evaluointia  funktionaalisen ohjelmoinnin perspektiivistä.
 
 \subsection{Haskellin ja puhtaan funktionaalisen ohjelmoinnin kehitys}
 
-\citet{hudak2007history} kuvaa, kuinka 1980-luvun puolivälissä laiskaa evaluointia hyödyntävien ohjelmointikielien määrä kasvoi nopeasti. Useimmat kielistä soveltuivat vain kapeaan määrään käyttökohteita, ja niillä ei ollut riittävää määrää käyttäjiä suuren suosion saavuttamiseksi. Kuitenkin artikkelin kirjoittajat olivat tällöin sitä mieltä, että kielet muistuttivat ominaisuuksiltaan hyvin paljon toisiaan. Alkoi kehittyä ajatus siitä, että olisi hyvä luoda yksi, yleinen kieli, joka korvaisi kerralla monia aikaisempia kieliä.
+\citet{hudak2007history} kuvaa, kuinka 1980-luvun puolivälissä laiskaa evaluointia (joka tuolloin käytännössä tarkoitti käytännössä normaalijärjestyksessä evaluointia) hyödyntävien ohjelmointikielien määrä kasvoi nopeasti. Useimmat kielistä soveltuivat vain kapeaan määrään käyttökohteita, ja niiden käyttäjämäärä oli pieni. Kuitenkin artikkelin kirjoittajat olivat tällöin sitä mieltä, että kielet muistuttivat ominaisuuksiltaan hyvin paljon toisiaan. Alkoi kehittyä ajatus siitä, että olisi hyvä luoda yksi, yleinen kieli, joka korvaisi kerralla monia aikaisempia kieliä.
 
-Tämä johti Haskell-ohjelmointikielen kehityksen aloittamiseen. Siitä vastasi Haskell-komitea, jossa vaikutti monia aikaisempien laiskaa evaluointia hyödyntäneiden kielien suunnittelijoita. Komitea onnistui keräämään yhteen aikaisemmin erillään samaa aihepiiriä tutkineita, mikä kiihdytti laiskan evaluoinnin parissa tapahtunutta tieteellistä kehitystä. Alkuvaiheen kehitystyö oli onnistunutta, ja Haskellista kehittyi etenkin tietojenkäsittelytieteen akateemisen tutkimuksen parissa suosittu kieli.
+Tämä johti Haskell-ohjelmointikielen kehityksen aloittamiseen. Siitä vastasi Haskell-komitea, jossa vaikutti monia aikaisempien laiskaa evaluointia hyödyntäneiden kielien suunnittelijoita. Komitea onnistui keräämään yhteen aikaisemmin erillään samaa aihepiiriä tutkineita, mikä kiihdytti laiskan evaluoinnin piirissä olevien evaluointisemantiikkojen tieteellistä kehitystä. Alkuvaiheen kehitystyö oli onnistunutta, ja Haskellista kehittyi etenkin tietojenkäsittelytieteen akateemisen tutkimuksen parissa suosittu kieli.
 
-Haskell ei määritelmällisesti ole laiska ohjelmointikieli, vaan jo Haskell 1.1 -raportissa \citep{yale1991report} se määriteltiin ainoastaan ei-tiukkaa semantiikkaa käyttäväksi kieleksi. Käytännössäkään kieli ei ole täysin laiska, vaan Haskellin kääntäjät tekevät useita nopeusoptimointeja suorittamalla tiettyjä osia koodista tiukkaan semantiikan säännöllä. Useimmat kielen rakenteet noudattavat kuitenkin oletusarvoisesti laiskan evaluoinnin periaatteita.
+Haskell ei määritelmällisesti ole normaalijärjestyksessä evaluoitu ohjelmointikieli, vaan jo Haskell 1.1 -raportissa \citep{yale1991report} se määriteltiin ainoastaan ei-tiukkaa semantiikan määritelmän täyttäväksi kieleksi. Käytännössäkään kielessä funktioiden parametreja ei aina evaluoida vasta kun ohjelmakoodi niitä tarvitsee, vaan Haskellin kääntäjät tekevät useita nopeusoptimointeja suorittamalla tiettyjä osia koodista tiukkaan semantiikan säännöllä.
 
-Laiskassa evaluoinnissa koodia ei suoriteta imperatiivisten kielien tapaan rivi riviltä, vaan suoritusjärjestys määräytyy tarpeen mukaan. IO-operaatioita, eli esimerkiksi näytölle tulostamista tai käyttäjän syötteen odottamista, ei pystytä suorittamaan halutussa järjestyksessä pelkkien funktiokutsujen avulla. Tästä seurasi, että Haskellista tuli \textit{puhtaasti funktionaalinen} ohjelmointikieli. Käsitteellä tarkoitetaan, että kielen funktiokonstruktiot ovat funktioita matemaattisessa mielessä: funktion kutsuminen samoilla argumenteilla palauttaa aina saman arvon, eikä funktioilla voi suorittaa IO-operaatioita tai muita ohjelman tilaa muuttavia operaatioita.
+Useimmat kielen rakenteet noudattavat kuitenkin oletusarvoisesti call-by-need –evaluointisemantiikan sääntöjä, eli funktioiden argumenttilausekkeet evaluoidaan vasta sitten niitä kuin tarvitaan, ja evaluoidut arvot memoisoidaan. Listauksessa \ref{code-callbyneed-haskell} on esimerkki siitä, miten call-by-need -semantiikka näkyy käytännössä Haskellissa.
 
-Laiskan evaluoinnin periaatteiden noudattaminen on johtanut moniin innovaatioihin funktionaalisen ohjelmoinnin saralla. Koska Haskell on puhtaasti funktionaalinen kieli, täytyi kehittää kokonaan uusia konsepteja, jotta esimerkiksi IO-operaatioiden suorittaminen halutussa järjestyksessä ja niiden ketjuttaminen toisiinsa onnistuu. Tunnetuimmaksi konseptiksi on noussut \textit{monadi}. Alkuperäisessä monadin konseptin esitelleessä artikkelissa sitä kutsutaan ``imperatiivisen funktionaalisen ohjelmoinnin'' työkaluksi, mikä kuvaa monadien mahdollistamia sekventiaalisia IO-operaatioita \citep{PeytonJones199371}.
+\begin{listing}[H]
+  \caption{Esimerkki call-by-need -semantiikasta Haskellissa}
+  \label{code-callbyneed-haskell}
+  \bigskip
+  \begin{minted}[linenos=false, xleftmargin=0pt]{haskell}
+> -- Tämä esimerkki ajetaan Haskellin komentoriviversiossa eli REPLissä
+> -- Luodaan kokonaisluvuista koostuva lista, jolla on kaksi alkiota
+> let list = [5 * 5, 5 + 5] :: [Integer]
+> -- Tulostetaan listan arvo ja huomataan, että alkioita ei vielä ole evaluoitu
+> -- Merkki `_` kertoo, että arvoa ei ole evaluoitu
+> :sprint list
+[_,_]
+> -- Tulostetaan listan ensimmäinen arvo
+> -- (erillistä `print` -kutsua ei REPlissä tarvita)
+> head list
+25
+> -- Nyt ensimmäinen arvo on memoisoitu, eli se voidaan palauttaa suoraan muistista,
+> -- ja vain toinen arvo on evaluoimatta
+> :sprint list
+[25,_]
+> -- Tulostetaan listan kaikki arvot
+> -- Ensimmäinen arvo palautetaan muistista ja toinen evaluoidaan
+> list
+[25,10]
+> :sprint list
+[25,10]
+\end{minted}
+\end{listing}
 
-Niin monadi kuin monet muutkin Haskelliin kehitetyt puhtaan funktionaalisen ohjelmoinnin konseptit ovat levinneet myös sellaisiin ohjelmointikieliin, jotka ovat evaluointistrategialtaan tiukkoja. Siten laiskan evaluoinnin vaalimisen Haskellissa voi ajatella olleen hyödyksi tietojenkäsittelytieteen kehitykselle laajemminkin.
 
-\textit{Mainintaa tähän osioon vielä (1) thunkeista eli evaluoimattomista arvoista liittyen Haskellin evaluointiin ja (2) pysyvätilaisista muuttujista liittyen Haskellin puhtaasti funktionaaliseen luonteeseen? }
+Call-by-need -evaluointisemantiikka aiheuttaa sen, että ohjelmointikielen lausekkeiden evaluointi etenee erilaisessa järjestyksessä kuin applikatiivisesti evaluoiduissa kielissä. Call-by-need -semantiikan kielissä järjestys, jossa ohjelmakoodin rivit on kirjoitettu, ei vielä kerro suoritusjärjestystä, vaan suoritusjärjestys määräytyy dynaamisesti ohjelman suorituksen aikana.
 
-\subsection{Päättymättömät tietorakenteet ja kontrollirakenteet}
+Yksi merkittävä käytännön seuraus tästä on, että IO-operaatioita, eli esimerkiksi näytölle tulostamista tai käyttäjän syötteen odottamista, ei pystytä suorittamaan halutussa järjestyksessä pelkkien tavallisten funktiokutsujen avulla. Siksi Haskelliin on kehitetty uniikkeja ohjelmointikielen rakenteita, kuten \textit{monadit}, joilla IO-operaatioita ja niiden järjestystä pystyy kontrolloimaan erillään muusta ohjelmakoodista.
 
-Jo 1980-luvun varhaisessa tutkimuksessa käsiteltiin laiskan evaluoinnin mahdollistamia laiskoja tietorakenteita, etenkin ``päättymättömiä tietorakenteita''. Näitä ovat muun muassa päättymättömät listat, puurakenteet ja tapahtumavirrat. Ne ovat tyypillisesti rekursion avulla toteutettuja, ja laiskan evaluoinnin ansiosta tietorakenteessa tarvitsee mennä vain niin ``syvälle'' kuin on tarvetta.
+Toinen seuraus call-by-need -evaluointisemantiikasta on se, että funktion parametrien arvoja ei ole mahdollista jälkikäteen muuttaa, koska suoritusjärjestys määräytyy dynaamisesti ja parametrin arvon muutokset voisivat tapahtua arvaamattomassa järjestyksessä. Siten funktionaalisen ohjelmoinnin ajatusmaailma etenkin viittausten läpinäkyvyyden osalta sopii hyvin call-by-need -semantiikkan kanssa yhteen. Koska Haskellissa ei vieläpä funktioissa voi olla sivuvaikutuksia muutoin kuin monadien tarjoaman tuen kautta, Haskell tukee puhtaasti funktionaalista ohjelmointityyliä kattavasti.
 
-\newpage
+\subsection{Haskellissa kääntäjässä tehdyt tekniset valinnat laiskan evaluoinnin toteuttamiseksi}
 
-Eräs klassinen esimerkki on matematiikan äärettömiä lukujonojen kuvaaminen. Seuraavassa on Fibonaccin lukujono ilmaistuna rekursiivisesti Haskellilla. Huomionarvoista on, kuinka paljon koodi muistuttaa tapaa, jolla rekursiivinen lukujono ilmaistaisiin matematiikassa:
+Laiskan evaluoinnin kokonaisvaltaisessa tarkastelussa on olennaista myös käydä läpi sitä, miten se on ohjelmointikielen kääntäjissä toteutettu, ja millaisia seurauksia sillä on ohjelman suorituksen aikaiseen käyttäytymiseen. Haskell-ohjelmointikielen ylivoimaisesti suosituin kääntäjä on ollut Glasgow Haskell Compiler (lyhyemmin GHC), joka on ollut 1990-luvun alusta lähtien ollut olennainen osa ohjelmointikielen kehityskaarta.
 
-\begin{alltt}
-fib 0 = 0
-fib 1 = 1
-fib n = fib (n-1) + fib (n-2)
-\end{alltt}
+Kuten edellä mainittiin, Haskellin kontekstissa laiskalla evaluoinnilla tarkoitetaan call-by-need -evaluointisemantiikkaa. Call-by-need -semantiikka on GHC:ssä toteutettu siten, että ohjelman suorituksen aikana kielen lausekkeista muodostetaan dynaamisesti verkkoa, jossa yksittäistä evaluoimatonta lauseketta kutsutaan \textit{tyngiksi} (eng. \textit{thunk}) \citep{hudak2007history}. Näitä tynkiä evaluoidaan sitä mukaan, kun jokin ohjelman IO-operaatio tarvitsee niiden arvoja. Kuvassa \ref{figure:thunk} näytetään, miten erään yksinkertaisen tietorakenteen evaluointi etenee.
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.3\textwidth]{figure-thunk-layers}
+  \caption{\footnotesize\textbf{Lausekkeen (4, [1, 2]) evaluointi Haskellissa.} Ensiksi lauseke on kokonaan evaluoimatta. Se evaluoidaan asteittain, kunnes tynkiä ei ole jälkellä. Kokonaan evaluoidusta lausekkeesta sanotaan, että se on \textit{normaalimuodossa}. Lauseketta, joka on ainakin osittain evaluoitu, kutsutaan \textit{heikoksi päänormaalimuodoksi} (eng. \textit{Weak Head Normal Form}). Kuvan lähde on WikiCommons (2017).}
+  \label{figure:thunk}
+\end{figure}
 
-Laiska evaluointi mahdollistaa myös omien kontrollirakenteiden kirjoittamisen. Esimerkiksi if-ehtolauseesta on Haskellissa helppoa tehdä oma versio, jossa ehdon täyttymisen perusteella evaluoidaan vain jompikumpi vaihtoehtoisista lausekkeista:
+Tämä toteutus eroaa monista applikatiivesti evaluoiduista kielistä etenkin siinä, että tynkien muodostava verkko voi itsessään viedä ohjelman suoritusaikana huomattavasti muistia. Lisäksi se, että jokin IO-operaatio tarvitsee jonkin tyngän arvoa, voi aiheuttaa hetkellisen hidastumisen ohjelman suoritukseen, jos sisäkkäisiä evaluoimattomia tynkiä on kertynyt paljon. Kumpaakaan näistä ilmiöistä ei esiinny applikatiivisen evaluoinnin kielissä, sillä niissä lausekkeet suoritetaan siinä järjestyksessä missä ne on ohjelmakoodiin kirjoitettu, ja tynkiä ei tarvita.
 
-\begin{alltt}
-% Käyttö: myIf condition onTrue onFalse
-myIf :: Bool -> a -> a -> a
-myIf True  x _ = x
-myIf False _ y = y
-\end{alltt}
+\subsection{Leviäminen muihin ohjelmointikieliin}
 
-% Tässä olisi ehkä kiva mainita toki siitä, että täsmäkielen rakentamiseen vaikuttaa toki monta muutakin tekijää.
-Omien kontrollirakenteiden tuki helpottaa kieleen upotettujen \textit{täsmäkielten} rakentamista. Täsmäkielillä tarkoitetaan pieniä, tavanomaisesti deklaratiivisia kieliä, jotka ovat hyvin ilmaisuvoimaisia tietyssä ongelma-avaruudessa \citep{van2000domain}. Täsmäkielet toteutetaan usein ohjelmointikielen apukirjastoina, ja täsmäkieli on siinä tapauksessa yhdistelmä ohjelmointikielen valmiita ominaisuuksia ja apukirjastossa siihen laadittuja lisäyksiä.
-
-Seuraavassa luvussa siirryn tarkastelemaan sitä, millaisia sovellutuksia laiskalle evaluoinnille on löydetty erilaisissa ohjelmointikielissä ja ohjelmointiin liittyvissä \mbox{konteksteissa.}
+Haskell on nykypäivänä suosituista ohjelmointikielista ainoita, joissa applikatiivinen evaluointisemantiikka on rakennettu perustavanlaatuiseksi osaksi kielen toteutusta. Kuitenkin monet Haskellissa esitellyt ideat ovat levinneet myös muihin kieliin. Käsittelen näitä ideoita ja niiden sovelluksia eri ohjelmointikielissä seuraavassa luvussa.
