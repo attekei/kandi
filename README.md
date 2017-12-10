@@ -2,7 +2,11 @@
 
 My extraordinary bachelor thesis!
 
-## Prerequisites
+## Latest PDF
+
+[Get it here](https://github.com/attekei/kandi/raw/master/kandi-v3-tapaaminen.pdf)
+
+## Development prerequisites
 
 1. Install a LaTeX distribution, `brew update && brew cask install mactex`
 
