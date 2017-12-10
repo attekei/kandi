@@ -85,18 +85,6 @@ Tätä osiota varten tutustuin seuraavien ohjelmointikielien synktaksiin, standa
 \subsection{Laiskat sekvenssit}
 
 %  More elaborate lazy data structures (e.g., trees) can be valuable in combinatorial search problems, in which a clever algorithm may explore only the “interesting” parts of a potentially enormous search space.
-
-% Jo 1980-luvun varhaisessa tutkimuksessa käsiteltiin laiskan evaluoinnin mahdollistamia laiskoja tietorakenteita, etenkin ``päättymättömiä tietorakenteita''. Näitä ovat muun muassa päättymättömät listat, puurakenteet ja tapahtumavirrat. Ne ovat tyypillisesti rekursion avulla toteutettuja, ja laiskan evaluoinnin ansiosta tietorakenteessa tarvitsee mennä vain niin ``syvälle'' kuin on tarvetta.
-% 
-% Eräs klassinen esimerkki on matematiikan äärettömiä lukujonojen kuvaaminen. Seuraavassa on Fibonaccin lukujono ilmaistuna rekursiivisesti Haskellilla. Huomionarvoista on, kuinka paljon koodi muistuttaa tapaa, jolla rekursiivinen lukujono ilmaistaisiin matematiikassa:
-% 
-% \begin{alltt}
-% fib 0 = 0
-% fib 1 = 1
-% fib n = fib (n-1) + fib (n-2)
-% \end{alltt}
-% 
-
 Clojure tukee laiskoja sekvenssejä, eli listamaisia tietorakenteita, joita varten kielessä on valmis tuki \verb!lazy-seq! -makron avulla. Käytännössä Clojuren käyttäjä tulee käyttäneeksi laiskoja sekvenssejä paljon, sillä monet kielen yleisimmistä listamaisten tietorakenteiden operaatioista palauttavat laiskan sekvenssin. Näitä operaatioita ovat esimerkiksi \verb!map!, \verb!filter! ja \verb!take!. Clojuren laiskojen listojen arvoja evaluoidaan sitä mukaan kuin niitä tarvitaan, ja arvot pysyvät muistissa tulevia käyttökertoja varten.
 
 \textit{Immutable.js} on Facebookin julkaisema JavaScript-apukirjasto, joka tarjoaa tuen funktionaaliselle ohjelmoinnille ominaisille pysyvätilaisille tietorakenteille. Kaikki kirjastossa määritellyt sekvenssit, esimerkiksi indeksoidun listan \verb!List! tai pinon \verb!Stack!, voi muuttaa laiskaksi \verb!Seq!-konstruktorilla. Sekvenssille kohdistettavat operaatiot ovat tämän luokan metodeja, ja kun \verb!Seq!-instanssille kutsuu näitä metodeja, ne palauttavat uuden laiskan sekvenssin. Ketjutetut operaatiot evaluoidaan vasta sitten, kun lopullista arvoa tarvitaan.
@@ -111,6 +99,20 @@ Clojure tukee laiskoja sekvenssejä, eli listamaisia tietorakenteita, joita vart
 	\item Scalan ei-tiukan transformerit ja streamit
 	\item Muut ohjelmointikielet (pinnallisesti?)
 \end{itemize}
+
+\subsection{Päättymättömät listarakenteet}
+
+\textit{Tämän osion teksti on suoraan kandin edellisestä versiosta. Pohdin, olisiko järkevää erottaa laiskat listatransformaatiot ja päättymättömät listarakenteet kahdeksi eri alaosioksi. Ongelmana tässä osiossa olisi, että tämä on osin päällekkäinen iteraattorien/generaattorien kanssa. Siksi ehkä tämän voisi myös yhdistää generaattorit -alalukuun. }
+
+Jo 1980-luvun varhaisessa tutkimuksessa käsiteltiin laiskan evaluoinnin mahdollistamia laiskoja tietorakenteita, etenkin ``päättymättömiä tietorakenteita''. Näitä ovat muun muassa päättymättömät listat, puurakenteet ja tapahtumavirrat. Ne ovat tyypillisesti rekursion avulla toteutettuja, ja laiskan evaluoinnin ansiosta tietorakenteessa tarvitsee mennä vain niin ``syvälle'' kuin on tarvetta.
+
+Eräs klassinen esimerkki on matematiikan äärettömiä lukujonojen kuvaaminen. Seuraavassa on Fibonaccin lukujono ilmaistuna rekursiivisesti Haskellilla. Huomionarvoista on, kuinka paljon koodi muistuttaa tapaa, jolla rekursiivinen lukujono ilmaistaisiin matematiikassa:
+
+\begin{alltt}
+fib 0 = 0
+fib 1 = 1
+fib n = fib (n-1) + fib (n-2)
+\end{alltt}
 
 \subsection{Call-by-need -muuttujat}
 
