@@ -1,4 +1,4 @@
-% --------------------------------------------------------------------
+% -------------------------------------------------------------------
 % Cheatsheet:
 % \verb!lazy val!   -- esim. lyhyisiin koodinpätkiin
 % \begin{verbatim}  -- esim. pitkiin koodinpätkiin
@@ -23,34 +23,70 @@
 
 \section{Yhteenveto ja johtopäätökset}\label{yhteenveto}
 
-% Laiskasta evaluoinnista on kehitetty edelleen uusia evaluointistrategioita. Optimistinen evaluointi, lempeä evaluointi. \citep{ennals2003optimistic} \citep{maessen2002hybrid}
+Aloitan käymällä läpi, millaisia vastauksia sain tutkimuskysymyksiini.
 
-\textit{Haluan suoda ajatuksia tuloksista vedettäville johtopäätöksille vasta sitten, kun tuloksia käsittelevät luvut ovat jokseenkin lopullisessa muodossa. Minkähäntyyppisiä johtopäätöksiä voin ylipäätään vetää? Mikä on yhteenvedon rooli?}
+Käsitteitä määritellessä selvisi, että laiskaan evaluointiin liittyen käytetään paljon päällekkäistä käsitteistöä, mikä hankaloittaa aiheeseen tutustumista. Tässä työssä päädyin käyttämään paljon normaalijärjestyksessä evaluoinnin ja sen vastakohdan applikatiivisen evaluoinnin käsitteitä, koska ne ovat yksiselitteisesti määriteltyjä. Laiska evaluointi ja ahne evaluointi osoittautuivat yleiskäsitteiksi, joilla voidaan kuvata useita eri evaluointistrategioita.
 
-\begin{markdown}
--  _Tutkimuskysymyksiin vastaaminen_ (vasta kun muut osiot on kirjoitettu)
-	- Millaista käsitteistöä laiskan evaluoinnin yhteydessä käytetään?
-		- Paljon päällekkäistä käsitteistöä mikä hankaloittaa aiheeseen tutustumista
-	- Mikä on laiskan evaluoinnin merkitys tietojenkäsittelytieteen historiassa ja nykypäivänä?
-		- Vaikuttaa siltä, että funktionaalisen ohjelmoinnin kehitykselle normal-order evaluation on ollut keskeistä
-		- Laiskaa evaluointia osataan käyttää yhä kypsemmin: sen ja applicative semanticsin välillä osataan tasapainotella, ja laiskaa evaluointia käytetään paljon rajatummin kuin aikaisemmin
-	- Millaisia etuja ja heikkouksia laiskaan evaluointiin liittyy?
-		- Laajamittaiseen käyttöön liittyy paljon ongelmia, koska sekä ajan- että tilankäyttö vaikeasti ennakoitavaa (…ja kielen kääntäjän toteutus monimutkaistuu). 
-		- Ilmaisuvoima ei merkittävästi parane.
-		- Muistivuotojen identifioiminen hankalampaa, kun suoritusjärjestys ei ole helposti seurattavissa. Ei laadukkaita debuggereita tarjolla laiskoihin kieliin.
-- _Metodologisia puutteita_
-	- Yksittäisiin lähteisiin nojataan liikaa
-	- Mielipidetutkimuksen otos oli pieni
-- _Tulevaisuudennäkymiä_
-	- Voisi nostaa esiin kiinnostavan, uuden trendin: täydelliset funktionaaliset kielet, joissa funktiot ovat täydellisesti määriteltyjä, eli ne terminoituvat aina (= bottomia/undefinedia ei ole). Näiden kannalta ei ole mitään väliä, onko kieli vai laiska vai ei; käytännössä fiksumpaa valita ei-laiskuus koska tällöin laiskuuden aiheuttamilta haasteilta vältytään. Konkreettisena esimerkkinä Haskellin kaltainen Idris, joka on saanut aika kivasti nostetta viime vuosina.
-	- Voi nähdä, että normal-order kieliä kohtaan on laskeva kiinnostus, mutta monissa applicative order -kielissä tarjotaan työkaluja tarkkaan rajattua laiskaa evaluointia varten
-- _Ehdotuksia_ (onko tämä vähän irrallinen?)
-	- Olisi hyvä, jos funktionaalisten kielien laatijat (etenkin Haskellin tekijät) ottaisivat kantaa, mitä evaluointisemantiikkoihin käsitteitä he haluavat käyttää ja mitä olla käyttämättä. Näin tilanteeseen tulisi selkeyttä.
-- _Mahdollisia tutkimuskysymyksiä_
-	- Miten tässä työssä esitellyt laiskan evaluoinnin sovellutuksia voisi toteuttaa muihin suosittuihin ohjelmointikieliin, kuten Javaan tai Go:hon?
-	- Miten laiskasti evaluoiduissa kielissä nopeuteen ja muistinkäyttöön liittyvistä ongelmista voitaisiin päästä eroon?
-	- Kuinka kääntäjät voisivat automaattisesti käyttää laiskaa evaluointia, jos se vaikuttaa tehokkaimmalta jonkin koodinpätkän ajamiseen?
-\end{markdown}
+Tietojenkäsittelytieteessä normaalijärjestyksessä evaluointi on selkeästi ollut keskeistä etenkin funktionaalisen ohjelmoinnin kehityksen kannalta. Se on kannustanut rakentamaan kieliä, jossa muuttujien arvot pysyvät vakiona ja funktiot käyttäytyvät ennakoitavaksi, koska tällöin komentojen suoritusjärjestystä voi muuttaa ja suoritusta voi viivästää.
+
+Normaalijärjestyksessä evaluointia osataan käyttää yhä kypsemmin ja kypsemmin: sen ja applikatiivisen evaluoinnin välillä osataan tasapainotella, ja laiskaa evaluointia käytetään rajatummin kuin aikaisemmin. Tämä liittyy siihen, että laiskan evaluoinnin laajamittainen käyttö aiheuttaa ongelmia sekä nopeuden että muistinkäytön ennustettavuuden suhteen. Rajatuissa sovellutuksissa näitä ongelmia ei pääse syntymään.
+
+Vaikuttaa myös siltä, että ohjelmointikielen ilmaisuvoimaa normaalijärjestyksessä evaluointi itsessään ei merkittävästi paranna. Oikeastaan laajamittainen käyttö vaikeuttaa muistivuotojen identifioimista sekä suorituksen seuraamista. Nykyiset työkalut esimerkiksi Haskellin suorituksen seuraamiseen ovat hyvin puutteelliset verrattuna moniin applikatiivisesti evaluoituihin kieliin.
+
+\subsection{Metodologisia puutteita}
+
+Työssäni nojataan paikoin liikaa yksittäisiin lähteisiin. Tämä pätee etenkin käsitteiden määrittelyosioon, koska liian usein kirjallisuudessa käsitteitä käytettiin olettaen lukijan tietävän niiden merkityksen, ja varsinaisia käsitemäärittelyjä oli kirjallisuudessa melko vähän. Hyödyllisimpiä olivat alan oppikirjat, mutta ohjelmointikielien teoriasta kirjoitettuja kirjoja on myös vähäisesti.
+
+Mielipidetutkimuksen otos oli pieni ja tutkimusmenetelmä hieman epämääräinen. Oli kätevää kysyä kokemuksia työkavereilta firman viestintätyökalun käyttä, mutta keskustelu ei ollut luonteeltaan kovin jäsentynyttä. Kirjallisuudessakin mielipiteitä ja kokemuksia oli hajanaisesti eri aiheista, Oli vaikeaa luoda yksittäiseen ala-aiheeseen, kuten laiskan evaluoinnin nopeushyötyihin- ja haittoihin, monipuolista näkemystä.
+
+\subsection{Alan ongelmia}
+
+Toivoisin, että etenkin Haskell-yhteisö kävisi vastaisuudessa enemmän keskustelua siitä, millaista käsitteistöä he käyttävät evaluointisemantiikkoihin liittyen. Haskell-wiki, joka on monelle Haskellin käyttäjälle tärkeä oppimateriaali, ei käytä lainkaan alan vakiintuneita call-by-value ja call-by-need -käsitteitä, vaikka ne ovat kuvaavia ja selkeästi määriteltyjä termejä. Sen sijaan Haskell-yhteisö puhuu paljon ei-tiukasta semantiikasta, joka ei ota ohjelmakoodin evaluoinnin etenemiseen suoraan kantaa. Minulle tuli Haskell-wikiä lukiessa usein sellainen olo, että asioita ei selitetä siinä riittävän selkeästi.
+
+Haskell-wikin toinen ongelma on, että siinä laiskan evaluoinnin aiheuttamia ongelmia ei käsitellä riittävästi. Päinvastoin laiskaa evaluointia ja ei-tiukkaa semantiikkaa ylistetään varsin kritiikittömästi. Tämä johtaa monia Haskelliin tutustuvia harhaan, ja voi johtaa siihen, että Haskellin käytön aloittaneet kohtaavat isoja ongelmia kieltä käyttäessään.
+
+\subsection{Tulevaisuudennäkymiä}
+
+Yhtenä uutena kiinnostavana trendinä on totaalisesti funktionaalinen ohjelmointi, jossa funktiot ovat täydellisesti määriteltyjä, eli ne saavat poikkeuksetta arvon \citep{turner2004total}. Päättymättömiä silmukoita tai loputtomia rekursioita ei siis näissä kielissä esiinny. Näiden kielien kannalta sillä, onko kieli applikatiivisesti vai normaalijärjestyksessä evaluoituva, ei ole merkitystä. Idris-niminen kieli, joka on viimeisenä muutamana vuotena saavuttanut suosiota, on valinnut applikatiivisen evaluoinnin. Kielen luojien perusteena valinnassa on, että applikatiivisesti evaluoidut ohjelmat ovat ennakoitavampia suorituskyvyltään \citep{idrisfaqwhynotlazy}.
+
+\subsection{Mahdollisia tutkimuskysymyksiä}
+Olisi kiinnostavaa tutkia, miten työssä esiteltyjä laiskan evaluoinnin sovellutuksia voisi toteuttaa sellaisiin ohjelmointikieliin, jossa niitä ei vielä ole. Näitä kieliä voisivat olla esimerkiksi Java ja Go.
+
+Olisi myös hyödyllistä saada selville, miten applikatiivisesti evaluoiduissa kielissä nopeuteen ja muistinkäyttöön liittyvistä ongelmista voisi päästä eroon. Mikä olisi esimerkiksi paras tapa varoittaa käyttäjää, että hänen kirjoittamansa ohjelmakoodi saattaa aiheuttaa muistinkäytöllisiä ongelmia? Voisiko myös kehittää parempia ohjelmien suorituksen tarkkailemiseen tarkoitettuja työkaluja, jotka toisivat nämä ongelmat havainnollisesti ilmi?
+
+Hyvin kiinnostava kysymys olisi myös se, että pystyisikö applikatiivisesti evaluoitujen kielien kääntäjät tekemään automaattisesti sellaisia optimointeja, että joitain ohjelmakoodin kohtia ajettaisiin normaalijärjestyksessä sen sijaan, että ne ajetaan applikoiden. Näin voisi säästyä esimerkiksi ylimääräiseltä laskennalta ja saada nopeushyötyjä. Voisiko suosittujen ohjelmointikielien käyttäjät hyötyä näin laiskasta evaluoinnista ilman, että heidän tarvitsee edes tietoisesti käyttää sitä?
+
+\subsection{Oma oppimiseni}
+
+Koin kandityön tekemisen itselleni hyödylliseksi. Tutustuin evaluointisemantiikkoihin ja funktionaaliseen ohjelmointiin paljon syvemmällä tasolla kuin aikaisemmin. Pystyn nyt tekemään valistuneempia valintoja siitä, millainen ohjelmointikieli soveltuu parhaiten käsillä olevaan ongelmaan, ja kykenen hyödyntämään laiskaa evaluointia rajatuiden ongelmien ratkaisemisessa.
+
+Oli silmiäavaavaa huomata, kuinka epäselvää tietojenkäsittelytieteiden käsitteistö usein on. Koen, että jatkossa minun on tärkeää kiinnittää enemmän huomiota siihen, että kommunikoin yksiselitteisiä käsitteitä käyttäen työssäni, jotta saan vältettyä epäselvyyksiä.
+
+%
+% \begin{markdown}
+% -  _Tutkimuskysymyksiin vastaaminen_ (vasta kun muut osiot on kirjoitettu)
+% 	- Millaista käsitteistöä laiskan evaluoinnin yhteydessä käytetään?
+% 		- Paljon päällekkäistä käsitteistöä mikä hankaloittaa aiheeseen tutustumista
+% 	- Mikä on laiskan evaluoinnin merkitys tietojenkäsittelytieteen historiassa ja nykypäivänä?
+% 		- Vaikuttaa siltä, että funktionaalisen ohjelmoinnin kehitykselle normal-order evaluation on ollut keskeistä
+% 		- Laiskaa evaluointia osataan käyttää yhä kypsemmin: sen ja applicative semanticsin välillä osataan tasapainotella, ja laiskaa evaluointia käytetään paljon rajatummin kuin aikaisemmin
+% 	- Millaisia etuja ja heikkouksia laiskaan evaluointiin liittyy?
+% 		- Laajamittaiseen käyttöön liittyy paljon ongelmia, koska sekä ajan- että tilankäyttö vaikeasti ennakoitavaa (…ja kielen käänAtäjän toteutus monimutkaistuu).
+% 		- Ilmaisuvoima ei merkittävästi parane.
+% 		- Muistivuotojen identifioiminen hankalampaa, kun suoritusjärjestys ei ole helposti seurattavissa. Ei laadukkaita debuggereita tarjolla laiskoihin kieliin.
+% - _Metodologisia puutteita_
+% 	- Yksittäisiin lähteisiin nojataan liikaa
+% 	- Mielipidetutkimuksen otos oli pieni
+% - _Tulevaisuudennäkymiä_
+% 	- Voisi nostaa esiin kiinnostavan, uuden trendin: täydelliset funktionaaliset kielet, joissa funktiot ovat täydellisesti määriteltyjä, eli ne terminoituvat aina (= bottomia/undefinedia ei ole). Näiden kannalta ei ole mitään väliä, onko kieli vai laiska vai ei; käytännössä fiksumpaa valita ei-laiskuus koska tällöin laiskuuden aiheuttamilta haasteilta vältytään. Konkreettisena esimerkkinä Haskellin kaltainen Idris, joka on saanut aika kivasti nostetta viime vuosina.
+% 	- Voi nähdä, että normal-order kieliä kohtaan on laskeva kiinnostus, mutta monissa applicative order -kielissä tarjotaan työkaluja tarkkaan rajattua laiskaa evaluointia varten
+% - _Ehdotuksia_ (onko tämä vähän irrallinen?)
+% 	- Olisi hyvä, jos funktionaalisten kielien laatijat (etenkin Haskellin tekijät) ottaisivat kantaa, mitä evaluointisemantiikkoihin käsitteitä he haluavat käyttää ja mitä olla käyttämättä. Näin tilanteeseen tulisi selkeyttä.
+% - _Mahdollisia tutkimuskysymyksiä_
+% 	- Miten tässä työssä esitellyt laiskan evaluoinnin sovellutuksia voisi toteuttaa muihin suosittuihin ohjelmointikieliin, kuten Javaan tai Go:hon?
+% 	- Miten laiskasti evaluoiduissa kielissä nopeuteen ja muistinkäyttöön liittyvistä ongelmista voitaisiin päästä eroon?
+% 	- Kuinka kääntäjät voisivat automaattisesti käyttää laiskaa evaluointia, jos se vaikuttaa tehokkaimmalta jonkin koodinpätkän ajamiseen?
+% \end{markdown}
 
 % \subsection{Yhteenveto}
 % Työssä jäi vähäiseksi algoritminen ja matemaattinen näkökulma. Miksi se olisi ollut hyödyllistä?

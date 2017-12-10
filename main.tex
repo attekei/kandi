@@ -125,12 +125,12 @@
 
 % Otsikko nimiölehdelle. Yleensä sama kuin seuraavana oleva \TITLE,
 % mutta jos nimiölehdellä tarvetta "kaksiosaiselle" kaksiriviselle
-\title{Laiska evaluointi funktionaalisessa ohjelmoinnissa}
+\title{Laiska evaluointi}
 % 2-osainen otsikko:
 %\title{\LaTeX{}-pohja kandidaatintyölle \\[5mm] Pitkiä rivejä kokeilun vuoksi.}
 
 % Otsikko tiivistelmään. Jos lisäksi engl. tiivistelmä, niin viimeisin:
-\TITLE{Laiska evaluointi funktionaalisessa ohjelmoinnissa}
+\TITLE{Laiska evaluointi}
 %\TITLE{\LaTeX{} för kandidatseminariet med jättelång rubrik som fortsätter och
 % fortsätter ännu}
 \ENTITLE{\LaTeX{} template for Bachelor thesis with a pretty long title %
@@ -214,7 +214,7 @@ line which continues ynd continues}
 
 % Avainsanat tiivistelmään. Tarvittaessa myös englanniksi:
 
-\KEYWORDS{laiska evaluointi, call-by-need, evaluointistrategia, suoritusjärjestys, funktionaalinen ohjelmointi, Haskell}
+\KEYWORDS{laiska evaluointi, normaalijärjestyksessä evaluointi, call-by-value, call-by-need, evaluointisemantiikka, evaluointistrategia, evaluointijärjestys, funktionaalinen ohjelmointi, Haskell}
 \ENKEYWORDS{key, words, the same as in FIN/SWE}
 
 % Tiivistelmään tulee opinnäytteen sivumäärä.
@@ -255,7 +255,7 @@ line which continues ynd continues}
 % \newpage                       % pakota sivunvaihto
 
 % -------------- Sisällysluettelo / TOC -------------------------------
-\input{acronyms}
+\input{chapter_acronyms}
 \clearpage
 \tableofcontents
 
@@ -307,6 +307,7 @@ line which continues ynd continues}
 
 % input-komento upottaa tiedoston
 \input{chapter_intro}
+\input{chapter_methodology}
 \input{chapter_terminology}
 \input{chapter_history}
 \input{chapter_applications}

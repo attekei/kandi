@@ -22,15 +22,10 @@
 %!TEX root = main.tex
 \section{Käsitteiden määrittely}\label{kasitteisto}
 
-Käyn tässä osiossa läpi käsitteistöä, joka on olennaista laiskan evaluoinnin aihepiirin ymmärtämiselle. Ensiksi käsittelen funktionaalista ohjelmointia, ohjelmointikielen kategoriaa, jossa laiskaa evaluointia erityisesti esiintyy. Sen jälkeen käyn läpi evaluointisemantiikkoja, jotka määrittelevät ohjelmointikielten funktioden ja funktiokutsujen noudattamia sääntöjä.
-
-% Monille näistä käsitteistä on hankalaa hakea historiaa, ja historian mukaan jäsentely tuntuu keinotekoiselta, joten pidetään historiaosia erillisenä.
-%	* Mageeta tässä osiossa on se, että jos tämä paisuu liian raskaaksi, niin käsitemäärittelyjä pystyy melko joustavasti ripottelemaan muihin osioihin sitä mukaa kun käsitteitä tulee vastaan
-%	- [ ] Kirjoitetaan intro tähän osioon vasta sitten, kun käsitteet on määritelty
-%		* Jotain tällaista: Eri kirjoittajat käyttäjät eri käsitteitä eri tavoin, ja sekaannuksia sekä käsitteiden sävyeroja on syytä tuoda eksplisiittisesti esiin
+Käyn tässä osiossa läpi käsitteistöä, joka on olennaista laiskan evaluoinnin aihepiirin ymmärtämiselle. Ensiksi käsittelen funktionaalista ohjelmointia, ohjelmointityyliä, johon laiska evaluointi usein liitetään. Sen jälkeen käyn läpi evaluointisemantiikkoja, jotka määrittelevät ohjelmointikielten funktioden ja funktiokutsujen noudattamia sääntöjä.
 
 \subsection{Funktionaalinen ohjelmointi}
-Funktionaalinen ohjelmointi on tapa rakentaa tietokoneohjelmia, joka on saanut inspiraationsa lamdakalkyylistä, matemaattisen logiikan mallista, jonka Alonzo Church laati 1930-luvulla \citep{church1932set}.
+Funktionaalinen ohjelmointi on tapa rakentaa tietokoneohjelmia, joka on saanut inspiraationsa lambdakalkyylistä, matemaattisen logiikan mallista, jonka Alonzo Church laati 1930-luvulla \citep{church1932set}.
 
 \citet{scott2009programming} sanoo, että tiukasti määriteltynä funktionaalisella tyylillä rakennettu ohjelma määrittelee ohjelman ulostulot niiden sisääntulojen funktiona. Funktiot ovat funktioita matemaattisessa mielessä, eli niillä ei ole sisäistä tilaa. Funktiot voivat kutsua toisiaan, ja siten ohjelmissa useat pienemmät funktiot yhdessä muodostavat ohjelman pääfunktion, joka muuntaa sisääntulot ulostuloiksi.
 
@@ -40,7 +35,7 @@ Funktionaaliseen ohjelmointiin liittyy läheisesti seuraavat käsitteet:
 
 	\item \textit{Deterministisyys} tarkoittaa sitä, että tietyillä sisääntuloilla ohjelman ulostulo on aina sama riippumatta ajanhetkestä tai muista tekijöistä.
 
-	\item \textit{Viittausten läpinäkyvyys} (eng. \textit{referential transparency}) tarkoittaa sitä, että ohjelmointikielen lausekkeen korvaaminen sen arvolla ei muuta ohjelman ulostuloa. Viittaukseltaan läpinäkyvät lausekkeet ovat deterministisiä.
+	\item \textit{Viittausten läpinäkyvyys} (eng. \textit{referential transparency}) tarkoittaa sitä, että ohjelmointikielen lausekkeen korvaaminen sen arvolla ei muuta ohjelman ulostuloa \citep{hudak1989conception}. Viittaukseltaan läpinäkyvät lausekkeet ovat deterministisiä.
 
 	\item \textit{Sivuvaikutus} (eng. \textit{side effect}) tarkoittaa sitä, että ohjelmointikielen yhden aliohjelman kutsuminen vaikuttaa ohjelman muiden aliohjelmien palauttamiin arvoihin ohjelman myöhemmässä suoritusvaiheessa. Jos ohjelmassa on sivuvaikutuksia, se ei ole deterministinen, ja siten funktionaalisissa ohjelmointikielissä on mahdollisimman vähän sivuvaikutuksia.
 
@@ -51,10 +46,7 @@ Funktionaaliseen ohjelmointiin liittyy läheisesti seuraavat käsitteet:
 
 Käsitteistä deterministisyys, viittausten läpinäkyvyys ja sivaikutuksettomuus ovat merkitykseltään osin päällekkäisiä, ja niitä kaikkia käytetään yleisesti funktionaalisen ohjelmoinnin luonteen kuvaamiseen.
 
-Funktionaalinen ohjelmointityyli voi yksinkertaisimmillaan tarkoittaa sivuvaikutusten välttämistä, ja monet ohjelmointikielet tarjoavat tätä helpottavia työkaluja. Tällaisia kieliä ovat esimerkiksi Scala, Clojure ja Lisp. Jotkin kielet, kuten Haskell ja Miranda rakentuvat pitkälti puhtaasti funktionaalisen ohjelmointityylin ympärille, 
-
-Useat ohjelmointikielet tarjoavat ainakin rajatun tuen funktionaaliselle ohjelmointityylille. 
-% Usein ohjelmointikielet sisältävät funktionaalisen ohjelmoinnin piirteitä, mutta eivät tue puhtaasti funktionaalista ohjelmointityyliä. Tällaisia kieliä ovat esimerkiksi Scala, Clojure ja Lisp. Ohjelmointiyhteisössä näitä kuitenkin välillä kutsutaan hieman hämäävästi ``funktionaalisiksi kieliksi''.
+Funktionaalinen ohjelmointityyli voi yksinkertaisimmillaan tarkoittaa sivuvaikutusten välttämistä, ja monet ohjelmointikielet tarjoavat tätä helpottavia työkaluja. Tällaisia kieliä ovat esimerkiksi Scala, Clojure ja Lisp. Jotkin kielet, kuten Haskell ja Miranda, puolestaan rakentuvat pitkälti puhtaasti funktionaalisen ohjelmointityylin ympärille.
 
 \subsection{Evaluointisemantiikat}
 
@@ -174,16 +166,12 @@ Vastaavasti normaalijärjestyksessä evaluointi, jossa evaluointia viivästetä�
 
 
 \subsubsection{Parametrimoodit}
-% Call-By-Value, Call-By- Name, Call-By-Need
-% (ehkä ylimääräisiä: Call-By-Sharing, Call-By-Reference)
-
-% Vois tsekata vielä miten alkuperäisessä lähteessä tarkalleen näitä kuvataan
-Parametrimoodeja yhdistää lähinnä niiden nimeämiskäytäntö, joka helpottaa niiden vertaamista keskenään. Yleisimmin käytettyjä parametrimoodeja ovat \citet{scott2009programming} mukaan
+Parametrimoodeja yhdistää lähinnä niiden nimeämiskäytäntö, joka helpottaa niiden vertaamista keskenään. Yleisimmin käytettyjä parametrimoodeja ovat
 
 \begin{itemize}
-	\item \textit{Call-by-value}, jossa funktiota kutsuttaessa parametrilauseke evaluoidaan ennen funktion ohjelmakoodia, ja arvo on käytettävissä parametria vastaavassa muuttujassa funktion ohjelmakoodissa. Jos parametrilausekkeena on ollut muuttuja, muuttujan arvo kopioidaan uuteen muuttujaan funktion ohjelmakoodia varten.
-    \item \textit{Call-by-name}, jossa parametrilausekkeet sijoitetaan suoraan funktion ohjelmakoodiin niihin kohtiin, joissa argumentteihin käytetään. Parametrilauseke evaluoidaan uudestaan joka kerta, kun ohjelmakoodissa tarvitaan kyseisen argumentin arvoa.
-    \item \textit{Call-by-need}, jossa parametrilauseke evaluoidaan vasta, kun funktion ohjelmakoodi tarvitsee sen arvoa ensimmäistä kertaa. Kun parametrilauseke on evaluoitu, se pidetään muistissa sitä varten, jos ohjelmakoodi tarvitsee argumenttia uudestaan. Usein tätä muistissa pitämisen periaatetta kutsutaan \textit{memoisoinniksi} (eng. \textit{memoization})
+	\item \textit{Call-by-value}, jossa funktiota kutsuttaessa parametrilauseke evaluoidaan ennen funktion ohjelmakoodia, ja arvo on käytettävissä parametria vastaavassa muuttujassa funktion ohjelmakoodissa. Jos parametrilausekkeena on ollut muuttuja, muuttujan arvo kopioidaan uuteen muuttujaan funktion ohjelmakoodia varten. \citep{scott2009programming}
+    \item \textit{Call-by-name}, jossa parametrilausekkeet sijoitetaan suoraan funktion ohjelmakoodiin niihin kohtiin, joissa argumentteihin käytetään. Parametrilauseke evaluoidaan uudestaan joka kerta, kun ohjelmakoodissa tarvitaan kyseisen argumentin arvoa. \citep{ariola1995callbyneed}
+    \item \textit{Call-by-need}, jossa parametrilauseke evaluoidaan vasta, kun funktion ohjelmakoodi tarvitsee sen arvoa ensimmäistä kertaa. Kun parametrilauseke on evaluoitu, se pidetään muistissa sitä varten, jos ohjelmakoodi tarvitsee argumenttia uudestaan. Usein tätä muistissa pitämisen periaatetta kutsutaan \textit{memoisoinniksi} (eng. \textit{memoization}). \citep{ariola1995callbyneed}
 \end{itemize}
 
 Call-by-value evaluoidaan applikoiden siinä missä call-by-name ja call-by-need evaluoidaan normaalijärjestyksessä. Siten parametrimoodit voi nähdä applikatiivisen evaluoinnin ja normaalijärjestyksessä evaluoinnin alakategorioina.
@@ -194,9 +182,7 @@ Laiska evaluointi (eng. \textit{lazy evaluation}) esiintyy kirjallisuudessa tark
 
 Ahne evaluointi (eng. \textit{eager evaluation}) määritellään usein laiskan evaluoinnin vastakohdaksi. Se voi kontekstista riippuen tarkoittaa samaa kuin esimerkiksi applikatiivinen evaluointi tai call-by-value -parametrimoodi.
 
-Laiska ja ahne evaluointi ovat mielestäni molemmat käsitteinä ongelmallisia, koska ne ovat alttiita sekaannuksille sen suhteen, mitä niillä milloinkin tarkoitetaan. Siksi vältän niiden käyttöä tulevissa luvuissa, ja viittaan sen sijaan tarkemmin määriteltyihin evaluointistrategioihin.
-
-
+Laiska ja ahne evaluointi ovat mielestäni molemmat käsitteinä ongelmallisia, koska ne ovat alttiita sekaannuksille sen suhteen, mitä niillä milloinkin tarkoitetaan. Siksi pyrin tulevissa luvuissa käyttämään tarkemmin määriteltyjä evalointisemantiikkojen käsitteitä silloin kun se on mahdollista.
 
 % \begin{enumerate}
 % 	\item Määritellään \verb!noreturn! -funktio, joka ei esimerkiksi ikuisen silmukan tai virhetilanteen takia koskaan palauta arvoa.

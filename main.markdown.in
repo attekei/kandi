@@ -5,7 +5,7 @@
 		- Vaikuttaa siltä, että funktionaalisen ohjelmoinnin kehitykselle normal-order evaluation on ollut keskeistä
 		- Laiskaa evaluointia osataan käyttää yhä kypsemmin: sen ja applicative semanticsin välillä osataan tasapainotella, ja laiskaa evaluointia käytetään paljon rajatummin kuin aikaisemmin
 	- Millaisia etuja ja heikkouksia laiskaan evaluointiin liittyy?
-		- Laajamittaiseen käyttöön liittyy paljon ongelmia, koska sekä ajan- että tilankäyttö vaikeasti ennakoitavaa (…ja kielen kääntäjän toteutus monimutkaistuu).
+		- Laajamittaiseen käyttöön liittyy paljon ongelmia, koska sekä ajan- että tilankäyttö vaikeasti ennakoitavaa (…ja kielen käänAtäjän toteutus monimutkaistuu).
 		- Ilmaisuvoima ei merkittävästi parane.
 		- Muistivuotojen identifioiminen hankalampaa, kun suoritusjärjestys ei ole helposti seurattavissa. Ei laadukkaita debuggereita tarjolla laiskoihin kieliin.
 - _Metodologisia puutteita_

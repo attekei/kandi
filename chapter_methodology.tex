@@ -1,0 +1,31 @@
+\section{Tutkimusmenetelmät}\label{metodologia}
+
+[pitäisikö kerrata tutkimuskysymykset tässä?]
+
+Kysymykseen 1 vastatakseni... [mikähän tässä on tutkimusmenetelmänä? eikö tämä hieman leikkaa sitä, mitä sanoin jo edellisessä osiossa tutkimuskysymyksestä 1? mulle on myös vähän epäselvää, että miten mun pitäis linkittää tämä kirjallisuuskatsaukseen joka tulee seuraavana – sieltähän niitä käsitteitä on pompannut esille, joita käsiteosiossa selvennän. ehkä vaihdan tutkimuskysymysten järjestystä, vaikka käsittelyjärjestys itse työssä on sellainen, että aloitan terminologiaosiosta?]
+
+Tarkastelen kysymystä 2 narratiivisen kirjallisuuskatsauksella avulla. Tavoitteena on kartoittaa, millaista tietoa aiheesta tällä hetkellä on, ja tuoda sitä yhteen helppotajuisen narratiivin muotoon. Tällä tavoin luotu katsaus soveltuu hyvin materiaaliksi opettajille \citep[s. 312]{baumeister1997writing}, joten menetelmävalinta on linjassa sen tavoitteen kanssa, että työstä olisi hyötyä yliopisto-opetuksen suunnittelussa.
+
+Kirjallisuuskatsauksen materiaalina käytän ensisijaisesti akateemisia artikkeleita, joita aiheesta on kirjoitettu paljon. Hain artikkeleita ensisijaisesti Scopus-tietokannasta, jossa käytin seuraavaa hakulauseketta:
+
+\begin{listing}[H]
+  \caption{Hakulauseke Scopus-tietokannasta}
+  \bigskip
+  \begin{minted}[linenos=false, xleftmargin=0pt]{python}
+("lazy evaluation" OR "non-strict" OR "call-by-need" OR "call by need")
+AND ("functional")
+  \end{minted}
+\end{listing}
+
+[ pitäisikö minun tässä jo avata sitä, mitä nuo hakulausekkeen termit tarkoittavat, tai että miten olen niihin päätynyt? terminologia-osiossahan vasta varsinaisesti määrittelen nuo käsitteet, mutta toisaalta ]
+% And-operaattorin vasemmalla puolella on kaikki laiskan evaluoinnin tyypillisimmät synonyymit vaihtoehtoisina hakutermeinä.
+
+Tämä hakulauseke tuotti otsikosta, tiivistelmästä ja avainsanoista haettaessa 326 tulosta. Tämä oli sopiva määrä tuloksia tutkimuskysymysten kannalta relevanteimpien artikkeleiden valikointia ajatellen. Huomattava osa tuloksista liittyi laiskan evaluoinnin matemaattisiin todistuksiin, jotka ovat olennaisia ohjelmointikielten kääntäjien suunnittelun kannalta, mutta eivät tämän työn rajauksen kannalta. Kuitenkin etenkin Haskell-ohjelmointikielen parissa työskentelevien ihmisten kirjoittamat artikkelit, joita tuloksissa oli myös paljon, osoittautuivat hyödyllisiksi.
+
+Scopus-tietokannan lisäksi seuloin artikkeleita samalla hakutermillä myös Google Scholarista. Lisäksi Stack Overflow -kysymyspalvelun vastausten ja Haskellin oman wiki-alustan kautta löytyi useita linkkejä relevantteihin artikkeleihin. Täydensin akateemisista artikkeleista saatua tietoa myös blogikirjoituksilla. Niitä hyödynnän sellaisten uusien kehityskulkujen esittelyssä, joiden esiintyminen akateemisissa artikkeleissa on hyvin vähäistä.
+
+\begin{sloppypar}
+Kysymykseen 3 vastatakseni käytän yhdistelmää eri tiedonhakutapoja. Hyödynnän (a) kirjallisuuskatsauksen tiedonhaussa vastaan tulleita mielipidelatautuneita artikkeleita, (b) blogikirjoituksia ja (c) kysymällä mielipiteitä työkavereiltani Slack-kommunikaatioalustan avulla. Blogikirjoituksissa painotan kirjoittajia, joilla on myös akateemista näyttöä aihepiiristä. Mielipiteen kysymisessä pyydän vastaajia kertomaan, että mikäli he ovat missään kontekstissa käyttäneet laiskaa evaluointia esimerkiksi ohjelmointikielessä tai apukirjastossa, millaisia vahvuuksia tai heikkouksia he ovat kohdanneet.
+\end{sloppypar}
+
+Kirjallisuuskatsauksen ja mielipideselvityksen käsittelyjärjestystä tässä työssä esittelee seuraava osio, työn rakenne.

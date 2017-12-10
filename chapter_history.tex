@@ -23,8 +23,7 @@
 
 \section{Laiskan evaluoinnin kehitys \label{historia}}
 
-
-Normaalijärjestyksessä evaluoinnin periaate syntyi 1970-luvulla. Sarja julkaisuja loi pohjaa ajatukselle "laiskoista" funktionaalisista kielistä työkaluna käytännönläheiseen ohjelmistokehitykseen. Ajatus esiteltiin ensimmäisenä matemaattisesti lamdakalkyylin, funktionaalisen ohjelmoinnin kannalta keskeisen matemaattisen teorian, näkökulmasta \citep{wadsworth1971semantics}. Viisi vuotta myöhemmin julkaistiin toisistaan riippumatta kolme artikkelia \citep{henderson1976lazy,friedman1976cuns,saslmanualturner}, joissa esiteltiin normaalijärjestyksessä laiskaa evaluointia  funktionaalisen ohjelmoinnin perspektiivistä.
+Normaalijärjestyksessä evaluoinnin periaate syntyi 1970-luvulla. Sarja julkaisuja loi pohjaa ajatukselle ``laiskoista'' funktionaalisista kielistä työkaluna käytännönläheiseen ohjelmistokehitykseen. Ajatus esiteltiin ensimmäisenä matemaattisesti lambdakalkyylin, funktionaalisen ohjelmoinnin kannalta keskeisen matemaattisen teorian, näkökulmasta \citep{wadsworth1971semantics}. Viisi vuotta myöhemmin julkaistiin toisistaan riippumatta kolme artikkelia \citep{henderson1976lazy,friedman1976cuns,saslmanualturner}, joissa esiteltiin normaalijärjestyksessä laiskaa evaluointia  funktionaalisen ohjelmoinnin perspektiivistä.
 
 \subsection{Haskellin ja puhtaan funktionaalisen ohjelmoinnin kehitys}
 
@@ -85,6 +84,7 @@ Kuten edellä mainittiin, Haskellin kontekstissa laiskalla evaluoinnilla tarkoit
 \end{figure}
 
 Tämä toteutus eroaa monista applikatiivesti evaluoiduista kielistä etenkin siinä, että tynkien muodostava verkko voi itsessään viedä ohjelman suoritusaikana huomattavasti muistia. Lisäksi se, että jokin IO-operaatio tarvitsee jonkin tyngän arvoa, voi aiheuttaa hetkellisen hidastumisen ohjelman suoritukseen, jos sisäkkäisiä evaluoimattomia tynkiä on kertynyt paljon. Kumpaakaan näistä ilmiöistä ei esiinny applikatiivisen evaluoinnin kielissä, sillä niissä lausekkeet suoritetaan siinä järjestyksessä missä ne on ohjelmakoodiin kirjoitettu, ja tynkiä ei tarvita.
+
 
 \subsection{Leviäminen muihin ohjelmointikieliin}
 

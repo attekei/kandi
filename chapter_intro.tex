@@ -50,7 +50,7 @@ Laiska evaluointi on periaatteena monille ohjelmoijille vieras, koska suosituist
 
 Monissa moderneissa ohjelmointikielissä on kuitenkin mahdollista käyttää laiskaa evaluointia joissain kielen ominaisuuksissa. Näistä esimerkkejä ovat Clojuren laiskat listarakenteet, Scalan laiskat instanssimuuttujat ja C++:n laiskat futuurit. Lisäksi joissain ohjelmointikielissä on suosittuja apukirjastoja, joilla laiskaa evaluointi voi simuloida. Tällainen on esimerkiksi JavaScript-yhteisössä suosittu Immutable.js, joka tarjoaa laiskasti evaluoituja listarakenteita.
 
-Ohjelmointiyhteisön sisällä ymmärrys laiskasta evaluoinnista on vajavaista. Sen käytön hyödyistä ja haitoista on sirpaleista ja ristiriitaista tietoa. Lisäksi aihepiiristä keskusteleminen on hankalaa, koska laiskan evaluoinnin määritelmä ei ole yksiselitteinen.
+Ohjelmointiyhteisön sisällä ymmärrys laiskasta evaluoinnista on vajavaista. Sen käytön hyödyistä ja haitoista on sirpaleista ja ristiriitaista tietoa. Lisäksi aihepiiristä keskusteleminen on hankalaa, koska laiskan evaluoinnin määritelmä ei ole yksiselitteinen. Näihin ongelmiin työni pyrkii vastaamaan.
 
 \subsection{Tavoitteet ja tutkimuskysymykset}
 
@@ -62,40 +62,14 @@ Työni keskeisimpänä tavoitteena on koota laiskaa evaluointia käsittelevää 
   \item{Millaisia etuja ja heikkouksia laiskaan evaluointiin liittyy?}
 \end{enumerate}
 
-[kysymys 1 avataan tässä, ei vielä kirjoitettu]
+Kysymykseen 1 vastaan hakemalla yleisimpiä käsitteitä, joita laiskaa evaluointia käsittelevässä kirjallisuudessa esiintyy, hakemalla näille yleisimmät määritelmät, ja vertailemalla käsitteiden vaihtoehtoisia määritelmiä. Jäsentelen myös käsitteiden suhteita toisiinsa.
 
 Kysymyksessä 2 laiskan evaluoinnin merkityksen tutkiminen tarkoittaa, että tarkastelen (a) laiskan evaluoinnin varhaista historiaa pohjustuksenomaisesti, (b) laiskan evaluoinnin leviämistä moderneihin ohjelmointikieliin, (c) laiskan evaluoinnin kautta kehittyneitä sovellutuksia ohjelmointikielissä ja ja (d) laiskaa evaluointia käyttävien teknologioiden hyödyntämistä tutkimuksessa ja työelämässä.
 
-Kysymyksessä 3 selvitän sitä, millaisia subjektiivisia mielipiteitä laiskaa evaluointia hyödyntäviä teknologioita käyttävillä ihmisillä on sekä laiskasta evaluoinnista yleisesti, että kysymyksen 1 tarkastelussa esiin tulleista ohjelmointikielistä ja apukirjastoista.
-
-\subsection{Tutkimusmenetelmät}
-
-Tarkastelen kysymystä 1 narratiivisen kirjallisuuskatsauksella avulla. Tavoitteena on kartoittaa, millaista tietoa aiheesta tällä hetkellä on, ja tuoda sitä yhteen helppotajuisen narratiivin muotoon. Tällä tavoin luotu katsaus soveltuu hyvin materiaaliksi opettajille \citep[s. 312]{baumeister1997writing}, joten menetelmävalinta on linjassa sen tavoitteen kanssa, että työstä olisi hyötyä yliopisto-opetuksen suunnittelussa.
-
-Kirjallisuuskatsauksen materiaalina käytän ensisijaisesti akateemisia artikkeleita, joita aiheesta on kirjoitettu paljon. Hain artikkeleita ensisijaisesti Scopus-tietokannasta, jossa käytin seuraavaa hakulauseketta:
-
-\begin{listing}[H]
-  \caption{Hakulauseke Scopus-tietokannasta}
-  \bigskip
-  \begin{minted}[linenos=false, xleftmargin=0pt]{python}
-("lazy evaluation" OR "non-strict" OR "call-by-need" OR "call by need")
-AND ("functional")
-  \end{minted}
-\end{listing}
-
-% And-operaattorin vasemmalla puolella on kaikki laiskan evaluoinnin tyypillisimmät synonyymit vaihtoehtoisina hakutermeinä.
-% \footnote{Puhtaan funktionaalisen ohjelmoinnin, erityisesti Haskell-ohjelmointikielen, sanastossa käsitteellä \textit{non-strict} on usein laiskasta evaluoinnista eriävä merkitys. Tätä käsitellään tarkemmin luvussa 2. Kirjallisuudessa käsitteet kuitenkin esiintyvät myös toistensa synonyymeina.} Operaattorin oikealla puolella oleva hakutermi \textit{functional} rajaa hakutulokset funktionaalisen ohjelmoinnin piiriin. 
-
-Tämä hakulauseke tuotti otsikosta, tiivistelmästä ja avainsanoista haettaessa 326 tulosta. Tämä oli sopiva määrä tuloksia tutkimuskysymysten kannalta relevanteimpien artikkeleiden valikointia ajatellen.
-
-Scopus-tietokannan lisäksi seuloin artikkeleita samalla hakutermillä myös Google Scholarista. Lisäksi Stack Overflow -kysymyspalvelun vastausten ja Haskellin oman wiki-alustan kautta löytyi useita linkkejä relevantteihin artikkeleihin. Täydensin akateemisista artikkeleista saatua tietoa myös vähäisissä määrin blogikirjoituksilla. Niitä hyödynnän sellaisten uusien kehityskulkujen esittelyssä, joiden esiintyminen akateemisissa artikkeleissa on hyvin vähäistä.
-
-\begin{sloppypar}
-Kysymykseen 2 vastatakseni käytän yhdistelmää eri tiedonhakutapoja. Hyödynnän (a) kirjallisuuskatsauksen tiedonhaussa vastaan tulleita mielipidelatautuneita artikkeleita, (b) blogikirjoituksia ja (c) kysymällä mielipiteitä työkavereiltani Slack-kommunikaatioalustan avulla. Blogikirjoituksissa painotan kirjoittajia, joilla on myös akateemista näyttöä aihepiiristä. Mielipiteen kysymisessä pyydän vastaajia kertomaan, että mikäli he ovat missään kontekstissa käyttäneet laiskaa evaluointia esimerkiksi ohjelmointikielessä tai apukirjastossa, millaisia vahvuuksia tai heikkouksia he ovat kohdanneet.
-\end{sloppypar}
-
-Kirjallisuuskatsauksen ja mielipideselvityksen käsittelyjärjestystä tässä työssä esittelee seuraava osio, työn rakenne.
+Kysymyksessä 3 selvitän sitä, millaisia subjektiivisia mielipiteitä laiskaa evaluointia hyödyntäviä teknologioita käyttävillä ihmisillä on sekä laiskasta evaluoinnista yleisesti, että kysymyksen 2 tarkastelussa esiin tulleista ohjelmointikielistä ja apukirjastoista.
 
 \subsection{Työn rakenne}
 
-Aloitan työn tutkimuskysymykseen 1 vastaamalla eli käsitteitä määrittelemällä. Tutkimuskysymykseen 2 vastausta pohjustan luvussa \ref{historia}, joka käsittelee laiskan evaluoinnin historiaa ja keskeisempiä konsepteja. Se antaa lukijalle valmiudet ymmärtää laiskan evaluoinnin nykyisiä sovellutuksia, jotka ovat luvun \ref{sovellutuksia} aiheena. Luvussa \ref{subjektiiviset-edut} käsittelen subjektiivisesti koettuja etuja ja haittoja, joita laiskaan evaluointiin yleensä ja laiskan evaluoinnin sovellutuksiin liittyy. Luvussa \ref{yhteenveto} vedän työtä yhteen ja tarkastelen työn rajausta.
+[ to be rewritten. miten tästä saisi selkeän ja hyödyllisen lukijalle? ]
+
+Ensiksi käyn läpi tutkimuksessa käytetyt tutkimusmenetelmät joka tutkimuskysymyksen osalta luvussa \ref{metodologia}. Sitten vastaan tutkimuskysymykseen 1 luvussa \ref{kasitteisto} määrittelemällä keskeisimmät käsitteet. Tutkimuskysymykseen 2 vastausta pohjustan luvussa \ref{historia}, joka käsittelee laiskan evaluoinnin historiaa ja keskeisempiä konsepteja. Se antaa lukijalle valmiudet ymmärtää laiskan evaluoinnin nykyisiä sovellutuksia, jotka ovat luvun \ref{sovellutuksia} aiheena. Luvussa \ref{subjektiiviset-edut} käsittelen subjektiivisesti koettuja etuja ja haittoja, joita laiskaan evaluointiin yleensä ja laiskan evaluoinnin sovellutuksiin liittyy. Luvussa \ref{yhteenveto} vedän työtä yhteen ja tarkastelen työn rajausta.

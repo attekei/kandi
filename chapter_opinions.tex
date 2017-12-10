@@ -25,26 +25,6 @@
 
 \section{Subjektiiviset edut ja haitat} \label{subjektiiviset-edut}
 
-\begin{markdown}
-Päivitetty suunnitelma rakenteesta – tulevat alaluvut ovat vanhaa tekstiä:
-
-- Ilmaisuvoima
-	- Hyvää settiä jo olemassaolevassa tekstissä
-	- *The next Haskell will be strict [by default]* –Simon Peyton Jones (eli Haskellinkaan ei tarvitse olla tiukka, vaikka ilmaisuvoima pysyisi samana)
-- Suorituskyky
-	- Voisiko Haskellin evaluointilogiikasta  (graafireduktio + thunkit + kääntäjän tekemät optimoinnit) kertoa vasta tässä? Ehkä ei tämän aihepiirin kohdalla haittaa, että ennen mielipiteisiin syventymistä tulee teoreettista pohjaa (tekstimääräisesti teorian ja mielipiteiden suhde ehkä noin 50/50)
-	- Nopeus
-		- Teoriassa applikatiivista semantiikkaa / ahnetta evaluointia nopeampi ainakin joissain tilanteissa, koska laiska evaluointi jättää joitakin reduktiovaiheita välistä koska tarpeettomia asioita ei evaluoida
-		- Ajankäytön ennustettavuudesta: ohjelmat jumiuttavat garbage collection -ajot
-	- Muistinkäyttö
-		- Tilankäytön ennustettavuudesta: thunkkien aiheuttama evaluoinnin vaikea ennakoitavuus, muistivuodot
-- Vianetsintä ja suoritusjärjestys
-	- Jälleen musta nykyisellään aika hyvässä kuosissa
-	- Vähän voisi kyllä mainita lisää siitä, kuinka applicative semantics -kielissä suoritusjärjestys on hyvin yksiselitteinen
-- Koettu arvo
-	- Yhdistä nyk. ”käytön laajuus” tähän, on täysin päällekkäinen koetun arvon kanssa
-\end{markdown}
-
 \subsection{Ilmaisuvoima}
 % However, the real and major advantage that non-strictness gives you over strict languages is you get to write cleaner and more composable code. In particular, you can separate production and consumption of data: don't know how many prime numbers you're going to need? Just make `primes` a list of all prime numbers, and then which ones actually get generated depends on how you use them in the rest of your code. By contrast, writing code in a strict language that constructs a data structure in response to demand usually will require first-class functions and/or a lot of manual hoop-jumping to make it all behave itself.
 \citet{hughes1989functional} sanoo, että laiskan evaluoinnin käyttö tekee käytännölliseksi jakaa sovelluskoodia \textit{tuottajiin} ja \textit{valitsimiin}. Tuottajat määrittävät suuren määrän mahdollisia vastauksia, ja valitsin valitsee niistä relevanteimmat. Tämä tarjoaa sellaisen tavan modularisoida sovelluskoodia, joka on laiskasti evaluoiduille puhtaasti funktionaalisille kielille uniikki. Hughes kuvaa, että kyseessä on kenties tehokkain tapa modularisoida koodia funktionaalisen ohjelmoijan työpakissa.
@@ -55,15 +35,17 @@ Päättymättömät listat \citet{pointoflaziness} toteaa tietorakenteeksi, jonk
 
 Sekä Karvonen että \citet{pointoflaziness} sanovat, että laiskuuden tähden Haskellista puuttuu tuki induktiivisille tietotyypeille, joka löytyy esimerkiksi kilpailevasta ML-ohjelmointikielestä. Tämän myötä kielellä ei ole mahdollista esimerkiksi luoda tietotyyppiä luonnollisten lukujen kuvaamiseen, tai tyyppi luonnosllisten lukujen muodostamalle listalle.
 
-\subsection{Ajan- ja tilankäytön ennustettavuus}
+\citet{jonesretrospectiveonhaskell} sanoo, että seuraava versio Haskellista voisi oletusarvoisesti noudattaa tiukkaa semantiikkaa, ja kielen käyttäjä voisi ottaa laiskan evaluoinnin aina tarpeen mukaan käyttöön. Hänestä kielen ilmaisuvoima ei merkittävästi kärsisi tästä muutoksesta. Hänen mukaansa laiskaa evaluointia tärkeämpää on se, että kieli jatkossakin rakentuu puhtaasti funktionaalisen ohjelmoinnin ympärille.
 
-Ajankäytön ennustettavuudella tarkoitetaan sitä, kuinka tarkkaan ohjelmoija pystyy arvioimaan, miten ajallisesti ohjelman suoritus etenee, ja kuinka paljon aikaa mikäkin operaatio vie. Tilankäytön ennustettavuus kuvaa vastaavasti sitä, kuinka tarkasti ohjelman muistinkäytön pystyy arvioimaan ohjelman suorituksen edetessä.
+\subsection{Suorituskyky}
+
+% Artikkelissa X [pitää vielä kaivaa, mikä oli kyseessä] todetaan, että Haskell soveltuu heikosti reaaliaikaiseen grafiikkaan, esimerkiksi peleihin, koska evaluoimattomien lausekkeiden evaluointi isona kertaoperaationa saattaa pysäyttää grafiikan ajaksi, jonka käyttäjä huomaa häiritsevänä nykimisenä.
 
 Haskell-ohjelmaa tehdessään \citet{sampson2009experience} kohtasi tiiminsä kanssa ongelmia yllättävien tilavuotojen muodossa. Tilavuodot johtuivat siitä, että kielen evaluoimattomat lausekkeet pitävät jostakin syystä sovelluksen näkökulmasta jo vanhentunutta tietoa muistissa. Syiden hän epäili liittyvän koodin rinnakkaisuuden toteutuksessa käytettyihin abstraktioihin.
 
-\citet{vesakarvonen} sanoo, että funktioiden yhdistämiseen liittyvät mahdollisuudet eivät ole Haskellissa parempia, toisin kuin usein väitetään. Esimerkiksi listaoperaatioiden yhdistämisestä ei tule käytännön hyötyä siksi, että on vaikeaa ennakoida, kuinka listaoperaatiot tarkalleen käyttäytyvät laiskasti evaluoidussa kielessä. Tämän seurauksena niiden tilankäytön ennustettavuuskin on heikko.
+\citet{vesakarvonen} sanoo, että funktioiden yhdistämiseen liittyvät mahdollisuudet eivät ole Haskellissa parempia, toisin kuin usein väitetään. Esimerkiksi listaoperaatioiden yhdistämisestä ei tule käytännön hyötyä siksi, että on vaikeaa ennakoida, kuinka listaoperaatiot tarkalleen käyttäytyvät laiskasti evaluoidussa kielessä. Tämän seurauksena niiden muistinkäytön ennustettavuus on heikko.
 
-Artikkelissa X [pitää vielä kaivaa, mikä oli kyseessä] todetaan, että Haskell soveltuu heikosti reaaliaikaiseen grafiikkaan, esimerkiksi peleihin, koska evaluoimattomien lausekkeiden evaluointi isona kertaoperaationa saattaa pysäyttää grafiikan ajaksi, jonka käyttäjä huomaa häiritsevänä nykimisenä.
+[\citet{moran1999improvement} mukaan call-by-need -semantiikka aiheuttaa haasteita ohjelmointikielen kääntäjien laatijoille, sillä koodia on hankalaa optimoida transformaatioiden avulla eli korvaamalla osia ohjelmakoodista nopeammalla toteutuksella.]
 
 \subsection{Vianetsintä ja suoritusjärjestys}
 
@@ -73,9 +55,12 @@ Samaan tapaan \citet{pop2010experience} kokevat ajonaikaisten ongelmien löytäm
 
 \citet{sampson2009experience} kokee, että oli vaikeaa hahmottaa, missä tilanteessa mikäkin arvo evaluoidaan, eli milloin ohjelma tekee työtä ja milloin ei. Apukirjastot usein palauttavat evaluoimattomia arvoja, jotka muodostuvat isosta määrästä lausekkeita, ja niiden evaluointi tapahtuu vasta sitten, kun arvoja käytetään. Arvon käyttämisen kohtaa voi olla kuitenkaan kirjoittajien mielestä vaikeaa löytää. Tämä liittyy hänen mukaansa myös ajonaikaiseten virheiden paikantamisen vaikeuteen.
 
+\citet{scott2009programming} sanoo, että yleisesti ottaen applikatiivinen evaluointi on lähtökohtaisesti applikatiivista evaluointia parempi valinta, sillä ohjelman suoritusjärjestys on tuolloin selkeä ja eksplisiittisesti ilmaistu.
+
 \subsection{Koettu arvo}
 
 \citet{vesakarvonen} sanoo laiskan evaluoinnin olevan ominaisuus, josta on tietyissä tilanteissa hyötyä, mutta ne kannattaa rajata tarkkaa. Siten hän kannattaa tiukasti evaluoituja ohjelmointikieliä ja laiskan evaluoinnin konseptien käyttöä niissä harkitusti.
 
 \citet{sampson2009experience} toteaa artikkelin lopussa, että hän ja tiimi ovat projektin jälkeen epävarmoja laiskan evaluoinnin tuomasta arvosta: joka kerta kun he tuntevat saaneensa siitä hyvän otteen uusia ongelmia ilmenee. Hän kokee, että aiheesta pitäisi vähintäänkin olla olemassa hyvä kirja, joka käsittelisi kaikkia laiskan evaluoinnin kanssa ilmeneviä ongelmia sekä auttaisi luomaan lukijalle hyvä intuitio laiskasti evaluoitujen systeemien käyttäytymisestä.
 
+\citet{mohanhackernews} sanoo, että hän ylläpitää laajaa Haskell-ohjelmaa työssään, ja sanoo että tietynlaisiin ohjelmiin Haskell on muita kieliä parempi.  Hän sanoo, että arvostaisi, jos Haskell olisi ``oletuksena tiukasti evaluoitu''. Hän myös toteaa viitaten Peytonin (2010) esitykseen että normaalijärjestyksessä evaluoinnin ansiosta Haskellissa on monadien kaltaisia ilmaisuvoimaisia abstraktioita, jotka muutoin olisivat ehkä jääneet keksimättä.
