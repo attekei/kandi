@@ -23,7 +23,7 @@
 %!TEX root = main.tex
 \section{Käsitteiden määrittely}\label{kasitteisto}
 
-Käyn tässä osiossa läpi käsitteistöä, joka on olennaista laiskan evaluoinnin aihepiirin ymmärtämiselle. Ensiksi käsittelen funktionaalista ohjelmointia, ohjelmointityyliä, johon laiska evaluointi usein liitetään. Sen jälkeen käyn läpi evaluointisemantiikkoja, jotka määrittelevät ohjelmointikielten funktioden ja funktiokutsujen noudattamia sääntöjä.
+Käyn tässä osiossa läpi käsitteistöä, joka on olennaista laiskan evaluoinnin aihepiirin ymmärtämiselle. Ensiksi käsittelen funktionaalista ohjelmointia, ohjelmointityyliä, johon laiska evaluointi usein liitetään. Sen jälkeen käyn läpi evaluointisemantiikkoja, jotka määrittelevät ohjelmointikielten funktioiden ja funktiokutsujen noudattamia sääntöjä.
 
 \subsection{Funktionaalinen ohjelmointi}
 Funktionaalinen ohjelmointi on tapa rakentaa tietokoneohjelmia, joka on saanut inspiraationsa lambdakalkyylistä, matemaattisen logiikan mallista, jonka Alonzo Church laati 1930-luvulla \citep{church1932set}.
@@ -33,7 +33,7 @@ Funktionaalinen ohjelmointi on tapa rakentaa tietokoneohjelmia, joka on saanut i
 Seuraavat käsitteet liittyvät läheisesti funktionaaliseen ohjelmointiin:
 
 \begin{itemize}
-	\item \textit{Deklaratiivinen ohjemointi} on funktionaalisen ohjelmoinnin yläkategoria, jossa keskiössä on sen kuvaaminen, mitä tietokoneen halutaan tekevän. Deklaratiivisille ohjelmointikielille on ominaista korkea abstraktiotaso ja se, että ohjelmoijan on luontevaa muotoilla ongelmansa kielen tarjoamilla abstraktioilla. Deklaratiivisen ohjelmoinnin vastakohta on imperatiivinen ohjelmointi, jossa puolestaan keskitytään siihen, miten tietokoneen kuuluisi suorittaa halutut tehtävät.
+	\item \textit{Deklaratiivinen ohjelmointi} on funktionaalisen ohjelmoinnin yläkategoria, jossa keskiössä on sen kuvaaminen, mitä tietokoneen halutaan tekevän. Deklaratiivisille ohjelmointikielille on ominaista korkea abstraktiotaso ja se, että ohjelmoijan on luontevaa muotoilla ongelmansa kielen tarjoamilla abstraktioilla. Deklaratiivisen ohjelmoinnin vastakohta on imperatiivinen ohjelmointi, jossa puolestaan keskitytään siihen, miten tietokoneen kuuluisi suorittaa halutut tehtävät.
 
 	\item \textit{Deterministisyys} tarkoittaa sitä, että tietyillä sisääntuloilla ohjelman ulostulo on aina sama riippumatta ajanhetkestä tai muista tekijöistä.
 
@@ -82,7 +82,7 @@ Seuraavissa alaluvuissa kuvaan kunkin evaluointisemantiikan tyypillisimmän mä�
 	  [Ei-tiukka evaluointi,l sep=0.7cm
 		[Normaalijärjestyksessä evaluointi,l sep=0.7cm, tikz={\node [draw,label={[gray]below:{\small Laiska evaluointi}},dashed,gray,fit=()(!1)(!l)] {};}
 			[Call-by-name]
-			[Call-by-need\\\scriptsize(call-by-name\\\scriptsize memoisoinnilla)]
+			[Call-by-need\\\scriptsize(call-by-name\\\scriptsize muistioinnilla)]
 		  ]
 	  ]
 	]
@@ -130,7 +130,7 @@ print "Tämä ei koskaan tulostu"
   \end{minted}
 \end{listing}
 
-\textit{Normaalijärjestyksessä evaluointi} (eng. \textit{normal-order evaluation}) puolestaan tarkoittaa, että parametrilausekkeet evaluoidaan vasta sitten, kun niitä oikeasti tarvitaan. Evaluoimattomat parametrilausekkeet välitetään ohjelmakoodille, ja vasta sitten kun ohjelmointikoodissa käytetään parametrien arvoa, lausekkeet evaluoidaan. Listaus \ref{codehaskellnormalorder} demonstroi normaalijärjestyksessä evaluointia Haskell-ohjelmointikielessä.
+\textit{Normaalijärjestyksessä evaluointi} (eng. \textit{normal-order evaluation}) puolestaan tarkoittaa, että parametrilausekkeet evaluoidaan vasta sitten, kun niitä tarvitaan. Evaluoimattomat parametrilausekkeet välitetään ohjelmakoodille, ja vasta sitten kun ohjelmointikoodissa käytetään parametrien arvoa, lausekkeet evaluoidaan. Listaus \ref{codehaskellnormalorder} demonstroi normaalijärjestyksessä evaluointia Haskell-ohjelmointikielessä.
 
 \begin{listing}[H]
   \caption{Esimerkki normaalijärjestyksessä evaluoinnista Haskellilla}
@@ -161,7 +161,7 @@ main = do
 
 Applikatiivinen evaluointi noudattaa tiukkaa semantiikkaa, sillä kaikilla funktioparametreilla (eli alilausekkeilla) on oltava arvo ennen kuin funktio itsessään evaluoidaan. Siten applikatiivisen evaluoinnin voi ajatella olevan tiukan semantiikan alakategoria evaluointisemantiikkojen hierarkiassa.
 
-Vastaavasti normaalijärjestyksessä evaluointi, jossa evaluointia viivästetään, täytää ei-tiukan semantiikan kriteeristön, koska parametri voi jäädä funktiokutsussa evaluoimatta, jos sitä ei tarvita funktion ohjelmakoodissa. Siinä tilanteessa ei ole merkitystä, olisiko tällä parametrilla ollut arvoa vai ei.
+Vastaavasti normaalijärjestyksessä evaluointi, jossa evaluointia viivästetään, täyttää ei-tiukan semantiikan kriteeristön, koska parametri voi jäädä funktiokutsussa evaluoimatta, jos sitä ei tarvita funktion ohjelmakoodissa. Siinä tilanteessa ei ole merkitystä, olisiko tällä parametrilla ollut arvoa vai ei.
 
 \subsubsection{Parametrimoodit}
 
@@ -170,7 +170,7 @@ Vastaavasti normaalijärjestyksessä evaluointi, jossa evaluointia viivästetä�
 \begin{itemize}
 	\item \textit{Call-by-value}, jossa funktiota kutsuttaessa parametrilauseke evaluoidaan ennen funktion ohjelmakoodia, ja arvo on käytettävissä parametria vastaavassa muuttujassa funktion ohjelmakoodissa. Jos parametrilausekkeena on ollut muuttuja, muuttujan arvo kopioidaan uuteen muuttujaan funktion ohjelmakoodia varten. \citep{scott2009programming}
     \item \textit{Call-by-name}, jossa parametrilausekkeet sijoitetaan suoraan funktion ohjelmakoodiin niihin kohtiin, joissa argumentteihin käytetään. Parametrilauseke evaluoidaan uudestaan joka kerta, kun ohjelmakoodissa tarvitaan kyseisen argumentin arvoa. \citep{ariola1995callbyneed}
-    \item \textit{Call-by-need}, jossa parametrilauseke evaluoidaan vasta, kun funktion ohjelmakoodi tarvitsee sen arvoa ensimmäistä kertaa. Kun parametrilauseke on evaluoitu, se pidetään muistissa sitä varten, jos ohjelmakoodi tarvitsee argumenttia uudestaan. Tämä on yksi \textit{muistisoinnin} (eng. \textit{memoization}) muoto. \citep{ariola1995callbyneed}
+    \item \textit{Call-by-need}, jossa parametrilauseke evaluoidaan vasta, kun funktion ohjelmakoodi tarvitsee sen arvoa ensimmäistä kertaa. Kun parametrilauseke on evaluoitu, se pidetään muistissa sitä varten, jos ohjelmakoodi tarvitsee argumenttia uudestaan. Tämä on yksi \textit{muistioinnin} (eng. \textit{memoization}) muoto. \citep{ariola1995callbyneed}
 \end{itemize}
 
 Call-by-value noudattaa applikatiivista evaluointia siinä missä call-by-name ja call-by-need evaluoidaan normaalijärjestyksessä. Siten parametrimoodit voi nähdä applikatiivisen evaluoinnin ja normaalijärjestyksessä evaluoinnin alakategorioina.

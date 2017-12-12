@@ -35,7 +35,7 @@ Tämä johti Haskell-ohjelmointikielen kehityksen aloittamiseen. Siitä vastasi 
 
 Haskell ei määritelmällisesti ole normaalijärjestyksessä evaluoitu ohjelmointikieli, vaan jo Haskell 1.1 -raportissa \citep{yale1991report} se määriteltiin ainoastaan ei-tiukkaa semantiikan määritelmän täyttäväksi kieleksi. Käytännössäkään kielessä funktioiden parametreja ei aina evaluoida vasta kun ohjelmakoodi niitä tarvitsee, vaan Haskellin kääntäjät tekevät useita nopeusoptimointeja suorittamalla tiettyjä osia koodista tiukan semantiikan säännöllä.
 
-Useimmat kielen rakenteet noudattavat kuitenkin oletusarvoisesti call-by-need –evaluointisemantiikan sääntöjä, eli funktioiden argumenttilausekkeet evaluoidaan vasta sitten niitä kuin tarvitaan, ja evaluoidut arvot memoisoidaan. Listauksessa \ref{code-callbyneed-haskell} on esimerkki siitä, miten call-by-need -semantiikka näkyy käytännössä Haskellissa.
+Useimmat kielen rakenteet noudattavat kuitenkin oletusarvoisesti call-by-need –evaluointisemantiikan sääntöjä, eli funktioiden argumenttilausekkeet evaluoidaan vasta sitten niitä kuin tarvitaan, ja evaluoidut arvot muistioidaan. Listauksessa \ref{code-callbyneed-haskell} on esimerkki siitä, miten call-by-need -semantiikka näkyy käytännössä Haskellissa.
 
 \begin{listing}[H]
   \caption{Esimerkki call-by-need -semantiikasta Haskellissa}
@@ -53,7 +53,7 @@ Useimmat kielen rakenteet noudattavat kuitenkin oletusarvoisesti call-by-need �
 > -- (erillistä `print` -kutsua ei REPlissä tarvita)
 > head list
 25
-> -- Nyt ensimmäinen arvo on memoisoitu, eli se voidaan palauttaa suoraan muistista,
+> -- Nyt ensimmäinen arvo on muistioitu, eli se voidaan palauttaa suoraan muistista,
 > -- ja vain toinen arvo on evaluoimatta
 > :sprint list
 [25,_]
@@ -80,7 +80,7 @@ Kuten edellä mainittiin, Haskell-yhteisö tarkoittaa laiskalla evaluoinnilla yl
 \begin{figure}[h]
   \centering
     \includegraphics[width=0.3\textwidth]{figure-thunk-layers}
-  \caption{\footnotesize\textbf{Lausekkeen (4, [1, 2]) evaluointi Haskellissa.} Ensiksi lauseke on kokonaan evaluoimatta. Se evaluoidaan asteittain, kunnes tynkiä ei ole jälkellä. Kokonaan evaluoidusta lausekkeesta sanotaan, että se on \textit{normaalimuodossa}. Lauseketta, joka on ainakin osittain evaluoitu, kutsutaan \textit{heikoksi päänormaalimuodoksi} (eng. \textit{Weak Head Normal Form}). Kuvan lähde on WikiCommons (2017).}
+  \caption{\footnotesize\textbf{Lausekkeen (4, [1, 2]) evaluointi Haskellissa.} Ensiksi lauseke on kokonaan evaluoimatta. Se evaluoidaan asteittain, kunnes tynkiä ei ole jäljellä. Kokonaan evaluoidusta lausekkeesta sanotaan, että se on \textit{normaalimuodossa}. Lauseketta, joka on ainakin osittain evaluoitu, kutsutaan \textit{heikoksi päänormaalimuodoksi} (eng. \textit{Weak Head Normal Form}). Kuvan lähde on \citet{wikicommonsthunk}.}
   \label{figure:thunk}
 \end{figure}
 
@@ -88,4 +88,4 @@ Tämä toteutus eroaa monista applikatiivisesti evaluoiduista kielistä etenkin 
 
 \subsection{Leviäminen muihin ohjelmointikieliin}
 
-Haskell on nykypäivänä suosituista ohjelmointikielista ainoita, joissa applikatiivinen evaluointisemantiikka on rakennettu perustavanlaatuiseksi osaksi kielen toteutusta. Kuitenkin monet Haskellissa esitellyt ideat ovat levinneet myös muihin kieliin. Käsittelen näitä ideoita ja niiden sovelluksia eri ohjelmointikielissä seuraavassa luvussa.
+Haskell on nykypäivänä suosituista ohjelmointikielistä ainoita, joissa applikatiivinen evaluointisemantiikka on rakennettu perustavanlaatuiseksi osaksi kielen toteutusta. Kuitenkin monet Haskellissa esitellyt ideat ovat levinneet myös muihin kieliin. Käsittelen näitä ideoita ja niiden sovelluksia eri ohjelmointikielissä seuraavassa luvussa.

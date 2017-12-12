@@ -25,16 +25,16 @@
 
 \section{Subjektiiviset edut ja haitat} \label{subjektiiviset-edut}
 
-\subsection{Ongelmanratkaisu kielen avulla}
+\subsection{Ongelmanratkaisun helpottuminen tai vaikeutuminen}
 \citet{hughes1989functional} sanoo, että laiskan evaluoinnin käyttö tekee käytännölliseksi jakaa sovelluskoodia \textit{tuottajiin} ja \textit{valitsimiin}. Tuottajat määrittävät suuren määrän mahdollisia vastauksia, ja valitsin valitsee niistä relevanteimmat. Tämä tarjoaa sellaisen tavan modularisoida sovelluskoodia, joka on laiskasti evaluoiduille puhtaasti funktionaalisille kielille uniikki. Hughes kuvaa, että kyseessä on kenties tehokkain tapa modularisoida koodia funktionaalisen ohjelmoijan työpakissa.
 
 \citet{haskellwikilaziness} toteaa, että laiskuus mahdollistaa kielen käyttäjälle sen, että hän voi operoida päättymättömien ja määrittelemättömien tietorakenteiden kanssa, niin kauan hän ei yritä käyttää määrittelemättömiä osia. Näin ohjelmoija pystyy käsittelemään esimerkiksi matemaattisia todistuksia sujuvammin.
 
-\citet{vesakarvonen} puolestaan väittää, että laiskuus ei merkittävästi muuta sitä, millaisia ongelmia kielellä pystyy kuvaamaan. Useat sellaiset kirjastot, joiden väitetään olevan toteutettavissa vain laiskasti evaluoidun kielen avulla, ovat hänen mukaansa helposti toteutettavissa ei-laiskalla kielellä simulomalla laiskuutta muilla keinoin niissä kohti kirjastoja, kun sille on tarve.
+\citet{vesakarvonen} puolestaan väittää, että laiskuus ei merkittävästi muuta sitä, millaisia ongelmia kielellä pystyy kuvaamaan. Useat sellaiset kirjastot, joiden väitetään olevan toteutettavissa vain laiskasti evaluoidun kielen avulla, ovat hänen mukaansa helposti toteutettavissa ei-laiskalla kielellä simuloimalla laiskuutta muilla keinoin niissä kohti kirjastoja, kun sille on tarve.
 
 Päättymättömät listat \citet{pointoflaziness} toteaa tietorakenteeksi, jonka toteuttamiseksi laiska evaluointi ei ole välttämätön. Hänen mukaansa laiskuudella ja päättymättömien listojen tyyppisillä tietorakenteilla ei ole selkeää yhteyttä toisiinsa. ML-ohjelmointikielessä, joka on tiukasti evaluoitu, samat saman konseptin toteuttaminen onnistuu myös vaivatta.
 
-Sekä Karvonen että \citet{pointoflaziness} sanovat, että laiskuuden tähden Haskellista puuttuu tuki induktiivisille tietotyypeille, joka löytyy esimerkiksi kilpailevasta ML-ohjelmointikielestä. Tämän myötä kielellä ei ole mahdollista esimerkiksi luoda tietotyyppiä luonnollisten lukujen kuvaamiseen, tai tyyppi luonnosllisten lukujen muodostamalle listalle.
+Sekä Karvonen että \citet{pointoflaziness} sanovat, että laiskuuden tähden Haskellista puuttuu tuki induktiivisille tietotyypeille, joka löytyy esimerkiksi kilpailevasta ML-ohjelmointikielestä. Tämän myötä kielellä ei ole mahdollista esimerkiksi luoda tietotyyppiä luonnollisten lukujen kuvaamiseen tai tyyppiä luonnollisten lukujen muodostamalle listalle.
 
 \citet{jonesretrospectiveonhaskell} sanoo, että seuraava versio Haskellista voisi oletusarvoisesti noudattaa tiukkaa semantiikkaa, ja kielen käyttäjä voisi ottaa laiskan evaluoinnin aina tarpeen mukaan käyttöön. Hänestä tapa, jolla kieltä käytetään, ei merkittävästi muuttuisi tämän muutoksen myötä. Hänen mukaansa laiskaa evaluointia tärkeämpää on se, että kieli jatkossakin rakentuu puhtaasti funktionaalisen ohjelmoinnin ympärille.
 
@@ -44,15 +44,13 @@ Haskell-ohjelmaa tehdessään \citet{sampson2009experience} kohtasi tiiminsä ka
 
 \citet{vesakarvonen} sanoo, että funktioiden yhdistämiseen liittyvät mahdollisuudet eivät ole Haskellissa parempia, toisin kuin usein väitetään. Esimerkiksi listaoperaatioiden yhdistämisestä ei tule käytännön hyötyä siksi, että on vaikeaa ennakoida, kuinka listaoperaatiot tarkalleen käyttäytyvät laiskasti evaluoidussa kielessä. Tämän seurauksena niiden muistinkäytön ennustettavuus on heikko.
 
-[\citet{moran1999improvement} mukaan call-by-need -semantiikka aiheuttaa haasteita ohjelmointikielen kääntäjien laatijoille, sillä koodista tulee hankalaa optimoida transformaatioiden avulla eli korvaamalla osia ohjelmakoodista nopeammalla toteutuksella.]
-
 \subsection{Vianetsintä ja suoritusjärjestys}
 
 Toistuvasti esiin noussut kritiikki laiskaa evaluointia ja Haskellia kohtaan on, että koodin ajonaikaisten ongelmien selvittäminen on hankalaa. Näin kokee muun muassa \citet{daniels2012experience}, jotka ilmaisivat syyksi, että testausta paljon helpottavalle \textit{funktiokutsupinojen seuraamiselle} on laiskoissa funktionaalisissa kielissä heikko tuki. He toisaalta viittasivat myös siihen, että Haskellin kehittyessä kutsupinojen seuraaminen saattaa helpottua.
 
 Samaan tapaan \citet{pop2010experience} kokevat ajonaikaisten ongelmien löytämisen vaikeaksi funktiokutsupinojen seurannan puutteen vuoksi. Haskellin tarjoamat vaihtoehdot ongelmien etsimiseen olivat hyvin primitiivisiä, ja yhdessä laiskuuden kanssa se teki hänen mielestään ongelmien löytämisestään aloittelevalle Haskell-kehittäjälle paljon vaikeampaa verrattuna perinteisempään skriptikieleen.
 
-\citet{sampson2009experience} kokee, että oli vaikeaa hahmottaa, missä tilanteessa mikäkin arvo evaluoidaan, eli milloin ohjelma tekee työtä ja milloin ei. Apukirjastot usein palauttavat evaluoimattomia arvoja, jotka muodostuvat isosta määrästä lausekkeita, ja niiden evaluointi tapahtuu vasta sitten, kun arvoja käytetään. Arvon käyttämisen kohtaa voi olla kuitenkaan kirjoittajien mielestä vaikeaa löytää. Tämä liittyy hänen mukaansa myös ajonaikaiseten virheiden paikantamisen vaikeuteen.
+\citet{sampson2009experience} kokee, että oli vaikeaa hahmottaa, missä tilanteessa mikäkin arvo evaluoidaan, eli milloin ohjelma tekee työtä ja milloin ei. Apukirjastot usein palauttavat evaluoimattomia arvoja, jotka muodostuvat isosta määrästä lausekkeita, ja niiden evaluointi tapahtuu vasta sitten, kun arvoja käytetään. Arvon käyttämisen kohtaa voi olla kuitenkaan kirjoittajien mielestä vaikeaa löytää. Tämä liittyy hänen mukaansa myös ajonaikaisten virheiden paikantamisen vaikeuteen.
 
 \citet{scott2009programming} sanoo, että yleisesti ottaen applikatiivinen evaluointi on lähtökohtaisesti applikatiivista evaluointia parempi valinta, sillä ohjelman suoritusjärjestys on tuolloin selkeä ja eksplisiittisesti ilmaistu.
 

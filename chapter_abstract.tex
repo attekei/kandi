@@ -1,3 +1,4 @@
+% done, pitäis olla kunnossa
 % --------------------------------------------------------------------
 % Cheatsheet:
 % \verb!lazy val!   -- esim. lyhyisiin koodinpätkiin
@@ -29,13 +30,20 @@
 % Avainsanojen lista pitää merkitä main.tex-tiedoston kohtaan \KEYWORDS.
 
 \begin{fiabstract}
-\textit{Kirjoitan tiivistelmän vasta viimeisenä.}
 % Tiivistelmän tyypillinen rakenne:
 % (1) aihe, tavoite ja rajaus
 % (heti alkuun, selkeästi ja napakasti, ei johdattelua);
 % (2) aineisto ja menetelmät (erittäin lyhyesti);
 % (3) tulokset (tälle enemmän painoarvoa);
 % (4) johtopäätökset (tälle enemmän painoarvoa).
+Laiska evaluointi on ohjelmointikielten suoritusta ohjaava periaate, jossa ajatuksena on turhan ja liian aikaisen lausekkeiden evaluoinnin välttäminen. Selvitin työssäni laiskan evaluoinnin yhteydessä käytettävää käsitteistöä, laiskan evaluoinnin historiaa ja sen nykysovellutuksia. Lisäksi selvitin, millaisia etuja ja heikkouksia laiskaa evaluointiin liittyy.
+
+Työn menetelmänä on narratiivinen kirjallisuuskatsaus. Aineistona käytin akateemisia artikkeleita, oppikirjoja, blogikirjoituksiaja ohjelmointikielten dokumentaatioita. Etuja ja heikkouksia selvitin myös haastattelujen avulla.
+
+Käsitteistöä selvittäessäni päädyin siihen, että laiska evaluointi on yläkäsite usealle eri evaluointisemantiikalle. Evaluointisemantiikat määrittävät, milloin ja miten funktion parametrilausekkeet evaluoidaan. Historian osalta tuli selville, että laiskan evaluoinnin kehitys nivoutuu tiiviisti Haskell-ohjelmointikielen tutkimukseen, ja että Haskell on ainoa yleisessä käytössä oleva kieli, joka käyttää laiskaa evaluointia laajasti. Totesin, että nykysovellutuksia on useita erilaisia, ja niitä on käytössä kaikissa suosituissa ohjelmointikielissä ja niiden apukirjastoissa. Näitä sovellutuksia ovat muun muassa laiskat listat ja generaattorit. Etuja ja heikkouksia tarkastellessa tuli esille, että Haskellissa laiska evaluointi vaikeuttaa sen ajonaikaisen suorituksen seuraamista ja aiheuttaa ajoittaisia muistivuotoja. Toisaalta rajatummista sovellutuksista oli hyviä kokemuksia.
+
+Laiska evaluointi on ollut suuressa roolissa etenkin funktionaalisen ohjelmointityylin kehittymisessä. Nykyään laiska evaluointi vaikuttaa väistyvän ohjelmointikielien suunnittelua määräävänä periaatteena, mutta sitä osataan käyttää hyödyksi sovellutuksissa, joissa laajemman käytön aiheuttamia ongelmia ei tule.
+
 
 %
 %Tiivistelmätekstiä tähän (\languagename). Huomaa, että tiivistelmä tehdään %vasta kun koko työ on muuten kirjoitettu.
