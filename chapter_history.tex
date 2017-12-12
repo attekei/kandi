@@ -1,3 +1,5 @@
+% DONE, final typo check remaining
+
 % --------------------------------------------------------------------
 % Cheatsheet:
 % \verb!lazy val!   -- esim. lyhyisiin koodinpätkiin
@@ -31,7 +33,7 @@ Normaalijärjestyksessä evaluoinnin periaate syntyi 1970-luvulla. Sarja julkais
 
 Tämä johti Haskell-ohjelmointikielen kehityksen aloittamiseen. Siitä vastasi Haskell-komitea, jossa vaikutti monia aikaisempien laiskaa evaluointia hyödyntäneiden kielien suunnittelijoita. Komitea onnistui keräämään yhteen aikaisemmin erillään samaa aihepiiriä tutkineita, mikä kiihdytti laiskan evaluoinnin piirissä olevien evaluointisemantiikkojen tieteellistä kehitystä. Alkuvaiheen kehitystyö oli onnistunutta, ja Haskellista kehittyi etenkin tietojenkäsittelytieteen akateemisen tutkimuksen parissa suosittu kieli.
 
-Haskell ei määritelmällisesti ole normaalijärjestyksessä evaluoitu ohjelmointikieli, vaan jo Haskell 1.1 -raportissa \citep{yale1991report} se määriteltiin ainoastaan ei-tiukkaa semantiikan määritelmän täyttäväksi kieleksi. Käytännössäkään kielessä funktioiden parametreja ei aina evaluoida vasta kun ohjelmakoodi niitä tarvitsee, vaan Haskellin kääntäjät tekevät useita nopeusoptimointeja suorittamalla tiettyjä osia koodista tiukkaan semantiikan säännöllä.
+Haskell ei määritelmällisesti ole normaalijärjestyksessä evaluoitu ohjelmointikieli, vaan jo Haskell 1.1 -raportissa \citep{yale1991report} se määriteltiin ainoastaan ei-tiukkaa semantiikan määritelmän täyttäväksi kieleksi. Käytännössäkään kielessä funktioiden parametreja ei aina evaluoida vasta kun ohjelmakoodi niitä tarvitsee, vaan Haskellin kääntäjät tekevät useita nopeusoptimointeja suorittamalla tiettyjä osia koodista tiukan semantiikan säännöllä.
 
 Useimmat kielen rakenteet noudattavat kuitenkin oletusarvoisesti call-by-need –evaluointisemantiikan sääntöjä, eli funktioiden argumenttilausekkeet evaluoidaan vasta sitten niitä kuin tarvitaan, ja evaluoidut arvot memoisoidaan. Listauksessa \ref{code-callbyneed-haskell} on esimerkki siitä, miten call-by-need -semantiikka näkyy käytännössä Haskellissa.
 
@@ -64,18 +66,17 @@ Useimmat kielen rakenteet noudattavat kuitenkin oletusarvoisesti call-by-need �
 \end{minted}
 \end{listing}
 
-
 Call-by-need -evaluointisemantiikka aiheuttaa sen, että ohjelmointikielen lausekkeiden evaluointi etenee erilaisessa järjestyksessä kuin applikatiivisesti evaluoiduissa kielissä. Call-by-need -semantiikan kielissä järjestys, jossa ohjelmakoodin rivit on kirjoitettu, ei vielä kerro suoritusjärjestystä, vaan suoritusjärjestys määräytyy dynaamisesti ohjelman suorituksen aikana.
 
 Yksi merkittävä käytännön seuraus tästä on, että IO-operaatioita, eli esimerkiksi näytölle tulostamista tai käyttäjän syötteen odottamista, ei pystytä suorittamaan halutussa järjestyksessä pelkkien tavallisten funktiokutsujen avulla. Siksi Haskelliin on kehitetty uniikkeja ohjelmointikielen rakenteita, kuten \textit{monadit}, joilla IO-operaatioita ja niiden järjestystä pystyy kontrolloimaan erillään muusta ohjelmakoodista.
 
-Toinen seuraus call-by-need -evaluointisemantiikasta on se, että funktion parametrien arvoja ei ole mahdollista jälkikäteen muuttaa, koska suoritusjärjestys määräytyy dynaamisesti ja parametrin arvon muutokset voisivat tapahtua arvaamattomassa järjestyksessä. Siten funktionaalisen ohjelmoinnin ajatusmaailma etenkin viittausten läpinäkyvyyden osalta sopii hyvin call-by-need -semantiikkan kanssa yhteen. Koska Haskellissa ei vieläpä funktioissa voi olla sivuvaikutuksia muutoin kuin monadien tarjoaman tuen kautta, Haskell tukee puhtaasti funktionaalista ohjelmointityyliä kattavasti.
+Toinen seuraus call-by-need -evaluointisemantiikasta on se, että funktion parametrien arvoja ei ole mahdollista jälkikäteen muuttaa, koska suoritusjärjestys määräytyy dynaamisesti ja parametrin arvon muutokset voisivat tapahtua arvaamattomassa järjestyksessä. Siten funktionaalisen ohjelmoinnin ajatusmaailma etenkin referentiaalisen läpinäkyvyyden osalta sopii hyvin call-by-need -semantiikan kanssa yhteen. Haskell tukee puhtaasti funktionaalista ohjelmointityyliä kattavasti, sillä Haskellin funktioissa ei ole sivuvaikutuksia muutoin kuin monadien tarjoaman rajapinnan kautta.
 
-\subsection{Haskellissa kääntäjässä tehdyt tekniset valinnat laiskan evaluoinnin toteuttamiseksi}
+\subsection{Haskellissa kääntäjän suunnittelussa tehdyt tekniset valinnat}
 
 Laiskan evaluoinnin kokonaisvaltaisessa tarkastelussa on olennaista myös käydä läpi sitä, miten se on ohjelmointikielen kääntäjissä toteutettu, ja millaisia seurauksia sillä on ohjelman suorituksen aikaiseen käyttäytymiseen. Haskell-ohjelmointikielen ylivoimaisesti suosituin kääntäjä on ollut Glasgow Haskell Compiler (lyhyemmin GHC), joka on ollut 1990-luvun alusta lähtien ollut olennainen osa ohjelmointikielen kehityskaarta.
 
-Kuten edellä mainittiin, Haskellin kontekstissa laiskalla evaluoinnilla tarkoitetaan call-by-need -evaluointisemantiikkaa. Call-by-need -semantiikka on GHC:ssä toteutettu siten, että ohjelman suorituksen aikana kielen lausekkeista muodostetaan dynaamisesti verkkoa, jossa yksittäistä evaluoimatonta lauseketta kutsutaan \textit{tyngiksi} (eng. \textit{thunk}) \citep{hudak2007history}. Näitä tynkiä evaluoidaan sitä mukaan, kun jokin ohjelman IO-operaatio tarvitsee niiden arvoja. Kuvassa \ref{figure:thunk} näytetään, miten erään yksinkertaisen tietorakenteen evaluointi etenee.
+Kuten edellä mainittiin, Haskell-yhteisö tarkoittaa laiskalla evaluoinnilla yleensä call-by-need -evaluointisemantiikkaa. Call-by-need -semantiikka on GHC:ssä toteutettu siten, että ohjelman suorituksen aikana kielen lausekkeista muodostetaan dynaamisesti verkkoa, jossa yksittäistä evaluoimatonta lauseketta kutsutaan \textit{tyngiksi} (eng. \textit{thunk}) \citep{hudak2007history}. Näitä tynkiä evaluoidaan sitä mukaan, kun jokin ohjelman IO-operaatio tarvitsee niiden arvoja. Kuvassa \ref{figure:thunk} näytetään, miten erään yksinkertaisen tietorakenteen evaluointi etenee.
 \begin{figure}[h]
   \centering
     \includegraphics[width=0.3\textwidth]{figure-thunk-layers}
@@ -83,8 +84,7 @@ Kuten edellä mainittiin, Haskellin kontekstissa laiskalla evaluoinnilla tarkoit
   \label{figure:thunk}
 \end{figure}
 
-Tämä toteutus eroaa monista applikatiivesti evaluoiduista kielistä etenkin siinä, että tynkien muodostava verkko voi itsessään viedä ohjelman suoritusaikana huomattavasti muistia. Lisäksi se, että jokin IO-operaatio tarvitsee jonkin tyngän arvoa, voi aiheuttaa hetkellisen hidastumisen ohjelman suoritukseen, jos sisäkkäisiä evaluoimattomia tynkiä on kertynyt paljon. Kumpaakaan näistä ilmiöistä ei esiinny applikatiivisen evaluoinnin kielissä, sillä niissä lausekkeet suoritetaan siinä järjestyksessä missä ne on ohjelmakoodiin kirjoitettu, ja tynkiä ei tarvita.
-
+Tämä toteutus eroaa monista applikatiivisesti evaluoiduista kielistä etenkin siinä, että tynkien muodostava verkko voi itsessään viedä ohjelman suoritusaikana huomattavasti muistia. Lisäksi se, että jokin IO-operaatio tarvitsee jonkin tyngän arvoa, voi aiheuttaa hetkellisen hidastumisen ohjelman suoritukseen, jos sisäkkäisiä evaluoimattomia tynkiä on kertynyt paljon. Kumpaakaan näistä ilmiöistä ei esiinny applikatiivisen evaluoinnin kielissä, sillä niissä lausekkeet suoritetaan siinä järjestyksessä missä ne on ohjelmakoodiin kirjoitettu, ja tynkiä ei tarvita.
 
 \subsection{Leviäminen muihin ohjelmointikieliin}
 

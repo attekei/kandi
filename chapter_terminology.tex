@@ -1,3 +1,4 @@
+% DONE, final typo check remaining
 % ------------------------------------------------------------------
 % Cheatsheet:
 % \verb!lazy val!   -- esim. lyhyisiin koodinpätkiin
@@ -27,26 +28,27 @@ Käyn tässä osiossa läpi käsitteistöä, joka on olennaista laiskan evaluoin
 \subsection{Funktionaalinen ohjelmointi}
 Funktionaalinen ohjelmointi on tapa rakentaa tietokoneohjelmia, joka on saanut inspiraationsa lambdakalkyylistä, matemaattisen logiikan mallista, jonka Alonzo Church laati 1930-luvulla \citep{church1932set}.
 
-\citet{scott2009programming} sanoo, että tiukasti määriteltynä funktionaalisella tyylillä rakennettu ohjelma määrittelee ohjelman ulostulot niiden sisääntulojen funktiona. Funktiot ovat funktioita matemaattisessa mielessä, eli niillä ei ole sisäistä tilaa. Funktiot voivat kutsua toisiaan, ja siten ohjelmissa useat pienemmät funktiot yhdessä muodostavat ohjelman pääfunktion, joka muuntaa sisääntulot ulostuloiksi.
+\citet{scott2009programming} sanoo, että tiukasti määriteltynä funktionaalisella tyylillä rakennettu ohjelma määrittelee ohjelman ulostulot niiden sisääntulojen funktiona. Funktiot ovat funktioita matemaattisessa mielessä, eli ne eivät muuta funktion ulkopuolista tilaa. Funktiot voivat kutsua toisiaan, ja siten ohjelmissa useat pienemmät funktiot yhdessä muodostavat ohjelman pääfunktion, joka muuntaa sisääntulot ulostuloiksi.
 
-Funktionaaliseen ohjelmointiin liittyy läheisesti seuraavat käsitteet:
+Seuraavat käsitteet liittyvät läheisesti funktionaaliseen ohjelmointiin:
+
 \begin{itemize}
 	\item \textit{Deklaratiivinen ohjemointi} on funktionaalisen ohjelmoinnin yläkategoria, jossa keskiössä on sen kuvaaminen, mitä tietokoneen halutaan tekevän. Deklaratiivisille ohjelmointikielille on ominaista korkea abstraktiotaso ja se, että ohjelmoijan on luontevaa muotoilla ongelmansa kielen tarjoamilla abstraktioilla. Deklaratiivisen ohjelmoinnin vastakohta on imperatiivinen ohjelmointi, jossa puolestaan keskitytään siihen, miten tietokoneen kuuluisi suorittaa halutut tehtävät.
 
 	\item \textit{Deterministisyys} tarkoittaa sitä, että tietyillä sisääntuloilla ohjelman ulostulo on aina sama riippumatta ajanhetkestä tai muista tekijöistä.
 
-	\item \textit{Viittausten läpinäkyvyys} (eng. \textit{referential transparency}) tarkoittaa sitä, että ohjelmointikielen lausekkeen korvaaminen sen arvolla ei muuta ohjelman ulostuloa \citep{hudak1989conception}. Viittaukseltaan läpinäkyvät lausekkeet ovat deterministisiä.
+	\item \textit{Referentiaalinen läpinäkyvyys} (eng. \textit{referential transparency}) tarkoittaa sitä, että ohjelmointikielen lausekkeen korvaaminen sen arvolla ei muuta ohjelman ulostuloa \citep{hudak1989conception}. Referentiaalisesti läpinäkyvät lausekkeet ovat myös deterministisiä.
 
-	\item \textit{Sivuvaikutus} (eng. \textit{side effect}) tarkoittaa sitä, että ohjelmointikielen yhden aliohjelman kutsuminen vaikuttaa ohjelman muiden aliohjelmien palauttamiin arvoihin ohjelman myöhemmässä suoritusvaiheessa. Jos ohjelmassa on sivuvaikutuksia, se ei ole deterministinen, ja siten funktionaalisissa ohjelmointikielissä on mahdollisimman vähän sivuvaikutuksia.
+	\item \textit{Sivuvaikutus} (eng. \textit{side effect}) tarkoittaa sitä, että ohjelmointikielen yhden aliohjelman kutsuminen joko vuorovaikuttaa ohjelman ulkopuolisen maailman kanssa tai vaikuttaa ohjelman muiden aliohjelmien palauttamiin arvoihin ohjelman myöhemmässä suoritusvaiheessa. Jos ohjelmassa on sivuvaikutuksia, se ei ole deterministinen.
 
 	\item \textit{Puhdas funktio} (eng. \textit{pure function}) tarkoittaa funktiota, joka on sivuvaikutukseton, viittauksiltaan läpinäkyvä ja deterministinen.
 
-	\item \textit{Puhtaasti funktionaalinen ohjelmointi} (eng. \textit{pure function}) tarkoittaa ohjelmointityyliä, jossa käytetään ainoastaan puhtaita funktioita.
+	\item \textit{Puhdas funktionaalinen ohjelmointi} (eng. \textit{pure functional programming}) tarkoittaa ohjelmointityyliä, jossa käytetään ainoastaan puhtaita funktioita.
 \end{itemize}
 
-Käsitteistä deterministisyys, viittausten läpinäkyvyys ja sivaikutuksettomuus ovat merkitykseltään osin päällekkäisiä, ja niitä kaikkia käytetään yleisesti funktionaalisen ohjelmoinnin luonteen kuvaamiseen.
+Käsitteistä deterministisyys, referentiaalinen läpinäkyvyys ja sivaikutuksettomuus ovat merkitykseltään osin päällekkäisiä, ja niitä kaikkia käytetään yleisesti funktionaalisen ohjelmoinnin luonteen kuvaamiseen.
 
-Funktionaalinen ohjelmointityyli voi yksinkertaisimmillaan tarkoittaa sivuvaikutusten välttämistä, ja monet ohjelmointikielet tarjoavat tätä helpottavia työkaluja. Tällaisia kieliä ovat esimerkiksi Scala, Clojure ja Lisp. Jotkin kielet, kuten Haskell ja Miranda, puolestaan rakentuvat pitkälti puhtaasti funktionaalisen ohjelmointityylin ympärille.
+Funktionaalinen ohjelmointityyli voi yksinkertaisimmillaan tarkoittaa sivuvaikutusten välttämistä, ja monet ohjelmointikielet tarjoavat tätä helpottavia työkaluja. Tällaisia kieliä ovat esimerkiksi Scala, Clojure ja Lisp. Jotkin kielet, kuten Haskell ja Miranda, puolestaan rakentuvat pitkälti puhtaan funktionaalisen ohjelmointityylin ympärille.
 
 \subsection{Evaluointisemantiikat}
 
@@ -60,7 +62,6 @@ Evaluointisemantiikka määrittelee säännöt ohjelmointikielen funktiokutsujen
 Kuvassa 1 on eriteltynä työni kannalta merkittävimmät evaluointisemantiikat. Kuvasta myös näkyy kuinka evaluointisemantiikat voi hahmottaa puuhierarkiana, jossa kukin hierarkian taso vastaa johonkin kysymykseen evaluoinnin noudattamista säännöistä.
 
 Seuraavissa alaluvuissa kuvaan kunkin evaluointisemantiikan tyypillisimmän määritelmän ja kerron, mitä muita merkityksiä kyseiselle käsitteelle välillä kirjallisuudessa liitetään.
-
 
 \begin{figure}[h]
   \begin{center}
@@ -94,24 +95,22 @@ Seuraavissa alaluvuissa kuvaan kunkin evaluointisemantiikan tyypillisimmän mä�
 	\path (current bounding box.west)|-coordinate(l)(MS.base);
 	\end{forest}
 \normalsize
-	\caption{\footnotesize \textbf{Evaluointisemantiikkojen keskinäisiä suhteita puuhierarkialla havainnollistettuna.} Tiukka ja ei-tiukka semantiikka eivät ole varsinaisia evaluointisemantiikkoja, mutta ne on sisällytetty kuvaan, koska etenkin Haskell-yhteisössä niistä käytetään samassa yhteydessä evaluointisemantiikkojen kanssa. Ahne ja laiska evaluointi ovat epätarkasti määriteltyjä yleiskäsitteitä, joten niiden alle kuuluu useampi evaluointisemantiikka.}
+	\caption{\footnotesize \textbf{Evaluointisemantiikkojen keskinäisiä suhteita puuhierarkialla havainnollistettuna.} Tiukka ja ei-tiukka semantiikka eivät ole varsinaisia evaluointisemantiikkoja, mutta ne on sisällytetty luvussa \ref{tiukkaeitiukka} kuvatuista syistä. Ahne ja laiska evaluointi ovat epätarkasti määriteltyjä yleiskäsitteitä, joten niiden alle kuuluu useampi evaluointisemantiikka.}
     \label{figure:evaluation_semantics}
   \end{center}
 \end{figure}
 
-% - [ ] Jonkinlainen ryhmittelevä visualisointi / taulukko kärkeen jossa kaikki semantiikat (seuraavat bullet pointit) olisi esillä ja näkyisi miten ne suhtautuvat toisiinsa
+\subsubsection{Tiukka ja ei-tiukka semantiikka}\label{tiukkaeitiukka}
 
-\subsubsection{Tiukka ja ei-tiukka semantiikka}
+Tiukka ja ei-tiukka semantiikka ovat etenkin Haskell-yhteisön käyttämiä termejä, jotka eivät suoranaisesti ota kantaa funktiokutsun eri vaiheiden evaluointiin. Ne ovat kuitenkin merkitykseltään läheisiä varsinaisille evaluointisemantiikoille, joten ne on luontevaa esitellä muiden evaluointisemantiikkojen yhteydessä.
 
-Tiukka ja ei-tiukka semantiikka ovat etenkin Haskell-yhteisön käyttämiä termejä, jotka eivät suoranaisesti ota kantaa funktiokutsun eri vaiheiden evaluointiin. Ne ovat kuitenkin merkitykseltään läheisiä varsinaisille evaluointisemantiikoille, joten ne on luontevaa esitellä muiden evaluoiuntisemantiikkojen yhteydessä.
+HaskellWikin (2017) mukaan \textit{tiukka semantiikka} (eng. \textit{strict semantics}) tarkoittaa sitä, että ohjelmointikielen lausekkeella ei voi olla arvoa, jos millä tahansa sen alilausekkeella ei ole arvoa. \textit{Ei-tiukassa semantiikassa} (eng. \textit{non-strict semantics}) puolestaan lausekkeilla voi olla arvo, vaikka alilausekkeilla, joista nämä lausekkeet koostuvat, ei olisi arvoa.
 
-HaskellWikin (2017) mukaan \textit{tiukassa semantiikka} (eng. \textit{strict semantics}) tarkoittaa sitä, että ohjelmointikielen lausekkeella ei voi olla arvoa, jos millä tahansa sen alilausekkeella ei ole arvoa. \textit{Ei-tiukassa semantiikassa} (eng. \textit{non-strict semantics}) puolestaan lausekkeilla voi olla arvo, vaikka alilausekkeilla, joista nämä lausekkeet koostuvat, ei olisi arvoa.
-
-Tilanne, jossa ohjelmointikielen lauseke ei saa arvoa, voi tarkoittaa käytännössä esimerkiksi ikuiseen silmukkaan jäämistä (kuten johdantoluvun \verb!noreturn! -funktiota kutsuessa) tai virheilmoitusta, joka lopettaa ohjelman suorituksen.
+Lauseke ei saa arvoa, jos sen evaluointi aiheuttaa esimerkiksi ikuisen silmukan tai ohjelman suorituksen lopettavan virheilmoituksen.
 
 \subsubsection{Applikatiivinen evaluointi ja normaalijärjestyksessä evaluointi}
 
-\citet{scott2009programming} mukaan \textit{applikatiivinen evaluonti} (eng. \textit{applicative evaluation}) tarkoittaa funktion parametrienlausekkeiden evaluointia ennen funktion ohjelmakoodin suorituksen aloittamista, ja ohjelmakoodille välitetään evaluoidut arvot. Listauksessa \ref{codepythonapplicative} on applikatiivisesta evaluoinnista Python-ohjelmointikielellä luotu esimerkki.
+Scottin (2009) mukaan \textit{applikatiivinen evaluonti} (eng. \textit{applicative evaluation}) tarkoittaa funktion parametrilausekkeiden evaluointia ennen funktion ohjelmakoodin suorituksen aloittamista, ja ohjelmakoodille välitetään evaluoidut arvot. Listauksessa \ref{codepythonapplicative} on applikatiivisesta evaluoinnista Python-ohjelmointikielellä luotu esimerkki.
 
 \begin{listing}[H]
   \caption{Esimerkki applikatiivisesta evaluoinnista Pythonilla}
@@ -160,21 +159,21 @@ main = do
   \end{minted}
 \end{listing}
 
-Applikatiivisessa evaluointi noudattaa tiukkaa semantiikkaa, sillä kaikilla funktioparametreilla (eli alilausekkeilla) on oltava arvo ennen kuin funktio itsessään evaluoidaan. Siten applikatiivisen evaluoinnin voi ajatella olevan tiukan semantiikan alakategoria evaluointisemantiikkojen hierarkiassa.
+Applikatiivinen evaluointi noudattaa tiukkaa semantiikkaa, sillä kaikilla funktioparametreilla (eli alilausekkeilla) on oltava arvo ennen kuin funktio itsessään evaluoidaan. Siten applikatiivisen evaluoinnin voi ajatella olevan tiukan semantiikan alakategoria evaluointisemantiikkojen hierarkiassa.
 
-Vastaavasti normaalijärjestyksessä evaluointi, jossa evaluointia viivästetään, täytää ei-tiukan semantiikan kriteeristön, koska jokin parametri voi jäädä funktiokutsussa evaluoimatta, jos sitä ei tarvita funktion ohjelmakoodissa. Siinä tilanteessa ei ole merkitystä, olisiko tällä parametrilla ollut arvoa vai ei.
-
+Vastaavasti normaalijärjestyksessä evaluointi, jossa evaluointia viivästetään, täytää ei-tiukan semantiikan kriteeristön, koska parametri voi jäädä funktiokutsussa evaluoimatta, jos sitä ei tarvita funktion ohjelmakoodissa. Siinä tilanteessa ei ole merkitystä, olisiko tällä parametrilla ollut arvoa vai ei.
 
 \subsubsection{Parametrimoodit}
-Parametrimoodeja yhdistää lähinnä niiden nimeämiskäytäntö, joka helpottaa niiden vertaamista keskenään. Yleisimmin käytettyjä parametrimoodeja ovat
+
+\citep{scott2009programming} kutsuu parametrien ohjelmakoodille välittämistä kuvaavia periaatteita \textit{parametrimoodeiksi} (eng. \textit{parameter mode}). Niistä laiskan evaluoinnin kannalta relevantteja ovat seuraavat:
 
 \begin{itemize}
 	\item \textit{Call-by-value}, jossa funktiota kutsuttaessa parametrilauseke evaluoidaan ennen funktion ohjelmakoodia, ja arvo on käytettävissä parametria vastaavassa muuttujassa funktion ohjelmakoodissa. Jos parametrilausekkeena on ollut muuttuja, muuttujan arvo kopioidaan uuteen muuttujaan funktion ohjelmakoodia varten. \citep{scott2009programming}
     \item \textit{Call-by-name}, jossa parametrilausekkeet sijoitetaan suoraan funktion ohjelmakoodiin niihin kohtiin, joissa argumentteihin käytetään. Parametrilauseke evaluoidaan uudestaan joka kerta, kun ohjelmakoodissa tarvitaan kyseisen argumentin arvoa. \citep{ariola1995callbyneed}
-    \item \textit{Call-by-need}, jossa parametrilauseke evaluoidaan vasta, kun funktion ohjelmakoodi tarvitsee sen arvoa ensimmäistä kertaa. Kun parametrilauseke on evaluoitu, se pidetään muistissa sitä varten, jos ohjelmakoodi tarvitsee argumenttia uudestaan. Usein tätä muistissa pitämisen periaatetta kutsutaan \textit{memoisoinniksi} (eng. \textit{memoization}). \citep{ariola1995callbyneed}
+    \item \textit{Call-by-need}, jossa parametrilauseke evaluoidaan vasta, kun funktion ohjelmakoodi tarvitsee sen arvoa ensimmäistä kertaa. Kun parametrilauseke on evaluoitu, se pidetään muistissa sitä varten, jos ohjelmakoodi tarvitsee argumenttia uudestaan. Tämä on yksi \textit{muistisoinnin} (eng. \textit{memoization}) muoto. \citep{ariola1995callbyneed}
 \end{itemize}
 
-Call-by-value evaluoidaan applikoiden siinä missä call-by-name ja call-by-need evaluoidaan normaalijärjestyksessä. Siten parametrimoodit voi nähdä applikatiivisen evaluoinnin ja normaalijärjestyksessä evaluoinnin alakategorioina.
+Call-by-value noudattaa applikatiivista evaluointia siinä missä call-by-name ja call-by-need evaluoidaan normaalijärjestyksessä. Siten parametrimoodit voi nähdä applikatiivisen evaluoinnin ja normaalijärjestyksessä evaluoinnin alakategorioina.
 
 \subsubsection{Laiska ja ahne evaluointi}
 
@@ -183,47 +182,3 @@ Laiska evaluointi (eng. \textit{lazy evaluation}) esiintyy kirjallisuudessa tark
 Ahne evaluointi (eng. \textit{eager evaluation}) määritellään usein laiskan evaluoinnin vastakohdaksi. Se voi kontekstista riippuen tarkoittaa samaa kuin esimerkiksi applikatiivinen evaluointi tai call-by-value -parametrimoodi.
 
 Laiska ja ahne evaluointi ovat mielestäni molemmat käsitteinä ongelmallisia, koska ne ovat alttiita sekaannuksille sen suhteen, mitä niillä milloinkin tarkoitetaan. Siksi pyrin tulevissa luvuissa käyttämään tarkemmin määriteltyjä evalointisemantiikkojen käsitteitä silloin kun se on mahdollista.
-
-% \begin{enumerate}
-% 	\item Määritellään \verb!noreturn! -funktio, joka ei esimerkiksi ikuisen silmukan tai virhetilanteen takia koskaan palauta arvoa.
-% 
-% 	\item Muodostetaan lista, jonka alkioissa on ensin arvon saavia lausekkeita ja lopuksi kutsu \verb!noreturn! -funktioon. Yksinkertaisuuden nimissä käytetään arvon saavina lausekkeina numeroita.
-% 
-% 	\item Tarkistetaan ohjelmointikielen tarjoamalla komennolla, onko listassa jotain tiettyä arvoa, joka on 
-% \end{enumerate}
-% 
-% Python-
-% \begin{listing}[H]
-%     \caption{Python, tiukan semantiikan säännöillä evaluoitu lauseke}
-%   \bigskip
-%   \begin{minted}[linenos=false, xleftmargin=0pt]{python}
-% 2 in [2, 4, noreturn(5)]
-%   \end{minted}
-% \end{listing}
-% 
-% Haskellissa puolestaan lauseke noudattaa ei-tiukkaa semantiikkaa:
-
-% Yksi tyypillinen esimerkki Esimerkkinä Pythonissa seuraava \verb!noreturn! -funktio jää aina ikuiseen silmukkaan eikä koskaan palauta arvoa:
-%
-% \begin{listing}[H]
-%     \caption{Funktio joka ei koskaan saa arvoa Pythonissa}
-%   \bigskip
-%   \begin{minted}{python}
-% def noreturn(x):
-%   while True:
-%     x = -x
-%   return x
-% \end{minted}
-% \end{listing}
-%
-% Tämän funktion voi ilmaista denotatiivisen semantiikan avulla, joka on tapa formalisoida ohjelmointikielen käyttäytymistä matemaattisia ilmaisuja hyödyntäen. Denotatiivisen semantiikan kielellä tämän funktion käyttäytymisen voi ilmaista \textit{pohjatyypin} (eng. \textit{bottom type}) avulla, jota Haskell-yhteisössä merkataan tyypillisesti symbolilla \(\bot\). Pohjatyyppi tarkoittaa, että laskennan suoritus ei koskaan pääty onnistuneesti. \mbox{Pythonin} \verb!noreturn! -funktio merkitään
-%
-% \[
-% noreturn\; x = \bot
-% \]
-%
-% mikä tarkoittaa, että funktion suoritus ei pääty onnistuneesti millään muuttujan \(x\) arvolla. Samalla merkintä näyttää, että funktio noudattaa ei-tiukkaa semantiikkaa.
-%
-% Vastaavasti Haskell
-
-% Kuvataan ero denotatiivisen semantiikan ja tarkemmin bottom typen / non-terminationin avulla; haasteena voi olla, että merkintätapa on lukijalle hiukkasen vieras. Onneksi verbaalisella selityksellä voi täydentää akateemista notaatiota.

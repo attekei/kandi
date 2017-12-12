@@ -1,3 +1,4 @@
+% DONE (tsekkaa vielä kielivammaisuudet)
 % --------------------------------------------------------------------
 % Cheatsheet:
 % \verb!lazy val!   -- esim. lyhyisiin koodinpätkiin
@@ -36,40 +37,42 @@
 
 \section{Sovellutuksia ohjelmointikielissä ja apukirjastoissa}\label{sovellutuksia}
 
+Laiskaa evaluointia voi käyttää myös yksittäisissä kielen ominaisuuksissa. Tämä osio käy läpi, millaisia sovellutuksia laiskalle evaluoinnille on suosituissa ohjelmointikielissä. Luku on jäsennelty sovellutuksittain, jotta ohjelmointikielien väliset toteutuserot tulevat selkeästi ilmi. Sovellutukset on koottu taulukkoon \ref{table:sovellutukset}, ja alaluvuissa niitä käydään läpi tarkemmin.
+
 \begin{table}[h]
 \footnotesize
 \definecolor{verylightgray}{gray}{0.95}
 \begin{center}
-	\begin{tabularx}{\linewidth}{|>{\raggedright}p{2.97cm}|>{\raggedright}p{3.8cm}|>{\raggedright}X|X|}
-	\hline
-	\rowcolor{verylightgray} \textbf{Sovellutus} & \textbf{Evaluointisemantiikka} & \multicolumn{2}{c}{\textbf{Toteutukset}} \\
-	\rowcolor{verylightgray} & & \textbf{Ohjelmointikielissä} & \textbf{Apukirjastoissa}\\
-	\hline
-	Laiskat sekvenssit & Applikatiivinen evaluointijärjestys & Clojure, F\#, Haskell, Python, Ruby, Scala & Immutable.js, Lazy.js \\
-	\hline
-	Call-by-name -muuttujat & Call-by-name & Scala (funktion parametrina) & - \\
-	\hline
-	Call-by-need -muuttujat & Call-by-need & Scala (luokan instanssimuuttujana) & - \\
-	\hline
-	Laiskat futuurit/lupaukset & Call-by-need & C++1 & Fluture (JavaScript-kirjasto) \\
-	\hline
-	Käyttäjän laatimat kontrollirakenteet & Applikatiivinen evaluointi tai kääntämisvaiheen makrot & Clojure (makrot), Haskell, Scala (makrot, kokeellinen tuki) & - \\
-	\hline
-	Generaattorit & Funktion suorituksen keskeyttäminen (vrt. applikatiivinen evaluointi) & JavaScript, Python, Ruby & - \\
-	\hline
-\end{tabularx}
+    \includegraphics[width=1.0\textwidth]{applications-table}
+% 	\begin{tabularx}{\linewidth}{|>{\raggedright}p{2.97cm}|>{\raggedright}p{3.8cm}|>{\raggedright}X|X|}
+% 	\hline
+% 	\rowcolor{verylightgray} \textbf{Sovellutus} & \textbf{Evaluointisemantiikka} & \multicolumn{2}{c}{\textbf{Toteutukset}} \\
+% 	\rowcolor{verylightgray} & & \textbf{Ohjelmointikielissä} & \textbf{Apukirjastoissa}\\
+% 	\hline
+% 	Laiskat sekvenssit & Applikatiivinen evaluointijärjestys & Clojure, Haskell, Python, Scala & Immutable.js \\
+% 	\hline
+% 	Call-by-name -muuttujat & Call-by-name & Scala (funktion parametrina) & - \\
+% 	\hline
+% 	Call-by-need -muuttujat & Call-by-need & Scala (luokan instanssimuuttujana) & - \\
+% 	\hline
+% 	Laiskat futuurit/lupaukset & Call-by-need & C++1 & Fluture (JavaScript-kirjasto) \\
+% 	\hline
+% 	Käyttäjän laatimat kontrollirakenteet & Applikatiivinen evaluointi tai kääntämisvaiheen makrot & Clojure (makrot), Haskell, Scala (makrot, kokeellinen tuki) & - \\
+% 	\hline
+% 	Generaattorit & Funktion suorituksen keskeyttäminen (vrt. applikatiivinen evaluointi) & JavaScript, Python & - \\
+% 	\hline
+% \end{tabularx}
 \end{center}
-	\caption{\footnotesize \textbf{Sovellutukset koottuna.} Toteutus ohjelmointikielessä tarkoittaa, että kieli tukee sovellutusta joko syntaksinsa tai standardikirjastonsa kautta. Toteutus apukirjastossa tarkoittaa, että sovellutusta emuloidaan ohjelmointikielen tarjoamilla välineillä. \textit{Taulukon muotoilussa on vielä ongelmia, ne korjataan myöhemmin.}}
-    \label{table:wtf}
+	\caption{\footnotesize \textbf{Sovellutukset koottuna.} Toteutus ohjelmointikielessä tarkoittaa, että kieli tukee sovellutusta joko syntaksinsa tai standardikirjastonsa kautta. Toteutus apukirjastossa tarkoittaa, että sovellutusta emuloidaan ohjelmointikielen tarjoamilla välineillä.}
+    \label{table:sovellutukset}
 \normalsize
 \end{table}
 
 \subsection{Läpikäydyt ohjelmointikielet}
 
-Tätä osiota varten tutustuin seuraavien ohjelmointikielien synktaksiin, standardikirjastoon ja suosituimpiin apukirjastoihin:
+Valitsin tarkasteluun viisi ohjelmointikieltä, jotka ovat keskenään erilaisia ja jotka ovat suosittuja sekä akateemisessa ympäristössä että liike-elämässä. Haskellin lisäksi valitsin seuraavat neljä kieltä:
 
 \begin{itemize}
-
 \item\textit{Clojure} on Lisp-kieltä muistuttava yleiskäyttöinen, funktionaalista ohjelmointityyliä tukeva ohjelmointikieli. Clojure-lähdekoodi kääntyy Java-tavukoodiksi ja on täysin yhteensopiva Java-kirjastojen kanssa.
 
 \item \textit{JavaScript} on ainoa verkkoselainten yleisesti tukema ohjelmointikieli, ja lisäksi JavaScriptiä käytetään runsaasti myös palvelinohjelmointiin. Se tukee funktionaalista ohjelmointityyliä rajoitetusti.
@@ -77,58 +80,40 @@ Tätä osiota varten tutustuin seuraavien ohjelmointikielien synktaksiin, standa
 \item\textit{Python} on sekä imperatiivista että rajatusti funktionaalista ohjelmointia tukeva yleiskäyttöinen ohjelmointikieli. Se on suosittu niin tieteellisessä käytössä kuin verkkokehityksessä.
 
 \item\textit{Scala} on sekä funktionaalista että imperatiivista ohjelmointia tukeva yleiskäyttöinen ohjelmointikieli. Scala-lähdekoodi kääntyy Clojuren tapaan Java-tavukoodiksi, ja kieli on täysin yhteensopiva Java-kirjastojen kanssa.
-
 \end{itemize}
-
-\textit{Muut ohjelmointikielet tulevat tähän myöhemmin. Tämän luvun seuraavat osiot ovat myös keskeneräisiä. Lähdemerkinnät myös toistaiseksi uupuvat.}
 
 \subsection{Laiskat sekvenssit}
 
-%  More elaborate lazy data structures (e.g., trees) can be valuable in combinatorial search problems, in which a clever algorithm may explore only the “interesting” parts of a potentially enormous search space.
+\textit{Laiska sekvenssi} on listatietorakenne, joissa listan arvoja evaluoidaan sitä mukaan kun ohjelmakoodi tarvitsee niitä.
+
 Clojure tukee laiskoja sekvenssejä, eli listamaisia tietorakenteita, joita varten kielessä on valmis tuki \verb!lazy-seq! -makron avulla. Käytännössä Clojuren käyttäjä tulee käyttäneeksi laiskoja sekvenssejä paljon, sillä monet kielen yleisimmistä listamaisten tietorakenteiden operaatioista palauttavat laiskan sekvenssin. Näitä operaatioita ovat esimerkiksi \verb!map!, \verb!filter! ja \verb!take!. Clojuren laiskojen listojen arvoja evaluoidaan sitä mukaan kuin niitä tarvitaan, ja arvot pysyvät muistissa tulevia käyttökertoja varten.
 
-\textit{Immutable.js} on Facebookin julkaisema JavaScript-apukirjasto, joka tarjoaa tuen funktionaaliselle ohjelmoinnille ominaisille pysyvätilaisille tietorakenteille. Kaikki kirjastossa määritellyt sekvenssit, esimerkiksi indeksoidun listan \verb!List! tai pinon \verb!Stack!, voi muuttaa laiskaksi \verb!Seq!-konstruktorilla. Sekvenssille kohdistettavat operaatiot ovat tämän luokan metodeja, ja kun \verb!Seq!-instanssille kutsuu näitä metodeja, ne palauttavat uuden laiskan sekvenssin. Ketjutetut operaatiot evaluoidaan vasta sitten, kun lopullista arvoa tarvitaan.
+JavaScript-ohjelmointikielessä ei itsessään ole tukea laiskoille sekvensseille. Kuitenkin Facebookin julkaisema suosittu \textit{Immutable.js}-apukirjasto tarjoaa tuen funktionaaliselle ohjelmoinnille ominaisille pysyvätilaisille tietorakenteille. Kaikki kirjastossa määritellyt sekvenssit, esimerkiksi indeksoidun listan \verb!List! tai pinon \verb!Stack!, voi muuttaa laiskaksi \verb!Seq!-konstruktorilla. Sekvenssille kohdistettavat operaatiot ovat tämän luokan metodeja, ja kun \verb!Seq!-instanssille kutsuu näitä metodeja, ne palauttavat uuden laiskan sekvenssin. Ketjutetut operaatiot evaluoidaan vasta sitten, kun lopullista arvoa tarvitaan.
 
 \begin{sloppypar}
 \verb!Seq! tukee myös päättymättömiä sekvenssejä kirjaston tarjoamien \verb!Range!- ja \verb!Repeat! \mbox{-konstruktoreiden} sekä iteraattorifunktioiden avulla. \verb!Seq! ei kuitenkaan Clojuren laiskojen listojen tapaan pidä evaluoituja arvoja muistissa.
 \end{sloppypar}
 
-\textit{Lazy.js} on JavaScriptin-apukirjasto sekvenssien käsittelemiseen. Siinä Immutablen laiskaa sekvenssin luontia vastaa konstruktori \verb!Sequence!. Lazy.js ei Immutablen tapaan esittele uusia tietorakenteita, vaan sitä voi käyttää yhdessä JavaScriptin sisäänrakennettujen listamaisten tietorakenteiden kanssa. Toisin kuin Immutable.js, se myös tukee joitain funktionaalisen reaktiivisen ohjelmoinnin konsepteja, joita käsittelen seuraavassa luvussa.
-
-\begin{itemize}
-	\item Scalan ei-tiukan transformerit ja streamit
-	\item Muut ohjelmointikielet (pinnallisesti?)
-\end{itemize}
-
-\subsection{Päättymättömät listarakenteet}
-
-\textit{Tämän osion teksti on suoraan kandin edellisestä versiosta. Pohdin, olisiko järkevää erottaa laiskat listatransformaatiot ja päättymättömät listarakenteet kahdeksi eri alaosioksi. Ongelmana tässä osiossa olisi, että tämä on osin päällekkäinen iteraattorien/generaattorien kanssa. Siksi ehkä tämän voisi myös yhdistää generaattorit -alalukuun. }
-
-Jo 1980-luvun varhaisessa tutkimuksessa käsiteltiin laiskan evaluoinnin mahdollistamia laiskoja tietorakenteita, etenkin ``päättymättömiä tietorakenteita''. Näitä ovat muun muassa päättymättömät listat, puurakenteet ja tapahtumavirrat. Ne ovat tyypillisesti rekursion avulla toteutettuja, ja laiskan evaluoinnin ansiosta tietorakenteessa tarvitsee mennä vain niin ``syvälle'' kuin on tarvetta.
-
-Eräs klassinen esimerkki on matematiikan äärettömiä lukujonojen kuvaaminen. Seuraavassa on Fibonaccin lukujono ilmaistuna rekursiivisesti Haskellilla. Huomionarvoista on, kuinka paljon koodi muistuttaa tapaa, jolla rekursiivinen lukujono ilmaistaisiin matematiikassa:
-
-\begin{alltt}
-fib 0 = 0
-fib 1 = 1
-fib n = fib (n-1) + fib (n-2)
-\end{alltt}
+Myös Python tukee laiskoja sekvenssejä \textit{generaattorilausekkeiden} (eng. \textit{generator expression}) avulla ja Scalassa \textit{virtojen} (eng. \textit{stream}) avulla. Molempien kielien toteutukset ovat listarakenteisiin erikoistuneita versioita generaattoreista, joita käsitellään tarkemmin alaluvussa \ref{generaattorit}.
 
 \subsection{Call-by-need -muuttujat}
 
-Scala tukee call-by-need muuttujia luokkien instanssimuuttujina. Niitä käytetään lisäämällä \verb!lazy! -avainsana instanssimuuttujan määrittelyn alkuun. Kyseisen muuttujan arvon määrittävä lauseke evaluoidaan vasta sitten, kun muuttujaa käytetään ensimmäistä kertaa. Arvo sidotaan muuttujaan, eli jos muuttujaa tarvitaan uudelleen, niin arvoa ei tarvitse evaluoida uudelleen.
+Scala tukee \textit{call-by-need muuttujia} luokkien instanssimuuttujina. Niitä käytetään lisäämällä \verb!lazy! -avainsana instanssimuuttujan määrittelyn alkuun. Kyseisen muuttujan arvon määrittävä lauseke evaluoidaan vasta sitten, kun muuttujaa käytetään ensimmäistä kertaa. Arvo sidotaan muuttujaan, eli jos muuttujaa tarvitaan uudelleen, arvoa ei tarvitse evaluoida uudelleen.
 
 \subsection{Call-by-name -muuttujat}
 
-Scala tukee call-by-name -muuttujia funktion parametreina. Ne luodaan funktion määrittelyssä syntaksilla \verb!parameterName: => Type!. Funktiokutsussa parametrin arvo evaluoidaan vasta, kun parametria käytetään. Laiskasta muuttujasta poiketen arvoa ei kuitenkaan evaluointihetkellä sidota parametriin, vaan jos parametria käytetään uudelleen, niin arvokin evaluoidaan uudelleen.
+Scala tukee \textit{call-by-name -muuttujia} funktion parametreina. Ne luodaan funktion määrittelyssä syntaksilla \verb!parameterName: => Type!. Funktiokutsussa parametrin arvo evaluoidaan vasta, kun parametria käytetään. Laiskasta muuttujasta poiketen arvoa ei kuitenkaan evaluointihetkellä sidota parametriin, vaan jos parametria käytetään uudelleen, niin arvokin evaluoidaan uudelleen.
 
-\subsection{Laiskat futuurit/lupaukset}
+\subsection{Laiskat futuurit}
+\textit{Futuuri} (eng. \textit{future}, \textit{promise} tai \textit{deferred}) tarkoittaa ohjelmointikielen rakennetta sellaisten operaatioiden kuvaamiseen, jotka voivat olla evaluoimatta, joiden evaluointi on kesken tai joiden evaluointi on jo palauttanut arvon. Futuureja käytetään operaatioiden keskinäiseen koordinoitiin ja synkronointiin.
 
-Esim. C++:n deferredeistä esimerkkiä
+Useimmissa ohjelmointikielissä futuurit ovat ahneita, eli niiden kuvaamaan operaation evaluointi aloitetaan futuurin luontihetkellä. \textit{Laiskat futuurit} ovat futuureja, joissa vasta se, kun ohjelmakoodi haluaa käyttää futuurin kuvaaman operaation arvoa, aiheuttaa operaation evaluoinnin.
+
+C++ tukee laiskoja futuureja, ja niitä voi luoda kutsumalla \verb!std::async! -funktiota \verb!std::launch:deferred! -asetuksella. Funktiokutsu palauttaa palauttaa \verb!std::future! -olion, jonka \verb!get! -metodi aiheuttaa operaation suorituksen.
 
 \subsection{Käyttäjän laatimat kontrollirakenteet}
 
-Kontrollirakenteella tarkoitetaan kielen natiivisyntaksin, kuten `if`, `for` tai `while`, kaltaisten rakenteiden luomisen itse. Esimerkiksi if-ehtolauseesta on Haskellissa helppoa tehdä oma versio, jossa ehdon täyttymisen perusteella evaluoidaan vain jompikumpi vaihtoehtoisista lausekkeista:
+\textit{Kontrollirakenteella} tarkoitetaan kielen natiivisyntaksin, kuten `if`, `for` tai `while`, kaltaisten rakenteiden luomisen itse. Esimerkiksi if-ehtolauseesta on Haskellissa helppoa tehdä oma versio, jossa ehdon täyttymisen perusteella evaluoidaan vain jompikumpi vaihtoehtoisista lausekkeista:
 
 \begin{alltt}
 % Käyttö: myIf condition onTrue onFalse
@@ -141,28 +126,8 @@ Omien kontrollirakenteiden tuki helpottaa kieleen upotettujen \textit{täsmäkie
 
 Clojure puolestaan tukee \textit{makroja}, joiden avulla kielen kääntäjää pystyy laajentamaan ohjelmakoodista käsin, ja sen myötä kieleen voi luoda omia kontrollirakenteita.
 
-\subsection{Generaattorit}
+\subsection{Generaattorit}\label{generaattorit}
 
-Ei vielä kirjoitettu.
+Generaattorit ovat ohjelmointikielen rakenne, jolla funktio pystyy keskeyttämään suorituksensa ja palauttamaan arvon useasti. Tätä käytetään etenkin silmukkarakenteiden kanssa, jossa jokainen silmukan ajo tuottaa jonkin uuden arvon. Generaattorit muistuttavat läheisesti laiskaa evaluointia, koska niiden avulla pystyy esimerkiksi pyytämään listatietorakenteiden seuraavia alkioita alkio alkiolta tarpeen mukaan.
 
-% \subsection{FRP ja reaktiivinen ohjelmointi JavaScript-apukirjastoissa}
-% 
-% \textit{Funktionaalinen reaktiivinen ohjelmointi}, lyhyemmin FRP, on deklaratiivinen ohjelmointiparadigma, jolla voi käsitellä muuttuvatilaisia arvoja funktionaalisessa ohjelmoinnissa. FRP esittää muuttuvatilaisen arvon aikariippuvaisena ``signaalina'' . Näitä signaaleja voi transformoida ja yhdistellä joustavasti \citep{czaplicki2012elm}.
-% 
-% Paradigma sai alkunsa Haskellin tutkimuksesta, kun \citet{elliott1997functional} julkaisivat kokeellisen täsmäkielen nimeltä \textit{Fran} animaation kuvaamiseen funktionaalisessa ohjelmoinnissa. Fran pyrki pääsemään irti grafiikkaohjelmoinnin perinteisestä  imperatiivisesta ja diskreetistä luonteesta, ja korvasti sen jatkuvaan aikatarkasteluun perustuvalla mallilla. Fran rakennettiin Haskellilla, ja siten siinä käytettiin laiskaa evaluointia laajasti.
-% 
-% \textit{Reaktiivinen ohjelmointi} tarkoittaa laajemmin ohjelmointiparadigmaa, joka keskittyy datavirtojen ja niiden muutosten käsittelyyn. FRP on inspiroinut monia 2010-luvun suosittuja reaktiivisia kirjastoja, kuten \textit{React}, \textit{RxJS} ja \textit{Bacon.JS}, ja näiden lisäksi myös uusia ohjelmointikieliä on luotu reaktiivisten periaatteiden pohjalta, kuten Elm. Nämä perustuvat diskreettien datavirtojen käsittelyyn, eivät jatkuviin datavirtoihin, minkä takia ne eivät vastaa FRP:n akateemista määritelmää \citep{whyprogramwithconttime}.
-% 
-% Valtaosa suosituista kirjastoista ei hyödynnä laiskaa evaluointia, koska ne ovat laadittu tiukan semantiikan ohjelmointikielille. JavaScriptille laadittu Bacon.js -kirjasto, jossa diskreettejä datavirtoja käsitellään funktionaalisen ohjelmoinnin työkaluilla, käyttää laiskaa evaluointia valikoidusti datavirtojen käsittelyoperaatioiden ketjuttamiseen. Tämä toimii samantyyppisellä mekanismilla kuin JavaScript-kirjastot Immutable.js ja Lazy.js.
-% 
-% Myös Lazy.js tukee diskreettien tapahtumavirtojen käsittelyä tavalla, joka on hyvin samankaltainen reaktiivisten kirjastojen, kuten RxJS ja Bacon.JS, kanssa. Kuitenkin kirjaston reaktiiviset ominaisuudet on jätetty kokeelliselle asteelle.
-
-% \subsection{Muita sovellutuksia}
-% 
-% \textit{En vielä ole perehtynyt seuraaviin aiheisiin ja niihin liittyviin artikkeleihin riittävästi nähdäkseni, ovatko ne aiheen kannalta relevantteja. Palaan niihin myöhemmässä vaiheessa kirjoitusprosessia.  }
-% \begin{itemize}
-%   \item{Digitaalisen logiikan simulointi / piirisuunnittelu \citep{charlton1991lazy}}
-%   \item{Persistentit ohjelmointikielet \citep{wevers2014persistent}}
-%   \item{Logiikkapohjainen ohjelmointi (oma ohjelmointiparadigmansa) \citep{alpuente1997specialization}}
-%   \item{Java 8 streamit, LINQ/C\#}
-% \end{itemize}
+JavaScript ja Python toteuttavat generaattorit siten, että ne palauttavat \textit{iteraattorin}, jolta voi pyytää seuraavaa arvoa. Myös kielten listarakenteet noudattavat iteraattorirajapintaa, joten sen myötä listoja ja generaattoreilla luotuja iteraattoreita voi käsitellä monilla samoilla komennoilla.
