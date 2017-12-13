@@ -48,7 +48,7 @@ Seuraavat käsitteet liittyvät läheisesti funktionaaliseen ohjelmointiin:
 
 Käsitteistä deterministisyys, referentiaalinen läpinäkyvyys ja sivaikutuksettomuus ovat merkitykseltään osin päällekkäisiä, ja niitä kaikkia käytetään yleisesti funktionaalisen ohjelmoinnin luonteen kuvaamiseen.
 
-Funktionaalinen ohjelmointityyli voi yksinkertaisimmillaan tarkoittaa sivuvaikutusten välttämistä, ja monet ohjelmointikielet tarjoavat tätä helpottavia työkaluja. Tällaisia kieliä ovat esimerkiksi Scala, Clojure ja Lisp. Jotkin kielet, kuten Haskell ja Miranda, puolestaan rakentuvat pitkälti puhtaan funktionaalisen ohjelmointityylin ympärille.
+Funktionaalinen ohjelmointityyli voi yksinkertaisimmillaan tarkoittaa sivuvaikutusten välttämistä, ja monet ohjelmointikielet tarjoavat tätä helpottavia työkaluja. Tällaisia kieliä ovat esimerkiksi Scala, Clojure ja Lisp. Jotkin kielet, kuten Haskell ja Miranda, rakentuvat pitkälti puhtaan funktionaalisen ohjelmointityylin ympärille.
 
 \subsection{Evaluointisemantiikat}
 
@@ -95,7 +95,7 @@ Seuraavissa alaluvuissa kuvaan kunkin evaluointisemantiikan tyypillisimmän mä�
 	\path (current bounding box.west)|-coordinate(l)(MS.base);
 	\end{forest}
 \normalsize
-	\caption{\footnotesize \textbf{Evaluointisemantiikkojen keskinäisiä suhteita puuhierarkialla havainnollistettuna.} Tiukka ja ei-tiukka semantiikka eivät ole varsinaisia evaluointisemantiikkoja, mutta ne on sisällytetty luvussa \ref{tiukkaeitiukka} kuvatuista syistä. Ahne ja laiska evaluointi ovat epätarkasti määriteltyjä yleiskäsitteitä, joten niiden alle kuuluu useampi evaluointisemantiikka.}
+	\caption{\footnotesize \textbf{Evaluointisemantiikkojen keskinäisiä suhteita puuhierarkialla havainnollistettuna.} Tiukka ja ei-tiukka semantiikka eivät ole varsinaisia evaluointisemantiikkoja, mutta ne on sisällytetty luvussa \ref{tiukkaeitiukka} kuvatuista syistä johtuen. Ahne ja laiska evaluointi ovat epätarkasti määriteltyjä yleiskäsitteitä, joten niiden alle kuuluu useampi evaluointisemantiikka.}
     \label{figure:evaluation_semantics}
   \end{center}
 \end{figure}
@@ -110,7 +110,7 @@ Lauseke ei saa arvoa, jos sen evaluointi aiheuttaa esimerkiksi ikuisen silmukan 
 
 \subsubsection{Applikatiivinen evaluointi ja normaalijärjestyksessä evaluointi}
 
-Scottin (2009) mukaan \textit{applikatiivinen evaluonti} (eng. \textit{applicative evaluation}) tarkoittaa funktion parametrilausekkeiden evaluointia ennen funktion ohjelmakoodin suorituksen aloittamista, ja ohjelmakoodille välitetään evaluoidut arvot. Listauksessa \ref{codepythonapplicative} on applikatiivisesta evaluoinnista Python-ohjelmointikielellä luotu esimerkki.
+Scottin (2009) mukaan \textit{applikatiivinen evaluonti} (eng. \textit{applicative evaluation}) tarkoittaa funktion parametrilausekkeiden evaluointia ennen funktion ohjelmakoodin suorituksen aloittamista. Listauksessa \ref{codepythonapplicative} on applikatiivisesta evaluoinnista Python-ohjelmointikielellä luotu esimerkki.
 
 \begin{listing}[H]
   \caption{Esimerkki applikatiivisesta evaluoinnista Pythonilla}

@@ -98,7 +98,7 @@ Myös Python tukee laiskoja sekvenssejä \textit{generaattorilausekkeiden} (eng.
 
 \subsection{Call-by-need -muuttujat}
 
-Scala tukee \textit{call-by-need muuttujia} luokkien instanssimuuttujina. Niitä käytetään lisäämällä \verb!lazy! -avainsana instanssimuuttujan määrittelyn alkuun. Kyseisen muuttujan arvon määrittävä lauseke evaluoidaan vasta sitten, kun muuttujaa käytetään ensimmäistä kertaa. Arvo sidotaan muuttujaan, eli jos muuttujaa tarvitaan uudelleen, arvoa ei tarvitse evaluoida uudelleen.
+Scala tukee \textit{call-by-need muuttujia} luokkien instanssimuuttujina. Niitä käytetään lisäämällä \verb!lazy! -avainsana instanssimuuttujan määrittelyn alkuun. Kyseisen muuttujan arvon määrittävä lauseke evaluoidaan vasta sitten, kun muuttujaa käytetään ensimmäistä kertaa. Arvo muistioidaan, eli jos muuttujaa tarvitaan uudelleen, arvoa ei enää evaluoida uudelleen.
 
 \subsection{Call-by-name -muuttujat}
 
@@ -113,7 +113,7 @@ C++ tukee laiskoja futuureja, ja niitä voi luoda kutsumalla \verb!std::async! -
 
 \subsection{Käyttäjän laatimat kontrollirakenteet}
 
-\textit{Kontrollirakenteella} tarkoitetaan kielen natiivisyntaksin, kuten `if`, `for` tai `while`, kaltaisten rakenteiden luomisen itse. Esimerkiksi if-ehtolauseesta on Haskellissa helppoa tehdä oma versio, jossa ehdon täyttymisen perusteella evaluoidaan vain jompikumpi vaihtoehtoisista lausekkeista:
+\textit{Kontrollirakenteella} tarkoitetaan kielen natiivisyntaksin, kuten \verb!if!, \verb!for! tai \verb!while!, kaltaisten rakenteiden luomisen itse. Esimerkiksi if-ehtolauseesta on Haskellissa helppoa tehdä oma versio, jossa ehdon täyttymisen perusteella evaluoidaan vain jompikumpi vaihtoehtoisista lausekkeista:
 
 \begin{alltt}
 % Käyttö: myIf condition onTrue onFalse
