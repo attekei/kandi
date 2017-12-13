@@ -4,7 +4,8 @@ My extraordinary bachelor thesis!
 
 ## Latest PDF
 
-[Get it here](https://github.com/attekei/kandi/raw/master/kandi-v3-tapaaminen.pdf)
+[Get it
+here](https://github.com/attekei/kandi/raw/master/SCI_2017_Keinanen_Atte.pdf)
 
 ## Development prerequisites
 
